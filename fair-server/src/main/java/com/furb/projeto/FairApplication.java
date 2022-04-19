@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FairApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FairApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FairApplication.class, args);
+    }
 
-	@GetMapping("/")
-	public String index(){
-		return "Fair Homepage!";
-	}
+    @GetMapping("/")
+    public String index() {
+        return "Fair Homepage!";
+    }
 }

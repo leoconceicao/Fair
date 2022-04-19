@@ -22,7 +22,8 @@ public class PessoaModel implements Serializable {
     @Column(nullable = false)
     private String email;
 
-    public PessoaModel() {}
+    public PessoaModel() {
+    }
 
     public PessoaModel(Integer idPessoa, String nome, String telefone, String endereco, String cpf, String email) {
         this.idPessoa = idPessoa;

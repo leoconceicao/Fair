@@ -27,12 +27,12 @@ public class PessoaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<PessoaModel>> getAllParkingSpots(@PageableDefault(page = 0, size = 10, sort = "idPessoa", direction = Sort.Direction.ASC) Pageable pageable){
+    public ResponseEntity<Page<PessoaModel>> getPessoas(@PageableDefault(sort = "idPessoa", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneParkingSpot(@PathVariable(value = "id") Integer id){
+    public ResponseEntity<Object> getPessoa(@PathVariable(value = "id") Integer id) {
         Optional<PessoaModel> parkingSpotModelOptional = pessoaService.findById(id);
         if (!parkingSpotModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa not found.");
@@ -41,14 +41,14 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid PessoaDto pessoaDto){
+    public ResponseEntity<Object> postPessoa(@RequestBody @Valid PessoaDto pessoaDto) {
         var pessoaModel = new PessoaModel();
         BeanUtils.copyProperties(pessoaDto, pessoaModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.save(pessoaModel));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteParkingSpot(@PathVariable(value = "id") Integer id){
+    public ResponseEntity<Object> deletePessoa(@PathVariable(value = "id") Integer id) {
         Optional<PessoaModel> parkingSpotModelOptional = pessoaService.findById(id);
         if (!parkingSpotModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa not found.");
@@ -58,18 +58,17 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") Integer id,
-                                                    @RequestBody @Valid PessoaDto pessoaDto){
+    public ResponseEntity<Object> putPessoa(@PathVariable(value = "id") Integer id,
+                                            @RequestBody @Valid PessoaDto pessoaDto) {
         Optional<PessoaModel> pessoaModelOptional = pessoaService.findById(id);
         if (!pessoaModelOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa not found.");
         }
         var pessoaModel = new PessoaModel();
         BeanUtils.copyProperties(pessoaDto, pessoaModel);
         pessoaModel.setIdPessoa(pessoaModelOptional.get().getIdPessoa());
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.save(pessoaModel));
     }
-
 
 
 }
