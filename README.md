@@ -1,4 +1,4 @@
-# fair
+# Fair
 
 Fair é um marketplace para dispositivos móveis com foco em produtos coloniais e produtos artesanais, para que você consumidor possa encomendar os produtos mais frescos dos produtores mais próximos da sua casa.
 
