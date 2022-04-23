@@ -1,18 +1,17 @@
 package com.furb.projeto.dtos;
 
-import com.fasterxml.jackson.databind.node.BigIntegerNode;
-import org.hibernate.type.BlobType;
+import java.math.BigInteger;
 
 public class ProdutoDto {
 
     private Integer produtoId;
     private String nome;
     private String tipo;
-    private BlobType foto;
+    private String foto;
     private String validade;
-    private BigIntegerNode peso;
+    private BigInteger peso;
 
-    public ProdutoDto(Integer produtoId, String nome, String tipo, BlobType foto, String validade, BigIntegerNode peso) {
+    public ProdutoDto(Integer produtoId, String nome, String tipo, String foto, String validade, BigInteger peso) {
         this.produtoId = produtoId;
         this.nome = nome;
         this.tipo = tipo;
@@ -48,11 +47,11 @@ public class ProdutoDto {
         this.tipo = tipo;
     }
 
-    public BlobType getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(BlobType foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
@@ -64,11 +63,11 @@ public class ProdutoDto {
         this.validade = validade;
     }
 
-    public BigIntegerNode getPeso() {
+    public BigInteger getPeso() {
         return peso;
     }
 
-    public void setPeso(BigIntegerNode peso) {
+    public void setPeso(BigInteger peso) {
         this.peso = peso;
     }
 }

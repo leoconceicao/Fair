@@ -1,10 +1,8 @@
 package com.furb.projeto.models;
 
-import com.fasterxml.jackson.databind.node.BigIntegerNode;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Blob;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "Produto")
@@ -19,13 +17,13 @@ public class ProdutoModel implements Serializable {
     @Column(nullable = false)
     private String tipo;
     @Column(nullable = false)
-    private Blob foto;
+    private String foto;
     @Column(nullable = false)
     private String validade;
     @Column(nullable = false, length = 10)
-    private BigIntegerNode peso;
+    private BigInteger peso;
 
-    public ProdutoModel(Integer idProduto, String nome, String tipo, Blob foto, String validade, BigIntegerNode peso) {
+    public ProdutoModel(Integer idProduto, String nome, String tipo, String foto, String validade, BigInteger peso) {
         this.idProduto = idProduto;
         this.nome = nome;
         this.tipo = tipo;
@@ -61,11 +59,11 @@ public class ProdutoModel implements Serializable {
         this.tipo = tipo;
     }
 
-    public Blob getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Blob foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
@@ -77,11 +75,11 @@ public class ProdutoModel implements Serializable {
         this.validade = validade;
     }
 
-    public BigIntegerNode getPeso() {
+    public BigInteger getPeso() {
         return peso;
     }
 
-    public void setPeso(BigIntegerNode peso) {
+    public void setPeso(BigInteger peso) {
         this.peso = peso;
     }
 }

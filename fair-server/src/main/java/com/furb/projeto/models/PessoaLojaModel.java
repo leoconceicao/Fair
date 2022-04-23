@@ -8,18 +8,24 @@ import java.io.Serializable;
 public class PessoaLojaModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Column(nullable = false, length = 11)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer idPessoaLoja;
+
+    @Column(length = 11)
     private Integer tipoPessoa;
 
     @OneToOne
     @JoinColumn(name = "idLoja")
-    private String fkLoja;
+    private LojaModel fkLoja;
 
     @OneToOne
     @JoinColumn(name = "idPessoa")
-    private String fkPessoa;
+    private PessoaModel fkPessoa;
 
-    public PessoaLojaModel(String fkLoja, String fkPessoa) {
+    public PessoaLojaModel(Integer idPessoaLoja, Integer tipoPessoa, LojaModel fkLoja, PessoaModel fkPessoa) {
+        this.idPessoaLoja = idPessoaLoja;
+        this.tipoPessoa = tipoPessoa;
         this.fkLoja = fkLoja;
         this.fkPessoa = fkPessoa;
     }
@@ -27,19 +33,35 @@ public class PessoaLojaModel implements Serializable {
     public PessoaLojaModel() {
     }
 
-    public String getFkLoja() {
+    public Integer getIdPessoaLoja() {
+        return idPessoaLoja;
+    }
+
+    public void setIdPessoaLoja(Integer idPessoaLoja) {
+        this.idPessoaLoja = idPessoaLoja;
+    }
+
+    public Integer getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(Integer tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    public LojaModel getFkLoja() {
         return fkLoja;
     }
 
-    public void setFkLoja(String fkLoja) {
+    public void setFkLoja(LojaModel fkLoja) {
         this.fkLoja = fkLoja;
     }
 
-    public String getFkPessoa() {
+    public PessoaModel getFkPessoa() {
         return fkPessoa;
     }
 
-    public void setFkPessoa(String fkPessoa) {
+    public void setFkPessoa(PessoaModel fkPessoa) {
         this.fkPessoa = fkPessoa;
     }
 }

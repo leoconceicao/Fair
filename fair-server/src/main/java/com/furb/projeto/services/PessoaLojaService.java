@@ -22,7 +22,7 @@ public class PessoaLojaService {
         return pessoaLojaRepository.findAll(pageable);
     }
 
-    public PessoaLojaModel findById(Integer pessoa, Integer loja) {
+    public Optional<PessoaLojaModel> findById(Integer pessoa, Integer loja) {
         return pessoaLojaRepository.findById(pessoa, loja);
     }
 

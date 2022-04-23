@@ -27,7 +27,7 @@ public class ComunicacaoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ComunicacaoModel>> getComunicacaos(@PageableDefault(sort = "idComunicacao", direction = Sort.Direction.ASC) Pageable pageable) {
+    public ResponseEntity<Page<ComunicacaoModel>> getComunicacaos(@PageableDefault(sort = "idMensagem", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(comunicacaoService.findAll(pageable));
     }
 

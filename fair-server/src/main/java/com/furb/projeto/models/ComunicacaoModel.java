@@ -14,20 +14,20 @@ public class ComunicacaoModel implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "idProduto")
-    private String fkProduto;
+    private ProdutoModel fkProduto;
 
-    @OneToOne
-    @JoinColumn(name = "idPessoa")
-    private String fkPessoaRemetente;
+    @ManyToOne
+    @JoinColumn(name = "idRemetente")
+    private PessoaModel fkPessoaRemetente;
 
-    @OneToOne
-    @JoinColumn(name = "idPessoa")
-    private String fkPessoaDestinatario;
+    @ManyToOne
+    @JoinColumn(name = "idDestinatario")
+    private PessoaModel fkPessoaDestinatario;
 
     @Column(nullable = false, length = 2000)
     private String dsConteudo;
 
-    public ComunicacaoModel(Integer idMensagem, String fkProduto, String fkPessoaRemetente, String fkPessoaDestinatario, String dsConteudo) {
+    public ComunicacaoModel(Integer idMensagem, ProdutoModel fkProduto, PessoaModel fkPessoaRemetente, PessoaModel fkPessoaDestinatario, String dsConteudo) {
         this.idMensagem = idMensagem;
         this.fkProduto = fkProduto;
         this.fkPessoaRemetente = fkPessoaRemetente;
@@ -46,27 +46,27 @@ public class ComunicacaoModel implements Serializable {
         this.idMensagem = idMensagem;
     }
 
-    public String getFkProduto() {
+    public ProdutoModel getFkProduto() {
         return fkProduto;
     }
 
-    public void setFkProduto(String fkProduto) {
+    public void setFkProduto(ProdutoModel fkProduto) {
         this.fkProduto = fkProduto;
     }
 
-    public String getFkPessoaRemetente() {
+    public PessoaModel getFkPessoaRemetente() {
         return fkPessoaRemetente;
     }
 
-    public void setFkPessoaRemetente(String fkPessoaRemetente) {
+    public void setFkPessoaRemetente(PessoaModel fkPessoaRemetente) {
         this.fkPessoaRemetente = fkPessoaRemetente;
     }
 
-    public String getFkPessoaDestinatario() {
+    public PessoaModel getFkPessoaDestinatario() {
         return fkPessoaDestinatario;
     }
 
-    public void setFkPessoaDestinatario(String fkPessoaDestinatario) {
+    public void setFkPessoaDestinatario(PessoaModel fkPessoaDestinatario) {
         this.fkPessoaDestinatario = fkPessoaDestinatario;
     }
 
