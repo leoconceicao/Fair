@@ -33,11 +33,11 @@ public class PessoaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getPessoa(@PathVariable(value = "id") Integer id) {
-        Optional<PessoaModel> parkingSpotModelOptional = pessoaService.findById(id);
-        if (!parkingSpotModelOptional.isPresent()) {
+        Optional<PessoaModel> pessoaModelOptional = pessoaService.findById(id);
+        if (pessoaModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa not found.");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaModelOptional.get());
     }
 
     @PostMapping
@@ -49,11 +49,11 @@ public class PessoaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletePessoa(@PathVariable(value = "id") Integer id) {
-        Optional<PessoaModel> parkingSpotModelOptional = pessoaService.findById(id);
-        if (!parkingSpotModelOptional.isPresent()) {
+        Optional<PessoaModel> pessoaModelOptional = pessoaService.findById(id);
+        if (pessoaModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa not found.");
         }
-        pessoaService.delete(parkingSpotModelOptional.get());
+        pessoaService.delete(pessoaModelOptional.get());
         return ResponseEntity.status(HttpStatus.OK).body("Pessoa deleted successfully.");
     }
 
@@ -61,7 +61,7 @@ public class PessoaController {
     public ResponseEntity<Object> putPessoa(@PathVariable(value = "id") Integer id,
                                             @RequestBody @Valid PessoaDto pessoaDto) {
         Optional<PessoaModel> pessoaModelOptional = pessoaService.findById(id);
-        if (!pessoaModelOptional.isPresent()) {
+        if (pessoaModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa not found.");
         }
         var pessoaModel = new PessoaModel();

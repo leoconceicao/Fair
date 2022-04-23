@@ -2,15 +2,15 @@ package com.furb.projeto.dtos;
 
 public class PessoaDto {
 
-    private Integer pessoaId;
+    private Integer idPessoa;
     private String nome;
     private String telefone;
     private String endereco;
     private String cpf;
     private String email;
 
-    public PessoaDto(Integer pessoaId, String nome, String telefone, String endereco, String cpf, String email) {
-        this.pessoaId = pessoaId;
+    public PessoaDto(Integer idPessoa, String nome, String telefone, String endereco, String cpf, String email) {
+        this.idPessoa = idPessoa;
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
@@ -22,11 +22,11 @@ public class PessoaDto {
     }
 
     public Integer getPessoaId() {
-        return pessoaId;
+        return idPessoa;
     }
 
-    public void setPessoaId(Integer pessoaId) {
-        this.pessoaId = pessoaId;
+    public void setPessoaId(Integer idPessoa) {
+        this.idPessoa = idPessoa;
     }
 
     public String getNome() {
