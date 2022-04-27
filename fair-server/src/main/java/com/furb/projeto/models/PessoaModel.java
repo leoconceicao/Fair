@@ -11,27 +11,29 @@ public class PessoaModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idPessoa;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String nome;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String telefone;
-    @Column(nullable = false)
-    private String endereco;
     @Column(nullable = false, length = 11)
     private String cpf;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "fkLogradouro")
+    private LogradouroModel fkLogradouro;
 
     public PessoaModel() {
     }
 
-    public PessoaModel(Integer idPessoa, String nome, String telefone, String endereco, String cpf, String email) {
+    public PessoaModel(Integer idPessoa, String nome, String telefone, String cpf, String email, LogradouroModel fkLogradouro) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.telefone = telefone;
-        this.endereco = endereco;
         this.cpf = cpf;
         this.email = email;
+        this.fkLogradouro = fkLogradouro;
     }
 
     public Integer getIdPessoa() {
@@ -56,14 +58,6 @@ public class PessoaModel implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getCpf() {

@@ -12,13 +12,13 @@ public class ProdutoModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idProduto;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String nome;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String tipo;
     @Column(nullable = false)
     private String foto;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String validade;
     @Column(nullable = false, length = 10)
     private BigInteger peso;

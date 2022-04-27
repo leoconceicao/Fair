@@ -8,24 +8,26 @@ public class PessoaDto {
     private String endereco;
     private String cpf;
     private String email;
+    private Integer fkLogradouro;
 
-    public PessoaDto(Integer idPessoa, String nome, String telefone, String endereco, String cpf, String email) {
+    public PessoaDto() {
+    }
+
+    public PessoaDto(Integer idPessoa, String nome, String telefone, String endereco, String cpf, String email, Integer fkLogradouro) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
         this.cpf = cpf;
         this.email = email;
+        this.fkLogradouro = fkLogradouro;
     }
 
-    public PessoaDto() {
-    }
-
-    public Integer getPessoaId() {
+    public Integer getIdPessoa() {
         return idPessoa;
     }
 
-    public void setPessoaId(Integer idPessoa) {
+    public void setIdPessoa(Integer idPessoa) {
         this.idPessoa = idPessoa;
     }
 
@@ -67,5 +69,13 @@ public class PessoaDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getFkLogradouro() {
+        return fkLogradouro;
+    }
+
+    public void setFkLogradouro(Integer fkLogradouro) {
+        this.fkLogradouro = fkLogradouro;
     }
 }

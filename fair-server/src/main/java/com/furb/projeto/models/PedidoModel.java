@@ -14,11 +14,9 @@ public class PedidoModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idPedido;
-    @Column(nullable = false, length = 11)
-    private Integer quantidade;
     @Column
     private String periodicidade;
-    @Column(length = 11)
+    @Column
     private Integer numeroEntregas;
     @Column(nullable = false, length = 10)
     private BigInteger peso;
@@ -29,9 +27,8 @@ public class PedidoModel implements Serializable {
     @JoinColumn(name = "idVendedor")
     private PessoaModel fkVendedor;
 
-    public PedidoModel(Integer idPedido, Integer quantidade, String periodicidade, Integer numeroEntregas, BigInteger peso, PessoaModel fkCliente, PessoaModel fkVendedor) {
+    public PedidoModel(Integer idPedido, String periodicidade, Integer numeroEntregas, BigInteger peso, PessoaModel fkCliente, PessoaModel fkVendedor) {
         this.idPedido = idPedido;
-        this.quantidade = quantidade;
         this.periodicidade = periodicidade;
         this.numeroEntregas = numeroEntregas;
         this.peso = peso;
@@ -48,14 +45,6 @@ public class PedidoModel implements Serializable {
 
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public String getPeriodicidade() {

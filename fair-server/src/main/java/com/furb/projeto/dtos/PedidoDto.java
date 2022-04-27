@@ -5,7 +5,6 @@ import java.math.BigInteger;
 public class PedidoDto {
 
     private Integer idPedido;
-    private Integer quantidade;
     private String periodicidade;
     private Integer numeroEntregas;
     private BigInteger peso;
@@ -14,7 +13,6 @@ public class PedidoDto {
 
     public PedidoDto(Integer idPedido, Integer quantidade, String periodicidade, Integer numeroEntregas, BigInteger peso, Integer fkCliente, Integer fkVendedor) {
         this.idPedido = idPedido;
-        this.quantidade = quantidade;
         this.periodicidade = periodicidade;
         this.numeroEntregas = numeroEntregas;
         this.peso = peso;
@@ -31,14 +29,6 @@ public class PedidoDto {
 
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public String getPeriodicidade() {

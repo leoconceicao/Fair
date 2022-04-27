@@ -4,14 +4,12 @@ public class LojaDto {
 
     private Integer idLoja;
     private String nome;
-    private String endereco;
     private String cnpj;
     private String telefone;
 
-    public LojaDto(Integer idLoja, String nome, String endereco, String cnpj, String telefone) {
+    public LojaDto(Integer idLoja, String nome, String cnpj, String telefone) {
         this.idLoja = idLoja;
         this.nome = nome;
-        this.endereco = endereco;
         this.cnpj = cnpj;
         this.telefone = telefone;
     }
@@ -33,14 +31,6 @@ public class LojaDto {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getCnpj() {

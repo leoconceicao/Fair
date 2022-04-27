@@ -12,7 +12,7 @@ public class PessoaLojaModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idPessoaLoja;
 
-    @Column(length = 11)
+    @Column(nullable = false, length = 1)
     private Integer tipoPessoa;
 
     @OneToOne

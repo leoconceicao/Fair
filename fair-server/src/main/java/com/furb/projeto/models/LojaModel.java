@@ -11,24 +11,26 @@ public class LojaModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idLoja;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String nome;
-    @Column(nullable = false)
-    private String endereco;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String cnpj;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String telefone;
 
-    public LojaModel(Integer idLoja, String nome, String endereco, String cnpj, String telefone) {
-        this.idLoja = idLoja;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.cnpj = cnpj;
-        this.telefone = telefone;
-    }
+    @ManyToOne
+    @JoinColumn(name = "fkLogradouro")
+    private LogradouroModel fkLogradouro;
 
     public LojaModel() {
+    }
+
+    public LojaModel(Integer idLoja, String nome, String cnpj, String telefone, LogradouroModel fkLogradouro) {
+        this.idLoja = idLoja;
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.fkLogradouro = fkLogradouro;
     }
 
     public Integer getIdLoja() {
@@ -45,14 +47,6 @@ public class LojaModel implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getCnpj() {
