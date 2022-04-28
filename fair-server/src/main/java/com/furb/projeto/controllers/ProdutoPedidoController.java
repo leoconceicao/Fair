@@ -59,9 +59,9 @@ public class ProdutoPedidoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoPedidoService.save(produtoPedidoModel));
     }
 
-    @DeleteMapping("/?produto={produto}?pedido={pedido}")
-    public ResponseEntity<Object> deleteProdutoPedido(@PathVariable(value = "produto") Integer produto, @PathVariable(value = "pedido") Integer pedido) {
-        Optional<ProdutoPedidoModel> produtoPedidoModelOptional = produtoPedidoService.findById(produto, pedido);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteProdutoPedido(@PathVariable(value = "id") Integer id) {
+        Optional<ProdutoPedidoModel> produtoPedidoModelOptional = produtoPedidoService.findById(id);
         if (produtoPedidoModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ProdutoPedido not found.");
         }
@@ -69,16 +69,18 @@ public class ProdutoPedidoController {
         return ResponseEntity.status(HttpStatus.OK).body("ProdutoPedido deleted successfully.");
     }
 
-    @PutMapping("/?produto={produto}?pedido={pedido}")
-    public ResponseEntity<Object> putProdutoPedido(@PathVariable(value = "produto") Integer produto, @PathVariable(value = "pedido") Integer pedido,
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> putProdutoPedido(@PathVariable(value = "id") Integer id,
                                                 @RequestBody @Valid ProdutoPedidoDto produtoPedidoDto) {
-        Optional<ProdutoPedidoModel> produtoPedidoModelOptional = produtoPedidoService.findById(produto, pedido);
+        Optional<ProdutoPedidoModel> produtoPedidoModelOptional = produtoPedidoService.findById(id);
         if (produtoPedidoModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ProdutoPedido not found.");
         }
         var produtoPedidoModel = new ProdutoPedidoModel();
         BeanUtils.copyProperties(produtoPedidoDto, produtoPedidoModel);
-//        produtoPedidoModel.setIdProdutoPedido(produtoPedidoModelOptional.get().getIdProdutoPedido());
+        produtoPedidoModel.setFkPedido(pedidoRepository.findByIdPedido(produtoPedidoDto.getFkPedido()));
+        produtoPedidoModel.setFkProduto(produtoRepository.findByIdProduto(produtoPedidoDto.getFkProduto()));
+        produtoPedidoModel.setIdProdutoPedido(produtoPedidoModelOptional.get().getIdProdutoPedido());
         return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoService.save(produtoPedidoModel));
     }
 

@@ -58,9 +58,9 @@ public class PessoaLojaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaLojaService.save(pessoaLojaModel));
     }
 
-    @DeleteMapping("/?pessoa={pessoa}?loja={loja}")
-    public ResponseEntity<Object> deletePessoaLoja(@PathVariable(value = "pessoa") Integer pessoa, @PathVariable(value = "loja") Integer loja) {
-        Optional<PessoaLojaModel> pessoaLojaModelOptional = pessoaLojaService.findById(pessoa, loja);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletePessoaLoja(@PathVariable(value = "id") Integer id) {
+        Optional<PessoaLojaModel> pessoaLojaModelOptional = pessoaLojaService.findById(id);
         if (pessoaLojaModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("PessoaLoja not found.");
         }
@@ -68,16 +68,18 @@ public class PessoaLojaController {
         return ResponseEntity.status(HttpStatus.OK).body("PessoaLoja deleted successfully.");
     }
 
-    @PutMapping("/?pessoa={pessoa}?loja={loja}")
-    public ResponseEntity<Object> putPessoaLoja(@PathVariable(value = "pessoa") Integer pessoa, @PathVariable(value = "loja") Integer loja,
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> putPessoaLoja(@PathVariable(value = "id") Integer id,
                                                 @RequestBody @Valid PessoaLojaDto pessoaLojaDto) {
-        Optional<PessoaLojaModel> pessoaLojaModelOptional = pessoaLojaService.findById(pessoa, loja);
+        Optional<PessoaLojaModel> pessoaLojaModelOptional = pessoaLojaService.findById(id);
         if (pessoaLojaModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("PessoaLoja not found.");
         }
         var pessoaLojaModel = new PessoaLojaModel();
         BeanUtils.copyProperties(pessoaLojaDto, pessoaLojaModel);
-//        pessoaLojaModel.setIdPessoaLoja(pessoaLojaModelOptional.get().getIdPessoaLoja());
+        pessoaLojaModel.setFkPessoa(pessoaRepository.findByIdPessoa(pessoaLojaDto.getFkPessoa()));
+        pessoaLojaModel.setFkLoja(lojaRepository.findByIdLoja(pessoaLojaDto.getFkLoja()));
+        pessoaLojaModel.setIdPessoaLoja(pessoaLojaModelOptional.get().getIdPessoaLoja());
         return ResponseEntity.status(HttpStatus.OK).body(pessoaLojaService.save(pessoaLojaModel));
     }
 

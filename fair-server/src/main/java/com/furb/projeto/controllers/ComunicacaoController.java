@@ -78,6 +78,9 @@ public class ComunicacaoController {
         }
         var comunicacaoModel = new ComunicacaoModel();
         BeanUtils.copyProperties(comunicacaoDto, comunicacaoModel);
+        comunicacaoModel.setFkProduto(produtoRepository.findByIdProduto(comunicacaoDto.getFkProduto()));
+        comunicacaoModel.setFkPessoaDestinatario(pessoaRepository.findByIdPessoa(comunicacaoDto.getFkPessoaDestinatario()));
+        comunicacaoModel.setFkPessoaRemetente(pessoaRepository.findByIdPessoa(comunicacaoDto.getFkPessoaRemetente()));
         comunicacaoModel.setIdMensagem(comunicacaoModelOptional.get().getIdMensagem());
         return ResponseEntity.status(HttpStatus.OK).body(comunicacaoService.save(comunicacaoModel));
     }

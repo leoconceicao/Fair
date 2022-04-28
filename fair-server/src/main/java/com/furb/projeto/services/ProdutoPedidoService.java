@@ -22,6 +22,9 @@ public class ProdutoPedidoService {
         return produtoPedidoRepository.findAll(pageable);
     }
 
+    public Optional<ProdutoPedidoModel> findById(Integer id) {
+        return produtoPedidoRepository.findById(id);
+    }
     public Optional<ProdutoPedidoModel> findById(Integer produto, Integer pedido) {
         return produtoPedidoRepository.findById(produto, pedido);
     }

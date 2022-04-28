@@ -75,8 +75,9 @@ public class PedidoController {
         var pedidoModel = new PedidoModel();
         BeanUtils.copyProperties(pedidoDto, pedidoModel);
         pedidoModel.setIdPedido(pedidoModelOptional.get().getIdPedido());
+        pedidoModel.setFkCliente(pessoaRepository.findByIdPessoa(pedidoDto.getFkCliente()));
+        pedidoModel.setFkVendedor(pessoaRepository.findByIdPessoa(pedidoDto.getFkVendedor()));
         return ResponseEntity.status(HttpStatus.OK).body(pedidoService.save(pedidoModel));
     }
-
 
 }

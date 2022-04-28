@@ -2,8 +2,10 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.PessoaDto;
 import com.furb.projeto.models.PessoaModel;
+import com.furb.projeto.repositories.LogradouroRepository;
 import com.furb.projeto.services.PessoaService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +23,9 @@ import java.util.Optional;
 public class PessoaController {
 
     final PessoaService pessoaService;
+
+    @Autowired
+    private LogradouroRepository logradouroRepository;
 
     public PessoaController(PessoaService pessoaService) {
         this.pessoaService = pessoaService;
@@ -44,6 +49,7 @@ public class PessoaController {
     public ResponseEntity<Object> postPessoa(@RequestBody @Valid PessoaDto pessoaDto) {
         var pessoaModel = new PessoaModel();
         BeanUtils.copyProperties(pessoaDto, pessoaModel);
+        pessoaModel.setFkLogradouro(logradouroRepository.findByIdLogradouro(pessoaDto.getFkLogradouro()));
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.save(pessoaModel));
     }
 
@@ -66,6 +72,7 @@ public class PessoaController {
         }
         var pessoaModel = new PessoaModel();
         BeanUtils.copyProperties(pessoaDto, pessoaModel);
+        pessoaModel.setFkLogradouro(logradouroRepository.findByIdLogradouro(pessoaDto.getFkLogradouro()));
         pessoaModel.setIdPessoa(pessoaModelOptional.get().getIdPessoa());
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.save(pessoaModel));
     }

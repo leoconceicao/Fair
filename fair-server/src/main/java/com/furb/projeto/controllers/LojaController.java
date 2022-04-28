@@ -74,6 +74,7 @@ public class LojaController {
         var lojaModel = new LojaModel();
         BeanUtils.copyProperties(lojaDto, lojaModel);
         lojaModel.setIdLoja(lojaModelOptional.get().getIdLoja());
+        lojaModel.setFkLogradouro(logradouroRepository.findByIdLogradouro(lojaDto.getFkLogradouro()));
         return ResponseEntity.status(HttpStatus.OK).body(lojaService.save(lojaModel));
     }
 

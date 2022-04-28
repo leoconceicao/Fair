@@ -3,7 +3,7 @@ package com.furb.projeto.dtos;
 public class LogradouroDto {
 
     private Integer idLogradouro;
-    private String nomeRua;
+    private String nomeLogradouro;
     private String bairro;
     private String cep;
     private Integer fkCidade;
@@ -11,9 +11,9 @@ public class LogradouroDto {
     public LogradouroDto() {
     }
 
-    public LogradouroDto(Integer idLogradouro, String nomeRua, String bairro, String cep, Integer fkCidade) {
+    public LogradouroDto(Integer idLogradouro, String nomeLogradouro, String bairro, String cep, Integer fkCidade) {
         this.idLogradouro = idLogradouro;
-        this.nomeRua = nomeRua;
+        this.nomeLogradouro = nomeLogradouro;
         this.bairro = bairro;
         this.cep = cep;
         this.fkCidade = fkCidade;
@@ -27,12 +27,12 @@ public class LogradouroDto {
         this.idLogradouro = idLogradouro;
     }
 
-    public String getNomeRua() {
-        return nomeRua;
+    public String getNomeLogradouro() {
+        return nomeLogradouro;
     }
 
-    public void setNomeRua(String nomeRua) {
-        this.nomeRua = nomeRua;
+    public void setNomeLogradouro(String nomeLogradouro) {
+        this.nomeLogradouro = nomeLogradouro;
     }
 
     public String getBairro() {

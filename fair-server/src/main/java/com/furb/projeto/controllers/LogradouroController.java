@@ -74,6 +74,7 @@ public class LogradouroController {
         var logradouroModel = new LogradouroModel();
         BeanUtils.copyProperties(logradouroDto, logradouroModel);
         logradouroModel.setIdLogradouro(logradouroModelOptional.get().getIdLogradouro());
+        logradouroModel.setFkCidade(cidadeRepository.findByIdCidade(logradouroDto.getFkCidade()));
         return ResponseEntity.status(HttpStatus.OK).body(logradouroService.save(logradouroModel));
     }
 

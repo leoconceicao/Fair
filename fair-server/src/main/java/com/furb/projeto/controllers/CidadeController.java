@@ -73,6 +73,7 @@ public class CidadeController {
         }
         var cidadeModel = new CidadeModel();
         BeanUtils.copyProperties(cidadeDto, cidadeModel);
+        cidadeModel.setFkEstado(estadoRepository.findByIdEstado(cidadeDto.getFkEstado()));
         cidadeModel.setIdCidade(cidadeModelOptional.get().getIdCidade());
         return ResponseEntity.status(HttpStatus.OK).body(cidadeService.save(cidadeModel));
     }
