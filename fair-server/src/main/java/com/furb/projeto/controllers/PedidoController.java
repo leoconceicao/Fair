@@ -2,7 +2,6 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.PedidoDto;
 import com.furb.projeto.models.PedidoModel;
-import com.furb.projeto.repositories.LogradouroRepository;
 import com.furb.projeto.repositories.PessoaRepository;
 import com.furb.projeto.services.PedidoService;
 import org.springframework.beans.BeanUtils;

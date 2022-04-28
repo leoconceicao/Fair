@@ -2,7 +2,6 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.CidadeDto;
 import com.furb.projeto.models.CidadeModel;
-import com.furb.projeto.models.EstadoModel;
 import com.furb.projeto.repositories.EstadoRepository;
 import com.furb.projeto.services.CidadeService;
 import org.springframework.beans.BeanUtils;

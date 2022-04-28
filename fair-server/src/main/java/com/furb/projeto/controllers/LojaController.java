@@ -3,7 +3,6 @@ package com.furb.projeto.controllers;
 import com.furb.projeto.dtos.LojaDto;
 import com.furb.projeto.models.LojaModel;
 import com.furb.projeto.repositories.LogradouroRepository;
-import com.furb.projeto.repositories.LojaRepository;
 import com.furb.projeto.services.LojaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
