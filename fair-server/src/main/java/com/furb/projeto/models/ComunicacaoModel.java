@@ -16,11 +16,11 @@ public class ComunicacaoModel implements Serializable {
     @JoinColumn(name = "idProduto")
     private ProdutoModel fkProduto;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idRemetente")
     private PessoaModel fkPessoaRemetente;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idDestinatario")
     private PessoaModel fkPessoaDestinatario;
 

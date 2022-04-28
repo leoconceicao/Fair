@@ -1,27 +1,31 @@
 package com.furb.projeto.dtos;
 
+import com.furb.projeto.models.LogradouroModel;
+
 public class LojaDto {
 
     private Integer idLoja;
     private String nome;
     private String cnpj;
     private String telefone;
-
-    public LojaDto(Integer idLoja, String nome, String cnpj, String telefone) {
-        this.idLoja = idLoja;
-        this.nome = nome;
-        this.cnpj = cnpj;
-        this.telefone = telefone;
-    }
+    private Integer fkLogradouro;
 
     public LojaDto() {
     }
 
-    public Integer getPessoaId() {
+    public LojaDto(Integer idLoja, String nome, String cnpj, String telefone, Integer fkLogradouro) {
+        this.idLoja = idLoja;
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.fkLogradouro = fkLogradouro;
+    }
+
+    public Integer getIdLoja() {
         return idLoja;
     }
 
-    public void setPessoaId(Integer idLoja) {
+    public void setIdLoja(Integer idLoja) {
         this.idLoja = idLoja;
     }
 
@@ -47,5 +51,13 @@ public class LojaDto {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public Integer getFkLogradouro() {
+        return fkLogradouro;
+    }
+
+    public void setFkLogradouro(Integer fkLogradouro) {
+        this.fkLogradouro = fkLogradouro;
     }
 }

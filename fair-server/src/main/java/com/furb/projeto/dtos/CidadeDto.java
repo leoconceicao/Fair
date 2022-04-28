@@ -4,12 +4,12 @@ public class CidadeDto {
 
     private Integer idCidade;
     private String dsCidade;
-    private String fkEstado;
+    private Integer fkEstado;
 
     public CidadeDto() {
     }
 
-    public CidadeDto(Integer idCidade, String dsCidade, String fkEstado) {
+    public CidadeDto(Integer idCidade, String dsCidade, Integer fkEstado) {
         this.idCidade = idCidade;
         this.dsCidade = dsCidade;
         this.fkEstado = fkEstado;
@@ -31,11 +31,11 @@ public class CidadeDto {
         this.dsCidade = dsCidade;
     }
 
-    public String getFkEstado() {
+    public Integer getFkEstado() {
         return fkEstado;
     }
 
-    public void setFkEstado(String fkEstado) {
+    public void setFkEstado(Integer fkEstado) {
         this.fkEstado = fkEstado;
     }
 }

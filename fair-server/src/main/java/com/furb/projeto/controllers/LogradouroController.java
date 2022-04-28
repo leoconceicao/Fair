@@ -2,8 +2,10 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.LogradouroDto;
 import com.furb.projeto.models.LogradouroModel;
+import com.furb.projeto.repositories.CidadeRepository;
 import com.furb.projeto.services.LogradouroService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +23,10 @@ import java.util.Optional;
 public class LogradouroController {
 
     final LogradouroService logradouroService;
+
+    @Autowired
+    private CidadeRepository cidadeRepository;
+
 
     public LogradouroController(LogradouroService logradouroService) {
         this.logradouroService = logradouroService;
@@ -44,6 +50,7 @@ public class LogradouroController {
     public ResponseEntity<Object> postLogradouro(@RequestBody @Valid LogradouroDto logradouroDto) {
         var logradouroModel = new LogradouroModel();
         BeanUtils.copyProperties(logradouroDto, logradouroModel);
+        logradouroModel.setFkCidade(cidadeRepository.findByIdCidade(logradouroDto.getFkCidade()));
         return ResponseEntity.status(HttpStatus.CREATED).body(logradouroService.save(logradouroModel));
     }
 

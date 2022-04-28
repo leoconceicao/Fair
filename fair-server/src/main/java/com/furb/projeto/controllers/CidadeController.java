@@ -2,8 +2,11 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.CidadeDto;
 import com.furb.projeto.models.CidadeModel;
+import com.furb.projeto.models.EstadoModel;
+import com.furb.projeto.repositories.EstadoRepository;
 import com.furb.projeto.services.CidadeService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +24,9 @@ import java.util.Optional;
 public class CidadeController {
 
     final CidadeService cidadeService;
+
+    @Autowired
+    private EstadoRepository estadoRepository;
 
     public CidadeController(CidadeService cidadeService) {
         this.cidadeService = cidadeService;
@@ -44,6 +50,7 @@ public class CidadeController {
     public ResponseEntity<Object> postCidade(@RequestBody @Valid CidadeDto cidadeDto) {
         var cidadeModel = new CidadeModel();
         BeanUtils.copyProperties(cidadeDto, cidadeModel);
+        cidadeModel.setFkEstado(estadoRepository.findByIdEstado(cidadeDto.getFkEstado()));
         return ResponseEntity.status(HttpStatus.CREATED).body(cidadeService.save(cidadeModel));
     }
 

@@ -2,8 +2,11 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.LojaDto;
 import com.furb.projeto.models.LojaModel;
+import com.furb.projeto.repositories.LogradouroRepository;
+import com.furb.projeto.repositories.LojaRepository;
 import com.furb.projeto.services.LojaService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +24,9 @@ import java.util.Optional;
 public class LojaController {
 
     final LojaService lojaService;
+
+    @Autowired
+    private LogradouroRepository logradouroRepository;
 
     public LojaController(LojaService lojaService) {
         this.lojaService = lojaService;
@@ -44,6 +50,7 @@ public class LojaController {
     public ResponseEntity<Object> postLoja(@RequestBody @Valid LojaDto lojaDto) {
         var lojaModel = new LojaModel();
         BeanUtils.copyProperties(lojaDto, lojaModel);
+        lojaModel.setFkLogradouro(logradouroRepository.findByIdLogradouro(lojaDto.getFkLogradouro()));
         return ResponseEntity.status(HttpStatus.CREATED).body(lojaService.save(lojaModel));
     }
 

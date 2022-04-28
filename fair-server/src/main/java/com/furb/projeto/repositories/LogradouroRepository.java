@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LogradouroRepository extends JpaRepository<LogradouroModel, Integer> {
+
+    LogradouroModel findByIdLogradouro(Integer idLogradouro);
 }

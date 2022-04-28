@@ -2,8 +2,11 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.ComunicacaoDto;
 import com.furb.projeto.models.ComunicacaoModel;
+import com.furb.projeto.repositories.PessoaRepository;
+import com.furb.projeto.repositories.ProdutoRepository;
 import com.furb.projeto.services.ComunicacaoService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +24,12 @@ import java.util.Optional;
 public class ComunicacaoController {
 
     final ComunicacaoService comunicacaoService;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     public ComunicacaoController(ComunicacaoService comunicacaoService) {
         this.comunicacaoService = comunicacaoService;
@@ -44,6 +53,9 @@ public class ComunicacaoController {
     public ResponseEntity<Object> postComunicacao(@RequestBody @Valid ComunicacaoDto comunicacaoDto) {
         var comunicacaoModel = new ComunicacaoModel();
         BeanUtils.copyProperties(comunicacaoDto, comunicacaoModel);
+        comunicacaoModel.setFkProduto(produtoRepository.findByIdProduto(comunicacaoDto.getFkProduto()));
+        comunicacaoModel.setFkPessoaDestinatario(pessoaRepository.findByIdPessoa(comunicacaoDto.getFkPessoaDestinatario()));
+        comunicacaoModel.setFkPessoaRemetente(pessoaRepository.findByIdPessoa(comunicacaoDto.getFkPessoaRemetente()));
         return ResponseEntity.status(HttpStatus.CREATED).body(comunicacaoService.save(comunicacaoModel));
     }
 

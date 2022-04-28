@@ -2,8 +2,11 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.PedidoDto;
 import com.furb.projeto.models.PedidoModel;
+import com.furb.projeto.repositories.LogradouroRepository;
+import com.furb.projeto.repositories.PessoaRepository;
 import com.furb.projeto.services.PedidoService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +24,9 @@ import java.util.Optional;
 public class PedidoController {
 
     final PedidoService pedidoService;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     public PedidoController(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
@@ -44,6 +50,8 @@ public class PedidoController {
     public ResponseEntity<Object> postPedido(@RequestBody @Valid PedidoDto pedidoDto) {
         var pedidoModel = new PedidoModel();
         BeanUtils.copyProperties(pedidoDto, pedidoModel);
+        pedidoModel.setFkCliente(pessoaRepository.findByIdPessoa(pedidoDto.getFkCliente()));
+        pedidoModel.setFkVendedor(pessoaRepository.findByIdPessoa(pedidoDto.getFkVendedor()));
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.save(pedidoModel));
     }
 

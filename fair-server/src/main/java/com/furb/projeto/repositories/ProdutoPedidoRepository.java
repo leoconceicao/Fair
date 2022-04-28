@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface ProdutoPedidoRepository extends JpaRepository<ProdutoPedidoModel, Integer> {
 
     @Query("SELECT u FROM ProdutoPedidoModel u WHERE u.fkProduto = :produto and u.fkPedido = :pedido")
-    Optional<ProdutoPedidoModel> findById(@Param("produto") Integer produto, @Param("Pedido") Integer pedido);
+    Optional<ProdutoPedidoModel> findById(@Param("produto") Integer produto, @Param("pedido") Integer pedido);
 }

@@ -18,7 +18,7 @@ public class LojaModel implements Serializable {
     @Column(nullable = false, length = 45)
     private String telefone;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "fkLogradouro")
     private LogradouroModel fkLogradouro;
 
@@ -63,5 +63,13 @@ public class LojaModel implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public LogradouroModel getFkLogradouro() {
+        return fkLogradouro;
+    }
+
+    public void setFkLogradouro(LogradouroModel fkLogradouro) {
+        this.fkLogradouro = fkLogradouro;
     }
 }

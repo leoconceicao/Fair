@@ -17,7 +17,7 @@ public class LogradouroModel implements Serializable {
     private String bairro;
     @Column(nullable = false, length = 9)
     private String cep;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "fkCidade")
     private CidadeModel fkCidade;
 

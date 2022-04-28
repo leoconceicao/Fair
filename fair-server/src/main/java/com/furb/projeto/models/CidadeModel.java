@@ -13,7 +13,7 @@ public class CidadeModel implements Serializable {
     private Integer idCidade;
     @Column(nullable = false, length = 45)
     private String dsCidade;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "fkEstado")
     private EstadoModel fkEstado;
 

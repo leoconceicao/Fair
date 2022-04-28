@@ -1,7 +1,5 @@
 package com.furb.projeto.models;
 
-import com.fasterxml.jackson.databind.node.BigIntegerNode;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -27,7 +25,7 @@ public class PedidoModel implements Serializable {
     @JoinColumn(name = "idVendedor")
     private PessoaModel fkVendedor;
 
-    public PedidoModel(Integer idPedido, String periodicidade, Integer numeroEntregas, BigInteger peso, PessoaModel fkCliente, PessoaModel fkVendedor) {
+    public PedidoModel(Integer idPedido, Integer quantidade, String periodicidade, Integer numeroEntregas, BigInteger peso, PessoaModel fkCliente, PessoaModel fkVendedor) {
         this.idPedido = idPedido;
         this.periodicidade = periodicidade;
         this.numeroEntregas = numeroEntregas;

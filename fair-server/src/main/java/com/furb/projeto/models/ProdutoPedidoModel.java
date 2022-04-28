@@ -13,12 +13,12 @@ public class ProdutoPedidoModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idProdutoPedido;
     @OneToOne
-    @JoinColumn(name = "fkProduto")
-    private LojaModel fkProduto;
+    @JoinColumn(name = "idProduto")
+    private ProdutoModel fkProduto;
 
     @OneToOne
-    @JoinColumn(name = "fkPedido")
-    private PessoaModel fkPedido;
+    @JoinColumn(name = "idPedido")
+    private PedidoModel fkPedido;
 
     @Column(nullable = false)
     private Integer quantidade;
@@ -29,7 +29,7 @@ public class ProdutoPedidoModel implements Serializable {
     public ProdutoPedidoModel() {
     }
 
-    public ProdutoPedidoModel(Integer idProdutoPedido, LojaModel fkProduto, PessoaModel fkPedido, Integer quantidade, BigInteger peso) {
+    public ProdutoPedidoModel(Integer idProdutoPedido, ProdutoModel fkProduto, PedidoModel fkPedido, Integer quantidade, BigInteger peso) {
         this.idProdutoPedido = idProdutoPedido;
         this.fkProduto = fkProduto;
         this.fkPedido = fkPedido;
@@ -45,19 +45,19 @@ public class ProdutoPedidoModel implements Serializable {
         this.idProdutoPedido = idProdutoPedido;
     }
 
-    public LojaModel getFkProduto() {
+    public ProdutoModel getFkProduto() {
         return fkProduto;
     }
 
-    public void setFkProduto(LojaModel fkProduto) {
+    public void setFkProduto(ProdutoModel fkProduto) {
         this.fkProduto = fkProduto;
     }
 
-    public PessoaModel getFkPedido() {
+    public PedidoModel getFkPedido() {
         return fkPedido;
     }
 
-    public void setFkPedido(PessoaModel fkPedido) {
+    public void setFkPedido(PedidoModel fkPedido) {
         this.fkPedido = fkPedido;
     }
 

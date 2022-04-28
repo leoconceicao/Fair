@@ -2,8 +2,11 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.PessoaLojaDto;
 import com.furb.projeto.models.PessoaLojaModel;
+import com.furb.projeto.repositories.LojaRepository;
+import com.furb.projeto.repositories.PessoaRepository;
 import com.furb.projeto.services.PessoaLojaService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +24,12 @@ import java.util.Optional;
 public class PessoaLojaController {
 
     final PessoaLojaService pessoaLojaService;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private LojaRepository lojaRepository;
 
     public PessoaLojaController(PessoaLojaService pessoaLojaService) {
         this.pessoaLojaService = pessoaLojaService;
@@ -44,6 +53,8 @@ public class PessoaLojaController {
     public ResponseEntity<Object> postPessoaLoja(@RequestBody @Valid PessoaLojaDto pessoaLojaDto) {
         var pessoaLojaModel = new PessoaLojaModel();
         BeanUtils.copyProperties(pessoaLojaDto, pessoaLojaModel);
+        pessoaLojaModel.setFkPessoa(pessoaRepository.findByIdPessoa(pessoaLojaDto.getFkPessoa()));
+        pessoaLojaModel.setFkLoja(lojaRepository.findByIdLoja(pessoaLojaDto.getFkLoja()));
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaLojaService.save(pessoaLojaModel));
     }
 

@@ -20,8 +20,8 @@ public class PessoaModel implements Serializable {
     @Column(nullable = false, length = 45)
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "fkLogradouro")
+    @OneToOne
+    @JoinColumn(name = "idLogradouro")
     private LogradouroModel fkLogradouro;
 
     public PessoaModel() {
@@ -74,5 +74,13 @@ public class PessoaModel implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public LogradouroModel getFkLogradouro() {
+        return fkLogradouro;
+    }
+
+    public void setFkLogradouro(LogradouroModel fkLogradouro) {
+        this.fkLogradouro = fkLogradouro;
     }
 }

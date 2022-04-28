@@ -4,12 +4,12 @@ public class EstadoDto {
 
     private Integer idEstado;
     private String dsEstado;
-    private Integer dsSigla;
+    private String dsSigla;
 
     public EstadoDto() {
     }
 
-    public EstadoDto(Integer idEstado, String dsEstado, Integer dsSigla) {
+    public EstadoDto(Integer idEstado, String dsEstado, String dsSigla) {
         this.idEstado = idEstado;
         this.dsEstado = dsEstado;
         this.dsSigla = dsSigla;
@@ -31,11 +31,11 @@ public class EstadoDto {
         this.dsEstado = dsEstado;
     }
 
-    public Integer getDsSigla() {
+    public String getDsSigla() {
         return dsSigla;
     }
 
-    public void setDsSigla(Integer dsSigla) {
+    public void setDsSigla(String dsSigla) {
         this.dsSigla = dsSigla;
     }
 }
