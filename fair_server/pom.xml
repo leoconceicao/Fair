@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.furb.projeto</groupId>
-	<artifactId>fair-server</artifactId>
+	<artifactId>fair_server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Fair Server</name>
 	<description>Demo project for Fair Server</description>
