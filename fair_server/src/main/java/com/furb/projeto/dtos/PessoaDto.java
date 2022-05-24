@@ -5,7 +5,6 @@ public class PessoaDto {
     private Integer idPessoa;
     private String nome;
     private String telefone;
-    private String endereco;
     private String cpf;
     private String email;
     private Integer fkLogradouro;
@@ -13,11 +12,10 @@ public class PessoaDto {
     public PessoaDto() {
     }
 
-    public PessoaDto(Integer idPessoa, String nome, String telefone, String endereco, String cpf, String email, Integer fkLogradouro) {
+    public PessoaDto(Integer idPessoa, String nome, String telefone, String cpf, String email, Integer fkLogradouro) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.telefone = telefone;
-        this.endereco = endereco;
         this.cpf = cpf;
         this.email = email;
         this.fkLogradouro = fkLogradouro;
@@ -45,14 +43,6 @@ public class PessoaDto {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getCpf() {

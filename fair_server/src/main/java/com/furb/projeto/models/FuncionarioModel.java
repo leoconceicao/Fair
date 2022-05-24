@@ -4,16 +4,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Pessoa_Loja")
-public class PessoaLojaModel implements Serializable {
+@Table(name = "Funcionario")
+public class FuncionarioModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idPessoaLoja;
+    private Integer idFuncionario;
 
-    @Column(nullable = false, length = 1)
-    private Integer tipoPessoa;
+    @Column(nullable = false, length = 2)
+    private String cargo;
 
     @OneToOne
     @JoinColumn(name = "idLoja")
@@ -23,30 +23,30 @@ public class PessoaLojaModel implements Serializable {
     @JoinColumn(name = "idPessoa")
     private PessoaModel fkPessoa;
 
-    public PessoaLojaModel(Integer idPessoaLoja, Integer tipoPessoa, LojaModel fkLoja, PessoaModel fkPessoa) {
-        this.idPessoaLoja = idPessoaLoja;
-        this.tipoPessoa = tipoPessoa;
+    public FuncionarioModel(Integer idFuncionario, String cargo, LojaModel fkLoja, PessoaModel fkPessoa) {
+        this.idFuncionario = idFuncionario;
+        this.cargo = cargo;
         this.fkLoja = fkLoja;
         this.fkPessoa = fkPessoa;
     }
 
-    public PessoaLojaModel() {
+    public FuncionarioModel() {
     }
 
-    public Integer getIdPessoaLoja() {
-        return idPessoaLoja;
+    public Integer getIdFuncionario() {
+        return idFuncionario;
     }
 
-    public void setIdPessoaLoja(Integer idPessoaLoja) {
-        this.idPessoaLoja = idPessoaLoja;
+    public void setIdFuncionario(Integer idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 
-    public Integer getTipoPessoa() {
-        return tipoPessoa;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setTipoPessoa(Integer tipoPessoa) {
-        this.tipoPessoa = tipoPessoa;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public LojaModel getFkLoja() {

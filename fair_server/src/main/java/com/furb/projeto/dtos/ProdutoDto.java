@@ -7,14 +7,18 @@ public class ProdutoDto {
     private Integer produtoId;
     private String nome;
     private String tipo;
+
+    private BigInteger preco;
+
     private String foto;
     private String validade;
     private BigInteger peso;
 
-    public ProdutoDto(Integer produtoId, String nome, String tipo, String foto, String validade, BigInteger peso) {
+    public ProdutoDto(Integer produtoId, String nome, String tipo, BigInteger preco, String foto, String validade, BigInteger peso) {
         this.produtoId = produtoId;
         this.nome = nome;
         this.tipo = tipo;
+        this.preco = preco;
         this.foto = foto;
         this.validade = validade;
         this.peso = peso;
@@ -45,6 +49,14 @@ public class ProdutoDto {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public BigInteger getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigInteger preco) {
+        this.preco = preco;
     }
 
     public String getFoto() {

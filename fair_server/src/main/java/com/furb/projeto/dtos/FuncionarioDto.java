@@ -1,26 +1,26 @@
 package com.furb.projeto.dtos;
 
-public class PessoaLojaDto {
+public class FuncionarioDto {
 
-    private Integer tipoPessoa;
+    private String cargo;
     private Integer fkPessoa;
     private Integer fkLoja;
 
-    public PessoaLojaDto(Integer tipoPessoa, Integer fkPessoa, Integer fkLoja) {
-        this.tipoPessoa = tipoPessoa;
+    public FuncionarioDto(String cargo, Integer fkPessoa, Integer fkLoja) {
+        this.cargo = cargo;
         this.fkPessoa = fkPessoa;
         this.fkLoja = fkLoja;
     }
 
-    public PessoaLojaDto() {
+    public FuncionarioDto() {
     }
 
-    public Integer getTipoPessoa() {
-        return tipoPessoa;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setTipoPessoa(Integer tipoPessoa) {
-        this.tipoPessoa = tipoPessoa;
+    public void setTipoPessoa(String cargo) {
+        this.cargo = cargo;
     }
 
     public Integer getFkPessoa() {

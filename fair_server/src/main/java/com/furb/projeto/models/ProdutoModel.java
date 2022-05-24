@@ -16,6 +16,8 @@ public class ProdutoModel implements Serializable {
     private String nome;
     @Column(nullable = false, length = 45)
     private String tipo;
+    @Column(nullable = false, length = 10)
+    private BigInteger preco;
     @Column(nullable = false)
     private String foto;
     @Column(nullable = false, length = 45)
@@ -23,10 +25,11 @@ public class ProdutoModel implements Serializable {
     @Column(nullable = false, length = 10)
     private BigInteger peso;
 
-    public ProdutoModel(Integer idProduto, String nome, String tipo, String foto, String validade, BigInteger peso) {
+    public ProdutoModel(Integer idProduto, String nome, String tipo, BigInteger preco, String foto, String validade, BigInteger peso) {
         this.idProduto = idProduto;
         this.nome = nome;
         this.tipo = tipo;
+        this.preco = preco;
         this.foto = foto;
         this.validade = validade;
         this.peso = peso;
@@ -57,6 +60,14 @@ public class ProdutoModel implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public BigInteger getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigInteger preco) {
+        this.preco = preco;
     }
 
     public String getFoto() {
