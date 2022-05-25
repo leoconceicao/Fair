@@ -12,7 +12,7 @@ public class PedidoModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idPedido;
-    @Column
+    @Column(nullable = false)
     private String periodicidade;
     @Column(nullable = false, length = 10)
     private BigInteger peso;

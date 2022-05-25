@@ -26,15 +26,19 @@ public class ProdutoPedidoModel implements Serializable {
     @Column(nullable = false, length = 10)
     private BigInteger peso;
 
+    @Column(nullable = false, length = 10)
+    private BigInteger preco;
+
     public ProdutoPedidoModel() {
     }
 
-    public ProdutoPedidoModel(Integer idProdutoPedido, ProdutoModel fkProduto, PedidoModel fkPedido, Integer quantidade, BigInteger peso) {
+    public ProdutoPedidoModel(Integer idProdutoPedido, ProdutoModel fkProduto, PedidoModel fkPedido, Integer quantidade, BigInteger peso, BigInteger preco) {
         this.idProdutoPedido = idProdutoPedido;
         this.fkProduto = fkProduto;
         this.fkPedido = fkPedido;
         this.quantidade = quantidade;
         this.peso = peso;
+        this.preco = preco;
     }
 
     public Integer getIdProdutoPedido() {
@@ -75,5 +79,13 @@ public class ProdutoPedidoModel implements Serializable {
 
     public void setPeso(BigInteger peso) {
         this.peso = peso;
+    }
+
+    public BigInteger getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigInteger preco) {
+        this.preco = preco;
     }
 }

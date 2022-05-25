@@ -8,15 +8,17 @@ public class ProdutoPedidoDto {
     private Integer fkPedido;
     private Integer quantidade;
     private BigInteger peso;
+    private BigInteger preco;
 
     public ProdutoPedidoDto() {
     }
 
-    public ProdutoPedidoDto(Integer fkProduto, Integer fkPedido, Integer quantidade, BigInteger peso) {
+    public ProdutoPedidoDto(Integer fkProduto, Integer fkPedido, Integer quantidade, BigInteger peso, BigInteger preco) {
         this.fkProduto = fkProduto;
         this.fkPedido = fkPedido;
         this.quantidade = quantidade;
         this.peso = peso;
+        this.preco = preco;
     }
 
     public Integer getFkProduto() {
@@ -49,5 +51,13 @@ public class ProdutoPedidoDto {
 
     public void setPeso(BigInteger peso) {
         this.peso = peso;
+    }
+
+    public BigInteger getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigInteger preco) {
+        this.preco = preco;
     }
 }
