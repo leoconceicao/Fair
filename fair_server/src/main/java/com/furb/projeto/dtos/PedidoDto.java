@@ -6,15 +6,13 @@ public class PedidoDto {
 
     private Integer idPedido;
     private String periodicidade;
-    private Integer numeroEntregas;
     private BigInteger peso;
     private Integer fkCliente;
     private Integer fkVendedor;
 
-    public PedidoDto(Integer idPedido, Integer quantidade, String periodicidade, Integer numeroEntregas, BigInteger peso, Integer fkCliente, Integer fkVendedor) {
+    public PedidoDto(Integer idPedido, Integer quantidade, String periodicidade, BigInteger peso, Integer fkCliente, Integer fkVendedor) {
         this.idPedido = idPedido;
         this.periodicidade = periodicidade;
-        this.numeroEntregas = numeroEntregas;
         this.peso = peso;
         this.fkCliente = fkCliente;
         this.fkVendedor = fkVendedor;
@@ -37,14 +35,6 @@ public class PedidoDto {
 
     public void setPeriodicidade(String periodicidade) {
         this.periodicidade = periodicidade;
-    }
-
-    public Integer getNumeroEntregas() {
-        return numeroEntregas;
-    }
-
-    public void setNumeroEntregas(Integer numeroEntregas) {
-        this.numeroEntregas = numeroEntregas;
     }
 
     public BigInteger getPeso() {
