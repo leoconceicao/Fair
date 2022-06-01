@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-
+import 'pages/home.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -46,7 +46,7 @@ class NewPageScreen extends StatelessWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _indiceAtual = 0;
   final List<Widget> _telas = [
-    NewPageScreen("Início"),
+    Home(),
     NewPageScreen("Meus pedidos"),
     NewPageScreen("Perfil")
   ];
