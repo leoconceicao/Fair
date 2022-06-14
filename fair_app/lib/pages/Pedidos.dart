@@ -1,8 +1,5 @@
-// main.dart
+import 'package:fair_app/models/PedidoModel.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:math';
-import 'ProdutosPedido.dart';
 
 class Pedidos extends StatefulWidget {
   const Pedidos({Key? key}) : super(key: key);
@@ -12,24 +9,23 @@ class Pedidos extends StatefulWidget {
 }
 
 class _PedidosState extends State<Pedidos> {
-  // We will fetch data from this Rest api
-  final _baseUrl = 'https://jsonplaceholder.typicode.com/posts';
-
   // At the beginning, we fetch the first 20 posts
   int _page = 0;
-  int _limit = 20;
+  final int _limit = 20;
 
   // There is next page or not
-  bool _hasNextPage = true;
+  final bool _hasNextPage = true;
 
   // Used to display loading indicators when _firstLoad function is running
-  bool _isFirstLoadRunning = false;
+  final bool _isFirstLoadRunning = false;
 
   // Used to display loading indicators when _loadMore function is running
   bool _isLoadMoreRunning = false;
 
   // This holds the posts fetched from the server
-  List _posts = [];
+  final List _posts = [];
+
+  Container container = Container();
 
   // This function will be triggered whenver the user scroll
   // to near the bottom of the list view
@@ -54,7 +50,7 @@ class _PedidosState extends State<Pedidos> {
   @override
   void initState() {
     super.initState();
-    _controller = new ScrollController()..addListener(_loadMore);
+    _controller = ScrollController()..addListener(_loadMore);
   }
 
   @override
@@ -68,31 +64,70 @@ class _PedidosState extends State<Pedidos> {
     return Container(
       height: 500,
       child: Scaffold(
-        body:  Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                controller: _controller,
-                itemCount: 10,
-                itemBuilder: (_, index) => Card(
-                  child: ListTile(
-                      title: Text("Pedidos"),
-                      subtitle: Text("Teste Pedido"),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProdutosPedido()),
-                        );
-                      },
-                      tileColor: Colors.white
-                  ),
-                ),
-              ),
+        // body:  Column(
+        //   c  hildren: [
+        //     Expanded(
+        //       child: ListView.builder(
+        //         controller: _controller,
+        //         itemCount: 10,
+        //         itemBuilder: (_, index) => Card(
+        //           child: ListTile(
+        //               title: Text("Pedidos"),
+        //               subtitle: Text("Teste Pedido"),
+        //               onTap: () {
+        //                 Navigator.push(
+        //                   context,
+        //                   MaterialPageRoute(
+        //                       builder: (context) => ProdutosPedido()),
+        //                 );
+        //               },
+        //               tileColor: Colors.white
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        body: getFutureBuilder(context),
+      ),
+    );
+  }
+
+  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
+    List<String> values = snapshot.data;
+    return ListView.builder(
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Column(
+          children: <Widget>[
+            ListTile(
+              title: Text(values[index]),
+            ),
+            const Divider(
+              height: 2.0,
             ),
           ],
-        ),
-      ),
+        );
+      },
+    );
+  }
+
+  FutureBuilder getFutureBuilder(BuildContext context) {
+    return FutureBuilder(
+      future: PedidoModel.get("1"),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return const Text('loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createListView(context, snapshot);
+            }
+        }
+      },
     );
   }
 }
