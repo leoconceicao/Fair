@@ -23,12 +23,12 @@ class PedidoModel {
     final response = await http
         .get(Uri.parse('http://10.0.2.2:8080/pedido'));
     if (response.statusCode == 200) {
-        final parsed = jsonDecode(response.body).cast<String,dynamic>();
-        List<String> pedidos = [];
-        for (var pedido in parsed["content"]) {
-          pedidos.add(pedido["idPedido"].toString());
-        }
-        return pedidos;
+      final parsed = jsonDecode(response.body).cast<String,dynamic>();
+      List<String> pedidos = [];
+      for (var pedido in parsed["content"]) {
+        pedidos.add(pedido["idPedido"].toString());
+      }
+      return pedidos;
     } else {
       return "Response: " + response.statusCode.toString();
     }
