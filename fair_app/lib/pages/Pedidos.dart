@@ -1,6 +1,8 @@
 import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:flutter/material.dart';
 
+import '../models/PedidoModel.dart';
+
 class Pedidos extends StatefulWidget {
   const Pedidos({Key? key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class _PedidosState extends State<Pedidos> {
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
+  bool search = false;
 
   void _loadMore() async {
     if (_hasNextPage == true &&
@@ -48,7 +51,7 @@ class _PedidosState extends State<Pedidos> {
     return SizedBox(
       height: 500,
       child: Scaffold(
-        body: getFutureBuilder(context),
+        body: search ? getFutureBuilder(context) : getFutureBuilder2(context),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -107,6 +110,25 @@ class _PedidosState extends State<Pedidos> {
     );
   }
 
+  FutureBuilder getFutureBuilder2(BuildContext context) {
+    return FutureBuilder(
+      future: PedidoModel.get("1"),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return const Text('loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createListView(context, snapshot);
+            }
+        }
+      },
+    );
+  }
+
   void _searchProducts() async {
     _searchController.text = '';
     await showModalBottomSheet(
@@ -139,5 +161,9 @@ class _PedidosState extends State<Pedidos> {
         });
   }
 
-  void _callSearch() async {}
+  void _callSearch() async {
+    setState(() {
+      search = _searchController.text == "" ? false : true;
+    });
+  }
 }
