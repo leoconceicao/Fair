@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'pages/home.dart';
 import 'pages/Pedidos.dart';
+import 'pages/Perfil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _telas = [
     Home(),
     Pedidos(),
-    NewPageScreen("Perfil")
+    Perfil()
   ];
 
   void onTabTapped(int index) {
