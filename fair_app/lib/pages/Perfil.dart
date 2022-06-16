@@ -9,16 +9,24 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _telefoneController = TextEditingController();
+  final TextEditingController _cpfController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _cidadeController = TextEditingController();
+  final TextEditingController _estadoController = TextEditingController();
+  final TextEditingController _bairroController = TextEditingController();
+  final TextEditingController _cepController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
         height: 500,
         child: Scaffold(
-        body: SafeArea(
+            body: SafeArea(
           child: Column(
             children: [
-              Container(
-              ),
+              Container(),
               /*Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
@@ -47,67 +55,89 @@ class _PerfilState extends State<Perfil> {
               ),
               Text(
                 "Gustavo Bulhmann" //Trocar pelo nome do usuário
-                ,style: TextStyle(
-                  fontSize: 20.0,
-                  color:Colors.green,
-                  letterSpacing: 2.0,
-                  fontWeight: FontWeight.w400
-
-              ),
+                ,
+                style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.green,
+                    letterSpacing: 2.0,
+                    fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                "Maputo, Angola" // Trocar pela cidade do usuário
-                ,style: TextStyle(
+                "Email do usuário",
+                style: TextStyle(
                   fontSize: 14.0,
-                  color:Colors.green,
+                  color: Colors.green,
                   letterSpacing: 2.0,
                   fontWeight: FontWeight.w300,
-              ),
+                ),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                "Mestre do Bitcoin"
-                ,style: TextStyle(
-                  fontSize: 18.0,
-                  color:Colors.green,
-                  letterSpacing: 2.0,
-                  fontWeight: FontWeight.w300
-              ),
+                "Blumenau, Santa Catarina" //Alterar para cidade pelo banco
+                ,
+                style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.green,
+                    letterSpacing: 2.0,
+                    fontWeight: FontWeight.w300),
               ),
               SizedBox(
                 height: 10,
               ),
-              Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 8.0),
-                  elevation: 2.0,
-                  child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12,horizontal: 30),
-                      child: Text("Skill Sets",style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontWeight: FontWeight.w300
-                      ),))
-              ),
+              ElevatedButton(
+                  child: Text(
+                    "Alterar perfil",
+                    style: TextStyle(
+                        letterSpacing: 2.0, fontWeight: FontWeight.w300),
+                  ),
+                  onPressed: _changePerfil),
               SizedBox(
                 height: 15,
               ),
-              Text(
-                "Endereço" // Trocar pro endereço do usuário
-                ,style: TextStyle(
-                  fontSize: 18.0,
-                  color:Colors.black45,
-                  letterSpacing: 2.0,
-                  fontWeight: FontWeight.w300
-              ),
-              ),
             ],
           ),
-        )
-    )
-    );
+        )));
+  }
+
+  void _changePerfil() async {
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Informações do usuário",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.green,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.w300,
+                    )),
+                TextField(
+                  controller: _nomeController,
+                  decoration:
+                      const InputDecoration(labelText: 'Nome do usuário'),
+                ),
+                ElevatedButton(
+                  child: const Text('Alterar perfil'),
+                  onPressed: null,
+                )
+              ],
+            ),
+          );
+        });
   }
 }
