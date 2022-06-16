@@ -20,6 +20,9 @@ public class PessoaModel implements Serializable {
     @Column(nullable = false, length = 45)
     private String email;
 
+    @Column(nullable = false, length = 45)
+    private String password;
+
     @OneToOne
     @JoinColumn(name = "idLogradouro")
     private LogradouroModel fkLogradouro;
@@ -27,12 +30,13 @@ public class PessoaModel implements Serializable {
     public PessoaModel() {
     }
 
-    public PessoaModel(Integer idPessoa, String nome, String telefone, String cpf, String email, LogradouroModel fkLogradouro) {
+    public PessoaModel(Integer idPessoa, String nome, String telefone, String cpf, String email, String password, LogradouroModel fkLogradouro) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.telefone = telefone;
         this.cpf = cpf;
         this.email = email;
+        this.password = password;
         this.fkLogradouro = fkLogradouro;
     }
 
@@ -74,6 +78,14 @@ public class PessoaModel implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LogradouroModel getFkLogradouro() {
