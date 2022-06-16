@@ -22,5 +22,20 @@ class ProdutoModel {
     required this.validade,
     required this.peso,
   });
+
+  static Future get() async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/produto'));
+    if (response.statusCode == 200) {
+      final parsed = jsonDecode(response.body).cast<String,dynamic>();
+      List<String> produtos = [];
+      for (var produto in parsed["content"]) {
+        produtos.add(produto["nome"]);
+      }
+      return produtos;
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
 }
 

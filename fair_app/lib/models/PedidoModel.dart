@@ -21,7 +21,7 @@ class PedidoModel {
 
   static Future get(id) async {
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:8080/pedido'));
+        .get(Uri.parse('http://25.76.67.204:8080/pedido'));
     if (response.statusCode == 200) {
       final parsed = jsonDecode(response.body).cast<String,dynamic>();
       List<String> pedidos = [];

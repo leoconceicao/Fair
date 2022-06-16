@@ -1,7 +1,6 @@
-// main.dart
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:math';
+
+import '../models/ProdutoModel.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,49 +10,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // We will fetch data from this Rest api
-  final _baseUrl = 'https://jsonplaceholder.typicode.com/posts';
-
-  // At the beginning, we fetch the first 20 posts
-  int _page = 0;
-  int _limit = 20;
-
-  // There is next page or not
-  bool _hasNextPage = true;
-
-  // Used to display loading indicators when _firstLoad function is running
-  bool _isFirstLoadRunning = false;
-
-  // Used to display loading indicators when _loadMore function is running
+  final bool _canShowButton = true;
+  final TextEditingController _searchController = TextEditingController();
+  final bool _hasNextPage = true;
+  final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
+  bool search = false;
 
-  // This holds the posts fetched from the server
-  List _posts = [];
-
-  // This function will be triggered whenver the user scroll
-  // to near the bottom of the list view
   void _loadMore() async {
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
         _controller.position.extentAfter < 300) {
       setState(() {
-        _isLoadMoreRunning = true; // Display a progress indicator at the bottom
+        _isLoadMoreRunning = true;
       });
-      _page += 1; // Increase _page by 1
       setState(() {
         _isLoadMoreRunning = false;
       });
     }
   }
 
-  // The controller for the ListView
   late ScrollController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = new ScrollController()..addListener(_loadMore);
+    _controller = ScrollController()
+      ..addListener(_loadMore);
   }
 
   @override
@@ -64,27 +48,125 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500,
       child: Scaffold(
-        body:  Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      controller: _controller,
-                      itemCount: 10,
-                      itemBuilder: (_, index) => const Card(
-                        child: ListTile(
-                          title: Text("Teste"),
-                          subtitle: Text("Teste"),
-                            tileColor: Colors.white
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+        body: search ? getFutureBuilder(context) : getFutureBuilder2(context),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Visibility(
+              visible: _canShowButton, // bool
+              child: FloatingActionButton(
+                onPressed: _searchProducts,
+                tooltip: 'Pesquisar',
+                child: const Icon(Icons.search),
+              ), // widget to show/hide
+            ),
+            const SizedBox(
+              width: 10.0,
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
+    List<String> values = snapshot.data;
+    return ListView.builder(
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Column(
+          children: <Widget>[
+            ListTile(
+              title: Text(values[index]),
+            ),
+            const Divider(
+              height: 2.0,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  FutureBuilder getFutureBuilder(BuildContext context) {
+    return FutureBuilder(
+      future: ProdutoModel.get(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return const Text('loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createListView(context, snapshot);
+            }
+        }
+      },
+    );
+  }
+
+  FutureBuilder getFutureBuilder2(BuildContext context) {
+    return FutureBuilder(
+      future: ProdutoModel.get(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return const Text('loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createListView(context, snapshot);
+            }
+        }
+      },
+    );
+  }
+
+  void _searchProducts() async {
+    _searchController.text = '';
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery
+                    .of(ctx)
+                    .viewInsets
+                    .bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  controller: _searchController,
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Digite aqui para pesquisar entre os produtos...'),
+                ),
+                ElevatedButton(
+                  child: const Text('Pesquisar'),
+                  onPressed: _callSearch,
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  void _callSearch() async {
+    setState(() {
+      search = _searchController.text == "" ? false : true;
+    });
   }
 }
