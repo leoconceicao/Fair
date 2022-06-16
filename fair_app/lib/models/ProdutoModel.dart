@@ -37,5 +37,19 @@ class ProdutoModel {
       return "Response: " + response.statusCode.toString();
     }
   }
+
+  static Future getByName(String name) async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/produto/byName/name=' + name));
+    if (response.statusCode == 200) {
+      List<String> produtos = [];
+      for (var produto in jsonDecode(response.body)) {
+        produtos.add(produto["nome"]);
+      }
+      return produtos;
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
 }
 

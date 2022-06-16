@@ -49,6 +49,11 @@ public class ProdutoPedidoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoModelOptional.get());
     }
 
+    @GetMapping("byName/name={name}")
+    public ResponseEntity<Object> getProdutoPedido(@PathVariable(value = "name") String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoService.findByName(name));
+    }
+
     @PostMapping
     public ResponseEntity<Object> postProdutoPedido(@RequestBody @Valid ProdutoPedidoDto produtoPedidoDto) {
         var produtoPedidoModel = new ProdutoPedidoModel();

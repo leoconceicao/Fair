@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,10 @@ public class ProdutoPedidoService {
     }
     public Optional<ProdutoPedidoModel> findById(Integer produto, Integer pedido) {
         return produtoPedidoRepository.findById(produto, pedido);
+    }
+
+    public List<ProdutoPedidoModel> findByName(String name) {
+        return produtoPedidoRepository.findByName(name);
     }
 
     @Transactional

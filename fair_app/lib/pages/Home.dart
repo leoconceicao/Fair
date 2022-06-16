@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
     return SizedBox(
       height: 500,
       child: Scaffold(
-        body: search ? getFutureBuilder(context) : getFutureBuilder2(context),
+        body: search ? getFutureBuilderSearch(context) : getFutureBuilder(context),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -110,9 +110,9 @@ class _HomeState extends State<Home> {
     );
   }
 
-  FutureBuilder getFutureBuilder2(BuildContext context) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context) {
     return FutureBuilder(
-      future: ProdutoModel.get(),
+      future: ProdutoModel.getByName(_searchController.text),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

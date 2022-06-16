@@ -1,12 +1,14 @@
 package com.furb.projeto.services;
 
 import com.furb.projeto.models.ProdutoModel;
+import com.furb.projeto.models.ProdutoPedidoModel;
 import com.furb.projeto.repositories.ProdutoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +26,10 @@ public class ProdutoService {
 
     public Optional<ProdutoModel> findById(Integer id) {
         return produtoRepository.findById(id);
+    }
+
+    public List<ProdutoModel> findByName(String name) {
+        return produtoRepository.findByName(name);
     }
 
     @Transactional
