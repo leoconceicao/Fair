@@ -1,8 +1,6 @@
 import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:flutter/material.dart';
 
-import '../models/PedidoModel.dart';
-
 class Pedidos extends StatefulWidget {
   const Pedidos({Key? key}) : super(key: key);
 
@@ -51,7 +49,7 @@ class _PedidosState extends State<Pedidos> {
     return SizedBox(
       height: 500,
       child: Scaffold(
-        body: search ? getFutureBuilder(context) : getFutureBuilder2(context),
+        body: search ? getFutureBuilderSearch(context) : getFutureBuilder(context),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -110,9 +108,9 @@ class _PedidosState extends State<Pedidos> {
     );
   }
 
-  FutureBuilder getFutureBuilder2(BuildContext context) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context) {
     return FutureBuilder(
-      future: PedidoModel.get("1"),
+      future: ProdutoPedidoModel.getByName(_searchController.text),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -164,6 +162,6 @@ class _PedidosState extends State<Pedidos> {
   void _callSearch() async {
     setState(() {
       search = _searchController.text == "" ? false : true;
-    });
+  });
   }
 }

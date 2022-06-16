@@ -39,5 +39,19 @@ class ProdutoPedidoModel {
       return "Response: " + response.statusCode.toString();
     }
   }
-}
 
+  static Future getByName(String name) async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/produtoPedido/byName/name=' + name));
+    if (response.statusCode == 200) {
+        List<String> pedidos = [];
+        for (var pedido in jsonDecode(response.body)) {
+          var produto = pedido["fkProduto"];
+          pedidos.add(produto["nome"]);
+        }
+        return pedidos;
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
+}
