@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fair_app/models/CidadeModel.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class Perfil extends StatefulWidget {
   const Perfil({Key? key}) : super(key: key);
@@ -131,6 +135,21 @@ class _PerfilState extends State<Perfil> {
                   decoration:
                       const InputDecoration(labelText: 'Nome do usuário'),
                 ),
+                TextField(
+                  controller: _telefoneController,
+                  decoration:
+                  const InputDecoration(labelText: 'Telefone do usuário'),
+                ),
+                TextField(
+                  controller: _cpfController,
+                  decoration:
+                  const InputDecoration(labelText: 'CPF do usuário'),
+                ),
+                TextField(
+                  controller: _emailController,
+                  decoration:
+                  const InputDecoration(labelText: 'E-mail do usuário'),
+                ),
                 ElevatedButton(
                   child: const Text('Alterar perfil'),
                   onPressed: null,
@@ -140,4 +159,20 @@ class _PerfilState extends State<Perfil> {
           );
         });
   }
+
+  Future<List<String>> get() async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/cidade'));
+    if (response.statusCode == 200) {
+      final parsed = jsonDecode(response.body).cast<String,dynamic>();
+      List<String> cidades = [];
+      for (var cidade in parsed["content"]) {
+        cidades.add(cidade["dsCidade"]);
+      }
+      return cidades;
+    } else {
+      throw "Response: " + response.statusCode.toString();
+    }
+  }
+
 }

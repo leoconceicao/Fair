@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'pages/home.dart';
 import 'pages/Pedidos.dart';
 import 'pages/Perfil.dart';
+import 'pages/ProdutosPedido.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +20,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: const MyHomePage(title: 'Fair'),
+      routes: {
+        '/pedidos': (context) => const Pedidos(),
+        '/produtospedido': (context) => const ProdutosPedido(),
+      },
     );
   }
 }

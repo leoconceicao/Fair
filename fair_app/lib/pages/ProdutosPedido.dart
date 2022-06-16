@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:math';
 
+class ScreenArguments {
+  final String title;
+  final String message;
+
+  ScreenArguments(this.title, this.message);
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -78,6 +85,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Container(
       height: 500,
       child: Scaffold(
