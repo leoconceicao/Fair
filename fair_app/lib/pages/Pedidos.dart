@@ -81,6 +81,14 @@ class _PedidosState extends State<Pedidos> {
           children: <Widget>[
             ListTile(
               title: Text(values[index]),
+              onTap: () {
+                Navigator.pushNamed(context,
+                    '/produtospedido',
+                    arguments: ScreenArguments(
+                   'idProduto',
+                   values[index]
+                ));
+              },
             ),
             const Divider(
               height: 2.0,
