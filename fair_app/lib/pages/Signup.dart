@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../commons/theme.dart';
-import '../commons/widgets/checkbox.dart';
-import '../commons/widgets/loginOption.dart';
-import '../commons/widgets/primaryButton.dart';
-import '../commons/widgets/signupForm.dart';
-import 'login.dart';
+import '../commons/Theme.dart';
+import '../commons/widgets/Checkbox.dart';
+import '../commons/widgets/LoginOption.dart';
+import '../commons/widgets/PrimaryButton.dart';
+import '../commons/widgets/SignupForm.dart';
+import 'Login.dart';
 
 
 

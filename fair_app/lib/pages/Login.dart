@@ -2,10 +2,11 @@ import 'package:fair_app/pages/ResetPassword.dart';
 import 'package:fair_app/pages/Signup.dart';
 import 'package:flutter/material.dart';
 
-import '../commons/theme.dart';
-import '../commons/widgets/loginForm.dart';
-import '../commons/widgets/loginOption.dart';
-import '../commons/widgets/primaryButton.dart';
+import '../Main.dart';
+import '../commons/Theme.dart';
+import '../commons/widgets/LoginForm.dart';
+import '../commons/widgets/LoginOption.dart';
+import '../commons/widgets/PrimaryButton.dart';
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -108,10 +109,12 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-   void _validarLogin(context) {
+  void _validarLogin(context) {
     if (1 == 1) {
-      Navigator.pushNamed(context,
-          '/home');
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MyHomePage(title: 'Fair')));
     }
   }
 }

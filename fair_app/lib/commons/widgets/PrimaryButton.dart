@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme.dart';
+import '../Theme.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String buttonText;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme.dart';
+import '../Theme.dart';
 
 class CheckBox extends StatefulWidget {
   final String text;

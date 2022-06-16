@@ -1,5 +1,5 @@
 import 'package:fair_app/pages/Home.dart';
-import 'package:fair_app/pages/login.dart';
+import 'package:fair_app/pages/Login.dart';
 import 'package:flutter/material.dart';
 import 'pages/Home.dart';
 import 'pages/Pedidos.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       initialRoute: '/login',
-      home: const MyHomePage(title: 'Fair'),
+      // home: const MyHomePage(title: 'Fair'),
       routes: {
         '/login': (context) => const LogInScreen(),
         '/home': (context) => const Home(),
