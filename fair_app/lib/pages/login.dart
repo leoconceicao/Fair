@@ -84,8 +84,11 @@ class LogInScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const PrimaryButton(
-                buttonText: 'Log In',
+              ElevatedButton(
+                child: const Text('Log In'),
+                onPressed: () {
+                  _validarLogin(context);
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -103,5 +106,12 @@ class LogInScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+   void _validarLogin(context) {
+    if (1 == 1) {
+      Navigator.pushNamed(context,
+          '/home');
+    }
   }
 }
