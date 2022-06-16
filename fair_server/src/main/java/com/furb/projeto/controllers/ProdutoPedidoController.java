@@ -1,6 +1,7 @@
 package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.ProdutoPedidoDto;
+import com.furb.projeto.models.PedidoModel;
 import com.furb.projeto.models.ProdutoPedidoModel;
 import com.furb.projeto.repositories.PedidoRepository;
 import com.furb.projeto.repositories.ProdutoRepository;
@@ -49,9 +50,14 @@ public class ProdutoPedidoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoModelOptional.get());
     }
 
-    @GetMapping("byName/name={name}")
-    public ResponseEntity<Object> getProdutoPedido(@PathVariable(value = "name") String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoService.findByName(name));
+    @GetMapping("/findProdutosForPedido")
+    public ResponseEntity<Object> findProdutosForPedido() {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoService.findProdutosForPedido());
+    }
+
+    @GetMapping("/findByProdutosByName/{produto}")
+    public ResponseEntity<Object> findProdutosForPedido(@PathVariable(value = "pedido") String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoService.findByProductName(name));
     }
 
     @PostMapping

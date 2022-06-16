@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'dart:convert';
 
@@ -40,9 +41,9 @@ class ProdutoPedidoModel {
     }
   }
 
-  static Future getByName(String name) async {
+  static Future getById(String id) async {
     final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/produtoPedido/byName/name=' + name));
+        .get(Uri.parse('http://25.76.67.204:8080/produtoPedido/' + id));
     if (response.statusCode == 200) {
         List<String> pedidos = [];
         for (var pedido in jsonDecode(response.body)) {
@@ -54,4 +55,39 @@ class ProdutoPedidoModel {
       return "Response: " + response.statusCode.toString();
     }
   }
+
+  static Future findProdutosByName(String name) async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/findByProdutosByName/' + name));
+    if (response.statusCode == 200) {
+      List<String> produtos = [];
+      for (var produto in jsonDecode(response.body)) {
+        produtos.add(produto["nome"]);
+      }
+      return produtos;
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
+
+  static Future findProdutosForPedidos() async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/produtoPedido/findProdutosForPedido'));
+    if (response.statusCode == 200) {
+      Map<String, String> pedidos = HashMap();
+      for (var pedido in jsonDecode(response.body)) {
+        var produto = pedido["fkProduto"];
+          if (pedidos.containsKey(pedido["fkPedido"])) {
+            // pedidos[pedido["fkPedido"]] = (pedidos[pedido["fkPedido"]]! + " - " + produto["nome"])!;
+            pedidos[pedido["fkPedido"]] = produto["nome"];
+          } else {
+            pedidos[pedido["fkPedido"]] = pedido["fkPedido"];
+          }
+      }
+      return pedidos.entries.map((entry) => "${entry.key} + ${entry.value}").toList();
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
+
 }

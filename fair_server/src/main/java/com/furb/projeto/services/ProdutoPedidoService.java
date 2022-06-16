@@ -30,8 +30,12 @@ public class ProdutoPedidoService {
         return produtoPedidoRepository.findById(produto, pedido);
     }
 
-    public List<ProdutoPedidoModel> findByName(String name) {
-        return produtoPedidoRepository.findByName(name);
+    public List<ProdutoPedidoModel> findByProductName(String name) {
+        return produtoPedidoRepository.findByProductName(name);
+    }
+
+    public List<Object> findProdutosForPedido() {
+        return produtoPedidoRepository.findProdutosForPedido();
     }
 
     @Transactional

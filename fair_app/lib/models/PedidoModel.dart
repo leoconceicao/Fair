@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 class PedidoModel {
   final int idPedido;
+  final String data;
   final String periodicidade;
   final double peso;
   final int fkCliente;
@@ -13,6 +14,7 @@ class PedidoModel {
 
   const PedidoModel({
     required this.idPedido,
+    required this.data,
     required this.periodicidade,
     required this.peso,
     required this.fkCliente,
@@ -34,9 +36,40 @@ class PedidoModel {
     }
   }
 
+  static Future findPedidos() async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/pedido/findPedidos'));
+    if (response.statusCode == 200) {
+      final parsed = jsonDecode(response.body);
+      List<String> pedidos = [];
+      for (var pedido in parsed) {
+        pedidos.add(pedido["idPedido"].toString() + " - " + pedido["data"]);
+      }
+      return pedidos;
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
+
+  static Future findByPedidos() async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/pedido'));
+    if (response.statusCode == 200) {
+      final parsed = jsonDecode(response.body).cast<String,dynamic>();
+      List<String> pedidos = [];
+      for (var pedido in parsed["content"]) {
+        pedidos.add(pedido["idPedido"].toString());
+      }
+      return pedidos;
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
+
   factory PedidoModel.fromJson(Map<String, dynamic> json) {
     return PedidoModel(
       idPedido: json['idPedido'],
+      data: json['data'],
       periodicidade: json['periodicidade'],
       peso: json['peso'].toDouble(),
       fkCliente: json['fkCliente']["idPessoa"],

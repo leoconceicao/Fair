@@ -51,7 +51,7 @@ class _PedidosState extends State<Pedidos> {
     return SizedBox(
       height: 500,
       child: Scaffold(
-        body: search ? getFutureBuilder(context) : getFutureBuilder2(context),
+        body: search ? getFutureBuilderSearch(context, _searchController.text) : getFutureBuilder(context),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -101,7 +101,7 @@ class _PedidosState extends State<Pedidos> {
 
   FutureBuilder getFutureBuilder(BuildContext context) {
     return FutureBuilder(
-      future: ProdutoPedidoModel.get(),
+      future: PedidoModel.findPedidos(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -118,9 +118,9 @@ class _PedidosState extends State<Pedidos> {
     );
   }
 
-  FutureBuilder getFutureBuilder2(BuildContext context) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String name) {
     return FutureBuilder(
-      future: PedidoModel.get("1"),
+      future: ProdutoPedidoModel.findProdutosByName(name),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

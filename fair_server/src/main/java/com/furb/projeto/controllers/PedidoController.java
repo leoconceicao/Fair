@@ -44,6 +44,12 @@ public class PedidoController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(pedidoModelOptional.get());
     }
+    @GetMapping("/findPedidos")
+    public ResponseEntity<Object> findPedidos() {
+        return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findPedidos());
+    }
+
+
 
     @PostMapping
     public ResponseEntity<Object> postPedido(@RequestBody @Valid PedidoDto pedidoDto) {
