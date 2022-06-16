@@ -5,6 +5,7 @@ import '../commons/widgets/Checkbox.dart';
 import '../commons/widgets/LoginOption.dart';
 import '../commons/widgets/PrimaryButton.dart';
 import '../commons/widgets/SignupForm.dart';
+import '../main.dart';
 import 'Login.dart';
 
 
@@ -25,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
             Padding(
               padding: kDefaultPadding,
               child: Text(
-                'Create Account',
+                'Criar Conta',
                 style: titleText,
               ),
             ),
@@ -37,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Already a member?',
+                    'Já é cadastrado?',
                     style: subTitle,
                   ),
                   const SizedBox(
@@ -73,21 +74,19 @@ class SignUpScreen extends StatelessWidget {
             ),
             const Padding(
               padding: kDefaultPadding,
-              child: CheckBox('Agree to terms and conditions.'),
+              child: CheckBox('Eu concordo com os Termos e Serviços do Fair'),
             ),
             const SizedBox(
               height: 20,
             ),
-            const Padding(
-              padding: kDefaultPadding,
-              child: CheckBox('I have at least 18 years old.'),
-            ),
             const SizedBox(
               height: 20,
             ),
-            const Padding(
-              padding: kDefaultPadding,
-              child: PrimaryButton(buttonText: 'Sign Up'),
+            ElevatedButton(
+              child: const Text('Cadastrar Usuário'),
+              onPressed: () {
+                _validarCadastro(context);
+              },
             ),
             const SizedBox(
               height: 20,
@@ -113,5 +112,14 @@ class SignUpScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _validarCadastro(context) {
+    if (1 == 1) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MyHomePage(title: 'Fair')));
+    }
   }
 }

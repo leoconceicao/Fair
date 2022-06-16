@@ -27,13 +27,12 @@ class _CheckBoxState extends State<CheckBox> {
                 width: 20,
                 height: 20,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: kDarkGreyColor)),
+                    border: Border.all(color: Colors.black)),
                 child: _isSelected
                     ? const Icon(
                         Icons.check,
                         size: 17,
-                        color: Colors.green,
+                        color: Colors.green
                       )
                     : null,
               ),

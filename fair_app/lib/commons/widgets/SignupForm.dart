@@ -11,16 +11,45 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   bool _isObscure = true;
+  bool _isCNPJ = false;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        buildInputForm('First Name', false),
-        buildInputForm('Last Name', false),
+        buildInputForm('Nome', false),
+        buildInputForm('Sobrenome', false),
         buildInputForm('Email', false),
-        buildInputForm('Phone', false),
-        buildInputForm('Password', true),
-        buildInputForm('Confirm Password', true),
+        buildInputForm('Telefone', false),
+        buildInputForm('Endereço', false),
+        buildInputForm('CEP de Localização', false),
+        buildInputForm('Cidade', false),
+        buildInputForm('Estado', false),
+        CheckboxListTile(
+          title: const Text('É um fornecedor? Cadastre as informações da sua empresa!'),
+          value: _isCNPJ,
+          onChanged: (value) {
+            setState(() {
+              _isCNPJ = value!;
+            });
+          },
+        ),
+        Visibility(
+          visible: _isCNPJ, // bool
+          child: Column(
+            children:[
+              buildInputForm('Nome da Loja', false),
+              buildInputForm('CNPJ', false),
+              buildInputForm('Telefone da Loja', false),
+              buildInputForm('Endereço', false),
+              buildInputForm('CEP de Localização', false),
+              buildInputForm('Telefone', false),
+              buildInputForm('Cidade', false),
+              buildInputForm('Estado', false),
+            ]
+          ),
+        ),
+        buildInputForm('Senha', true),
+        buildInputForm('Confirmar Senha', true),
       ],
     );
   }
@@ -32,9 +61,9 @@ class _SignUpFormState extends State<SignUpForm> {
           obscureText: pass ? _isObscure : false,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: kTextFieldColor),
+            hintStyle: const TextStyle(color: Colors.black),
             focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: kPrimaryColor)),
+                borderSide: BorderSide(color: Colors.black)),
             suffixIcon: pass
                 ? IconButton(
                     onPressed: () {
@@ -45,11 +74,11 @@ class _SignUpFormState extends State<SignUpForm> {
                     icon: _isObscure
                         ? const Icon(
                             Icons.visibility_off,
-                            color: kTextFieldColor,
+                            color: Colors.green,
                           )
                         : const Icon(
                             Icons.visibility,
-                            color: kPrimaryColor,
+                            color: Colors.green,
                           ))
                 : null,
           ),
