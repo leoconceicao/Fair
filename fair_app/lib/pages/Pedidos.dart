@@ -1,7 +1,7 @@
 import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:flutter/material.dart';
+
 import '../commons/ScreenArguments.dart';
-import 'ProdutosPedido.dart';
 import '../models/PedidoModel.dart';
 
 class Pedidos extends StatefulWidget {
@@ -52,7 +52,9 @@ class _PedidosState extends State<Pedidos> {
     return SizedBox(
       height: 500,
       child: Scaffold(
-        body: search ? getFutureBuilderSearch(context, _searchController.text) : getFutureBuilder(context),
+        body: search
+            ? getFutureBuilderSearch(context, _searchController.text)
+            : getFutureBuilder(context),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -83,12 +85,8 @@ class _PedidosState extends State<Pedidos> {
             ListTile(
               title: Text(values[index]),
               onTap: () {
-                Navigator.pushNamed(context,
-                    '/produtospedido',
-                    arguments: ScreenArguments(
-                    'idProduto',
-                   values[index]
-                ));
+                Navigator.pushNamed(context, '/produtospedido',
+                    arguments: ScreenArguments('idProduto', values[index]));
               },
             ),
             const Divider(

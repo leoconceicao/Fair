@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../Theme.dart';
-
 class CheckBox extends StatefulWidget {
   final String text;
   const CheckBox(this.text, {Key? key}) : super(key: key);
@@ -26,14 +24,10 @@ class _CheckBoxState extends State<CheckBox> {
               child: Container(
                 width: 20,
                 height: 20,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black)),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
                 child: _isSelected
-                    ? const Icon(
-                        Icons.check,
-                        size: 17,
-                        color: Colors.green
-                      )
+                    ? const Icon(Icons.check, size: 17, color: Colors.green)
                     : null,
               ),
             ),

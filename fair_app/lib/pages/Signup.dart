@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../commons/Theme.dart';
-import '../commons/widgets/Checkbox.dart';
-import '../commons/widgets/LoginOption.dart';
-import '../commons/widgets/PrimaryButton.dart';
 import '../commons/widgets/SignupForm.dart';
 import 'Login.dart';
 

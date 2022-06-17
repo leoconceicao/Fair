@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:fair_app/models/CidadeModel.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Perfil extends StatefulWidget {
   const Perfil({Key? key}) : super(key: key);
@@ -54,10 +53,10 @@ class _PerfilState extends State<Perfil> {
                   ),
                 ),
               ),*/
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Text(
+              const Text(
                 "Gustavo Bulhmann" //Trocar pelo nome do usuário
                 ,
                 style: TextStyle(
@@ -66,10 +65,10 @@ class _PerfilState extends State<Perfil> {
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.w400),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Email do usuário",
                 style: TextStyle(
                   fontSize: 14.0,
@@ -78,10 +77,10 @@ class _PerfilState extends State<Perfil> {
                   fontWeight: FontWeight.w300,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Blumenau, Santa Catarina" //Alterar para cidade pelo banco
                 ,
                 style: TextStyle(
@@ -90,17 +89,17 @@ class _PerfilState extends State<Perfil> {
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.w300),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ElevatedButton(
-                  child: Text(
+                  child: const Text(
                     "Alterar perfil",
                     style: TextStyle(
                         letterSpacing: 2.0, fontWeight: FontWeight.w300),
                   ),
                   onPressed: _changePerfil),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
             ],
@@ -123,7 +122,7 @@ class _PerfilState extends State<Perfil> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Informações do usuário",
+                const Text("Informações do usuário",
                     style: TextStyle(
                       fontSize: 14.0,
                       color: Colors.green,
@@ -138,20 +137,20 @@ class _PerfilState extends State<Perfil> {
                 TextField(
                   controller: _telefoneController,
                   decoration:
-                  const InputDecoration(labelText: 'Telefone do usuário'),
+                      const InputDecoration(labelText: 'Telefone do usuário'),
                 ),
                 TextField(
                   controller: _cpfController,
                   decoration:
-                  const InputDecoration(labelText: 'CPF do usuário'),
+                      const InputDecoration(labelText: 'CPF do usuário'),
                 ),
                 TextField(
                   controller: _emailController,
                   decoration:
-                  const InputDecoration(labelText: 'E-mail do usuário'),
+                      const InputDecoration(labelText: 'E-mail do usuário'),
                 ),
-                ElevatedButton(
-                  child: const Text('Alterar perfil'),
+                const ElevatedButton(
+                  child: Text('Alterar perfil'),
                   onPressed: null,
                 )
               ],
@@ -161,10 +160,10 @@ class _PerfilState extends State<Perfil> {
   }
 
   Future<List<String>> get() async {
-    final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/cidade'));
+    final response =
+        await http.get(Uri.parse('http://25.76.67.204:8080/cidade'));
     if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body).cast<String,dynamic>();
+      final parsed = jsonDecode(response.body).cast<String, dynamic>();
       List<String> cidades = [];
       for (var cidade in parsed["content"]) {
         cidades.add(cidade["dsCidade"]);
@@ -174,5 +173,4 @@ class _PerfilState extends State<Perfil> {
       throw "Response: " + response.statusCode.toString();
     }
   }
-
 }

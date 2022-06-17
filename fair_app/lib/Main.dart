@@ -59,7 +59,6 @@ class NewPageScreen extends StatelessWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _indiceAtual = 0;
   bool _canShowButton = true;
-  final TextEditingController _searchController = TextEditingController();
   final List<Widget> _telas = [const Home(), const Pedidos(), const Perfil()];
 
   void onTabTapped(int index) {
@@ -80,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _callSearch() async {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(

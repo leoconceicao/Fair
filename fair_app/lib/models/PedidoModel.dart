@@ -22,10 +22,10 @@ class PedidoModel {
   });
 
   static Future get(id) async {
-    final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/pedido'));
+    final response =
+        await http.get(Uri.parse('http://25.76.67.204:8080/pedido'));
     if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body).cast<String,dynamic>();
+      final parsed = jsonDecode(response.body).cast<String, dynamic>();
       List<String> pedidos = [];
       for (var pedido in parsed["content"]) {
         pedidos.add(pedido["idPedido"].toString());
@@ -52,10 +52,10 @@ class PedidoModel {
   }
 
   static Future findByPedidos() async {
-    final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/pedido'));
+    final response =
+        await http.get(Uri.parse('http://25.76.67.204:8080/pedido'));
     if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body).cast<String,dynamic>();
+      final parsed = jsonDecode(response.body).cast<String, dynamic>();
       List<String> pedidos = [];
       for (var pedido in parsed["content"]) {
         pedidos.add(pedido["idPedido"].toString());
@@ -77,4 +77,3 @@ class PedidoModel {
     );
   }
 }
-

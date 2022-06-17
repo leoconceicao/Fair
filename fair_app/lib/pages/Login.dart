@@ -15,6 +15,9 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
@@ -69,8 +72,8 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
               Column(
                 children: [
-                  buildInputForm('Email', false),
-                  buildInputForm('Password', true),
+                  buildInputForm('Email', _emailController, false),
+                  buildInputForm('Password', _passwordController, true),
                 ],
               ),
               const SizedBox(
@@ -81,7 +84,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ResetPasswordScreen()));
+                          builder: (context) => const ResetPasswordScreen()));
                 },
                 child: const Text(
                   'Forgot password?',
@@ -120,22 +123,11 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-  void _validarLogin(context) {
-    PessoaModel.findByEmail("1").then((value) => {
-      if (value["email"])
-        {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MyHomePage(title: 'Fair')))
-        }
-    });
-  }
-
-  Padding buildInputForm(String label, bool pass) {
+  Padding buildInputForm(String label, TextEditingController controller, bool pass) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
+        controller: controller,
         obscureText: pass ? _isObscure : false,
         decoration: InputDecoration(
             labelText: label,
@@ -167,4 +159,15 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
+  void _validarLogin(context) {
+    PessoaModel.findByEmail("1").then((value) => {
+      if (value["email"])
+        {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const MyHomePage(title: 'Fair')))
+        }
+    });
+  }
 }

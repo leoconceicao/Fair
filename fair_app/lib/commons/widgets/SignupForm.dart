@@ -48,7 +48,8 @@ class _SignUpFormState extends State<SignUpForm> {
         buildInputForm('Cidade', _cidadeController, false),
         buildInputForm('Estado', _estadoController, false),
         CheckboxListTile(
-          title: const Text('É um fornecedor? Cadastre as informações da sua empresa!'),
+          title: const Text(
+              'É um fornecedor? Cadastre as informações da sua empresa!'),
           value: _isCNPJ,
           onChanged: (value) {
             setState(() {
@@ -58,17 +59,15 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
         Visibility(
           visible: _isCNPJ, // bool
-          child: Column(
-            children:[
-              buildInputForm('Nome da Loja', _nomeLojaController, false),
-              buildInputForm('CNPJ', _cnpjController, false),
-              buildInputForm('Telefone da Loja', _telefoneLojaController, false),
-              buildInputForm('Endereço', _enderecoLojaController, false),
-              buildInputForm('CEP da Loja', _cepLojaController, false),
-              buildInputForm('Cidade', _cidadeLojaController, false),
-              buildInputForm('Estado', _estadoLojaController, false),
-            ]
-          ),
+          child: Column(children: [
+            buildInputForm('Nome da Loja', _nomeLojaController, false),
+            buildInputForm('CNPJ', _cnpjController, false),
+            buildInputForm('Telefone da Loja', _telefoneLojaController, false),
+            buildInputForm('Endereço', _enderecoLojaController, false),
+            buildInputForm('CEP da Loja', _cepLojaController, false),
+            buildInputForm('Cidade', _cidadeLojaController, false),
+            buildInputForm('Estado', _estadoLojaController, false),
+          ]),
         ),
         buildInputForm('Senha', _senhaController, true),
         buildInputForm('Confirmar Senha', _confirmaSenhaController, true),
@@ -120,7 +119,8 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  Padding buildInputForm(String hint, TextEditingController textEditingController, bool pass) {
+  Padding buildInputForm(
+      String hint, TextEditingController textEditingController, bool pass) {
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: TextFormField(

@@ -1,9 +1,7 @@
-import 'package:fair_app/pages/ProdutosPedido.dart';
 import 'package:flutter/material.dart';
 
 import '../commons/ScreenArguments.dart';
 import '../models/ProdutoModel.dart';
-import 'ProdutosLoja.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
