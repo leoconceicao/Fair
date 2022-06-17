@@ -11,7 +11,7 @@ class LoginOption extends StatelessWidget {
         BuildButton(
           iconImage: Image(
             height: 20,
-            width: 20,
+            width: 10,
             image: AssetImage('images/facebook.png'),
           ),
           textButton: 'Facebook',
@@ -19,7 +19,7 @@ class LoginOption extends StatelessWidget {
         BuildButton(
           iconImage: Image(
             height: 20,
-            width: 20,
+            width: 10,
             image: AssetImage('images/google.png'),
           ),
           textButton: 'Google',
@@ -39,17 +39,17 @@ class BuildButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
     return Container(
-      height: mediaQuery.height * 0.06,
-      width: mediaQuery.width * 0.36,
+      height: 600 * 0.06,
+      width: 400 * 0.36,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5),
           border: Border.all(color: Colors.grey)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           iconImage,
           const SizedBox(
-            width: 5,
+            width: 20,
           ),
           Text(textButton),
         ],
