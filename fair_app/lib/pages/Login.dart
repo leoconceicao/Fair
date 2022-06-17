@@ -4,15 +4,21 @@ import 'package:flutter/material.dart';
 
 import '../Main.dart';
 import '../commons/Theme.dart';
-import '../commons/widgets/LoginForm.dart';
 import '../commons/widgets/LoginOption.dart';
 import '../models/PessoaModel.dart';
 
-class LogInScreen extends StatelessWidget {
+class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
 
   @override
+  _LogInScreenState createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
+  bool _isObscure = true;
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Padding(
         padding: kDefaultPadding,
@@ -61,7 +67,12 @@ class LogInScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const LogInForm(),
+              Column(
+                children: [
+                  buildInputForm('Email', false),
+                  buildInputForm('Password', true),
+                ],
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -120,4 +131,40 @@ class LogInScreen extends StatelessWidget {
         }
     });
   }
+
+  Padding buildInputForm(String label, bool pass) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        obscureText: pass ? _isObscure : false,
+        decoration: InputDecoration(
+            labelText: label,
+            labelStyle: const TextStyle(
+              color: kTextFieldColor,
+            ),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: kPrimaryColor),
+            ),
+            suffixIcon: pass
+                ? IconButton(
+              onPressed: () {
+                setState(() {
+                  _isObscure = !_isObscure;
+                });
+              },
+              icon: _isObscure
+                  ? const Icon(
+                Icons.visibility_off,
+                color: kTextFieldColor,
+              )
+                  : const Icon(
+                Icons.visibility,
+                color: kPrimaryColor,
+              ),
+            )
+                : null),
+      ),
+    );
+  }
+
 }
