@@ -5,10 +5,7 @@ import '../commons/widgets/Checkbox.dart';
 import '../commons/widgets/LoginOption.dart';
 import '../commons/widgets/PrimaryButton.dart';
 import '../commons/widgets/SignupForm.dart';
-import '../main.dart';
 import 'Login.dart';
-
-
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -68,58 +65,10 @@ class SignUpScreen extends StatelessWidget {
             const Padding(
               padding: kDefaultPadding,
               child: SignUpForm(),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Padding(
-              padding: kDefaultPadding,
-              child: CheckBox('Eu concordo com os Termos e Serviços do Fair'),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              child: const Text('Cadastrar Usuário'),
-              onPressed: () {
-                _validarCadastro(context);
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: kDefaultPadding,
-              child: Text(
-                'Or log in with:',
-                style: subTitle.copyWith(color: kBlackColor),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Padding(
-              padding: kDefaultPadding,
-              child: LoginOption(),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+            )
           ],
         ),
       ),
     );
-  }
-
-  void _validarCadastro(context) {
-    if (1 == 1) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const MyHomePage(title: 'Fair')));
-    }
   }
 }
