@@ -45,6 +45,15 @@ public class PessoaController {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaModelOptional.get());
     }
 
+    @GetMapping("findByEmail/{email}")
+    public ResponseEntity<Object> findByEmail(@PathVariable(value = "email") String email) {
+        Optional<PessoaModel> pessoaModelOptional = pessoaService.findByEmail(email);
+        if (pessoaModelOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa not found.");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaModelOptional.get());
+    }
+
     @PostMapping
     public ResponseEntity<Object> postPessoa(@RequestBody @Valid PessoaDto pessoaDto) {
         var pessoaModel = new PessoaModel();

@@ -17,7 +17,7 @@ public class PessoaModel implements Serializable {
     private String telefone;
     @Column(nullable = false, length = 11)
     private String cpf;
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 45, unique=true)
     private String email;
 
     @Column(nullable = false, length = 45)

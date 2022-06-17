@@ -26,6 +26,10 @@ public class PessoaService {
         return pessoaRepository.findById(id);
     }
 
+    public Optional<PessoaModel> findByEmail(String email) {
+        return Optional.ofNullable(pessoaRepository.findByEmail(email));
+    }
+
     @Transactional
     public PessoaModel save(PessoaModel parkingSpotModel) {
         return pessoaRepository.save(parkingSpotModel);
