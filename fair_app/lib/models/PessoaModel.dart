@@ -21,14 +21,16 @@ class PessoaModel {
     required this.password,
   });
 
-  static Future<HashMap> findByEmail(email) async {
+  static Future<HashMap> findByEmail(email, password) async {
     final response = await http
         .get(Uri.parse('http://25.76.67.204:8080/pessoa/findByEmail/' + email));
     if (response.statusCode == 200) {
       final parsed = jsonDecode(response.body).cast<String, dynamic>();
       HashMap dadosPessoa = HashMap();
-      dadosPessoa["email"] = parsed["email"];
-      dadosPessoa["password"] = parsed["password"];
+      dadosPessoa["emailDb"] = parsed["email"];
+      dadosPessoa["passwordDb"] = parsed["password"];
+      dadosPessoa["email"] = email;
+      dadosPessoa["password"] = password;
       return dadosPessoa;
     }
     return HashMap();

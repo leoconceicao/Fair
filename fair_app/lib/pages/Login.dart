@@ -21,7 +21,6 @@ class _LogInScreenState extends State<LogInScreen> {
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Padding(
         padding: kDefaultPadding,
@@ -123,7 +122,8 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-  Padding buildInputForm(String label, TextEditingController controller, bool pass) {
+  Padding buildInputForm(
+      String label, TextEditingController controller, bool pass) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
@@ -139,35 +139,61 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
             suffixIcon: pass
                 ? IconButton(
-              onPressed: () {
-                setState(() {
-                  _isObscure = !_isObscure;
-                });
-              },
-              icon: _isObscure
-                  ? const Icon(
-                Icons.visibility_off,
-                color: kTextFieldColor,
-              )
-                  : const Icon(
-                Icons.visibility,
-                color: kPrimaryColor,
-              ),
-            )
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
+                    icon: _isObscure
+                        ? const Icon(
+                            Icons.visibility_off,
+                            color: kTextFieldColor,
+                          )
+                        : const Icon(
+                            Icons.visibility,
+                            color: kPrimaryColor,
+                          ),
+                  )
                 : null),
       ),
     );
   }
 
+  void alert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            content: Text("Email ou senha incorreta"),
+          );
+        });
+  }
+
   void _validarLogin(context) {
-    PessoaModel.findByEmail("1").then((value) => {
-      if (value["email"])
-        {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MyHomePage(title: 'Fair')))
-        }
-    });
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    // if (email == "" || password == "") {
+    //   alert();
+    // } else {
+      // PessoaModel.findByEmail(email, password).then((value) => {
+      //       if (value["email"].toString() == value["emailDb"].toString() &&
+      //           value["password"].toString() == value["passwordDb"].toString())
+      //         {
+      //           {
+      //             Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                     builder: (context) =>
+      //                         const MyHomePage(title: 'Fair')))
+      //           }
+      //         }
+      //       else
+      //         {alert()}
+      //     });
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MyHomePage(title: 'Fair')));
+    // }
   }
 }
