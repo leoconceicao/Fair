@@ -77,6 +77,4 @@ public class ProdutoLojaController {
         produtoLojaModel.setFkLoja(pedidoRepository.findByIdLoja(produtoLojaDto.getFkProduto()));
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoLojaService.save(produtoLojaModel));
     }
-
-
 }

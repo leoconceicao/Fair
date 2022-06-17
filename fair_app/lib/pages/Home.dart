@@ -41,8 +41,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _controller = ScrollController()
-      ..addListener(_loadMore);
+    _controller = ScrollController()..addListener(_loadMore);
   }
 
   @override
@@ -56,7 +55,9 @@ class _HomeState extends State<Home> {
     return SizedBox(
       height: 500,
       child: Scaffold(
-        body: search ? getFutureBuilderSearch(context) : getFutureBuilder(context),
+        body: search
+            ? getFutureBuilderSearch(context)
+            : getFutureBuilder(context),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -87,12 +88,10 @@ class _HomeState extends State<Home> {
             ListTile(
               title: Text(values[index].toString().split(" - ")[1]),
               onTap: () {
-                Navigator.pushNamed(context,
-                    '/produtosloja',
+                Navigator.pushNamed(context, '/produtosloja',
                     arguments: ScreenArguments(
-                        'idProduto',
-                        values[index].toString().split(" - ")[0]
-                    ));
+                        values[index].toString().split(" - ")[0],
+                        values[index].toString().split(" - ")[1]));
               },
             ),
             const Divider(
@@ -153,10 +152,7 @@ class _HomeState extends State<Home> {
                 top: 20,
                 left: 20,
                 right: 20,
-                bottom: MediaQuery
-                    .of(ctx)
-                    .viewInsets
-                    .bottom + 20),
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,7 +161,7 @@ class _HomeState extends State<Home> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                      'Digite aqui para pesquisar entre os produtos...'),
+                          'Digite aqui para pesquisar entre os produtos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),

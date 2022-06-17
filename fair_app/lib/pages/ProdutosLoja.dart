@@ -26,6 +26,7 @@ class ProdutosLoja extends StatefulWidget {
 class _ProdutosPedidoState extends State<ProdutosLoja> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
@@ -62,7 +63,8 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    String id = args.value.split(" - ")[0];
+    String id = args.key;
+    String title = args.value;
     return SizedBox(
       child: Scaffold(
         body: search
@@ -85,6 +87,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
           ],
         ),
         appBar: AppBar(
+          title: Text(title),
           actions: const <Widget>[],
         ),
       ),
@@ -172,7 +175,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                      'Digite aqui o produto a pesquisar entre os pedidos...'),
+                          'Digite aqui o produto a pesquisar entre os pedidos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),

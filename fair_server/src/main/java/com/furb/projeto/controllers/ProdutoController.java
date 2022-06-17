@@ -31,7 +31,7 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.findAll(pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("findById/{id}")
     public ResponseEntity<Object> getProduto(@PathVariable(value = "id") Integer id) {
         Optional<ProdutoModel> produtoModelOptional = produtoService.findById(id);
         if (produtoModelOptional.isEmpty()) {
@@ -44,7 +44,6 @@ public class ProdutoController {
     public ResponseEntity<Object> getProdutoPedido(@PathVariable(value = "name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.findByName(name));
     }
-
 
     @PostMapping
     public ResponseEntity<Object> postProduto(@RequestBody @Valid ProdutoDto produtoDto) {

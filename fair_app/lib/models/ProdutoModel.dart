@@ -24,15 +24,25 @@ class ProdutoModel {
   });
 
   static Future get() async {
-    final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/produto'));
+    final response =
+        await http.get(Uri.parse('http://25.76.67.204:8080/produto'));
     if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body).cast<String,dynamic>();
+      final parsed = jsonDecode(response.body).cast<String, dynamic>();
       List<String> produtos = [];
       for (var produto in parsed["content"]) {
         produtos.add(produto["idProduto"].toString() + " - " + produto["nome"]);
       }
       return produtos;
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
+
+  static Future<String> findById(String id) async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/produto/findById/' + id));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)["nome"];
     } else {
       return "Response: " + response.statusCode.toString();
     }

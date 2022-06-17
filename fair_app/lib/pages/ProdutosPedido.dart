@@ -85,6 +85,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
           ],
         ),
         appBar: AppBar(
+          title: Text(args.value),
           actions: const <Widget>[],
         ),
       ),
