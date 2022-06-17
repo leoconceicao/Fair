@@ -15,8 +15,8 @@ public interface ProdutoPedidoRepository extends JpaRepository<ProdutoPedidoMode
     @Query("SELECT u FROM ProdutoPedidoModel u WHERE u.fkProduto = :produto and u.fkPedido = :pedido")
     Optional<ProdutoPedidoModel> findById(@Param("produto") Integer produto, @Param("pedido") Integer pedido);
 
-    @Query("SELECT u FROM ProdutoPedidoModel u JOIN ProdutoModel p on u.fkProduto = p.idProduto")
-    List<Object> findProdutosForPedido();
+    @Query("SELECT u FROM ProdutoPedidoModel u JOIN ProdutoModel p on u.fkProduto = p.idProduto WHERE u.fkProduto.idProduto = :pedido")
+    List<Object> findProdutos(Integer pedido);
 
     @Query("SELECT u FROM ProdutoPedidoModel u JOIN ProdutoModel p on u.fkProduto = p.idProduto WHERE p.nome LIKE %:name%")
     List<ProdutoPedidoModel> findByProductName(@Param("name") String name);

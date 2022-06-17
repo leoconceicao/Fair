@@ -68,10 +68,12 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    String id = args.message.split(" - ")[0];
     return SizedBox(
-      height: 500,
       child: Scaffold(
-        body: search ? getFutureBuilder(context, args.message) : getFutureBuilder2(context, args.message),
+        body: search
+            ? getFutureBuilderSearch(context, id)
+            : getFutureBuilder(context, id),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -87,6 +89,9 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
               width: 10.0,
             ),
           ],
+        ),
+        appBar: AppBar(
+          actions: const <Widget>[],
         ),
       ),
     );
@@ -117,7 +122,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
 
   FutureBuilder getFutureBuilder(BuildContext context, String id) {
     return FutureBuilder(
-      future: ProdutoPedidoModel.getById(id),
+      future: ProdutoPedidoModel.findProdutos(id),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -134,7 +139,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
     );
   }
 
-  FutureBuilder getFutureBuilder2(BuildContext context, String id) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String id) {
     return FutureBuilder(
       future: ProdutoPedidoModel.getById(id),
       builder: (BuildContext context, AsyncSnapshot snapshot) {

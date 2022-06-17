@@ -50,9 +50,9 @@ public class ProdutoPedidoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoModelOptional.get());
     }
 
-    @GetMapping("/findProdutosForPedido")
-    public ResponseEntity<Object> findProdutosForPedido() {
-        return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoService.findProdutosForPedido());
+    @GetMapping("/findProdutos/{id}")
+    public ResponseEntity<Object> findProdutos(@PathVariable(value = "id") Integer pedido) {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoPedidoService.findProdutos(pedido));
     }
 
     @GetMapping("/findByProdutosByName/{produto}")

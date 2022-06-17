@@ -34,8 +34,8 @@ public class ProdutoPedidoService {
         return produtoPedidoRepository.findByProductName(name);
     }
 
-    public List<Object> findProdutosForPedido() {
-        return produtoPedidoRepository.findProdutosForPedido();
+    public List<Object> findProdutos(Integer pedido) {
+        return produtoPedidoRepository.findProdutos(pedido);
     }
 
     @Transactional

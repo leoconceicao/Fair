@@ -40,7 +40,7 @@ class ProdutoModel {
 
   static Future findByName(String name) async {
     final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/produto/' + name));
+        .get(Uri.parse('http://25.76.67.204:8080/produto/findByName/' + name));
     if (response.statusCode == 200) {
       List<String> produtos = [];
       for (var produto in jsonDecode(response.body)) {
