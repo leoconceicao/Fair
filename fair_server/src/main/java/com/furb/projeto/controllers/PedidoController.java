@@ -49,8 +49,6 @@ public class PedidoController {
         return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findPedidos());
     }
 
-
-
     @PostMapping
     public ResponseEntity<Object> postPedido(@RequestBody @Valid PedidoDto pedidoDto) {
         var pedidoModel = new PedidoModel();

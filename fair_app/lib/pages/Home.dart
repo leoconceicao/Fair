@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../commons/ScreenArguments.dart';
 import '../models/ProdutoModel.dart';
-import 'Vendedores.dart';
+import 'ProdutosLoja.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
               title: Text(values[index].toString().split(" - ")[1]),
               onTap: () {
                 Navigator.pushNamed(context,
-                    '/produtospedido',
+                    '/produtosloja',
                     arguments: ScreenArguments(
                         'idProduto',
                         values[index].toString().split(" - ")[0]

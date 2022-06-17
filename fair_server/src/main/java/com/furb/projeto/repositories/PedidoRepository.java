@@ -11,6 +11,7 @@ import java.util.List;
 public interface PedidoRepository extends JpaRepository<PedidoModel, Integer> {
 
     PedidoModel findByIdPedido(Integer idPedido);
+
     @Query("SELECT u FROM PedidoModel u")
     List<PedidoModel> findPedidos();
 }

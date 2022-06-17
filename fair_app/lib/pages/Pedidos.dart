@@ -84,9 +84,9 @@ class _PedidosState extends State<Pedidos> {
               title: Text(values[index]),
               onTap: () {
                 Navigator.pushNamed(context,
-                    '/vendedores',
+                    '/produtospedido',
                     arguments: ScreenArguments(
-                   'idLoja',
+                    'idProduto',
                    values[index]
                 ));
               },

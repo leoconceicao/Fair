@@ -1,6 +1,6 @@
 import 'package:fair_app/pages/Home.dart';
 import 'package:fair_app/pages/Login.dart';
-import 'package:fair_app/pages/Vendedores.dart';
+import 'package:fair_app/pages/ProdutosLoja.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/Home.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const Home(),
         '/pedidos': (context) => const Pedidos(),
         '/produtospedido': (context) => const ProdutosPedido(),
-        '/vendedores': (context) => const Vendedores(),
+        '/produtosloja': (context) => const ProdutosLoja(),
       },
     );
   }

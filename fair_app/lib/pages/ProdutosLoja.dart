@@ -1,8 +1,6 @@
-import 'package:fair_app/pages/ProdutosPedido.dart';
 import 'package:flutter/material.dart';
 import '../commons/ScreenArguments.dart';
-import '../models/LojaModel.dart';
-import '../models/ProdutosPedidoModel.dart';
+import '../models/ProdutosLojaModel.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -18,14 +16,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Vendedores extends StatefulWidget {
-  const Vendedores({Key? key}) : super(key: key);
+class ProdutosLoja extends StatefulWidget {
+  const ProdutosLoja({Key? key}) : super(key: key);
 
   @override
   _ProdutosPedidoState createState() => _ProdutosPedidoState();
 }
 
-class _ProdutosPedidoState extends State<Vendedores> {
+class _ProdutosPedidoState extends State<ProdutosLoja> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
   final bool _hasNextPage = true;
@@ -118,7 +116,7 @@ class _ProdutosPedidoState extends State<Vendedores> {
 
   FutureBuilder getFutureBuilder(BuildContext context, String idProduto) {
     return FutureBuilder(
-      future: LojaModel.findLojasByProduto(idProduto),
+      future: ProdutosLojaModel.findLojasByProduto(idProduto),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -135,9 +133,9 @@ class _ProdutosPedidoState extends State<Vendedores> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context, String id) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String idProduto) {
     return FutureBuilder(
-      future: LojaModel.findLojasByProduto(idProduto),
+      future: ProdutosLojaModel.findLojasByProduto(idProduto),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

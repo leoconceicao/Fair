@@ -1,7 +1,6 @@
 package com.furb.projeto.repositories;
 
 import com.furb.projeto.models.ProdutoModel;
-import com.furb.projeto.models.ProdutoPedidoModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
