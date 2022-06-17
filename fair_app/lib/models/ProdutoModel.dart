@@ -30,7 +30,7 @@ class ProdutoModel {
       final parsed = jsonDecode(response.body).cast<String,dynamic>();
       List<String> produtos = [];
       for (var produto in parsed["content"]) {
-        produtos.add(produto["nome"]);
+        produtos.add(produto["idProduto"].toString() + " - " + produto["nome"]);
       }
       return produtos;
     } else {

@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
+import '../commons/ScreenArguments.dart';
 import '../models/ProdutosPedidoModel.dart';
-
-class ScreenArguments {
-  final String title;
-  final String message;
-
-  ScreenArguments(this.title, this.message);
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -68,7 +62,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    String id = args.message.split(" - ")[0];
+    String id = args.value.split(" - ")[0];
     return SizedBox(
       child: Scaffold(
         body: search

@@ -1,26 +1,37 @@
 import 'package:fair_app/pages/ProdutosPedido.dart';
 import 'package:flutter/material.dart';
-
 import '../commons/ScreenArguments.dart';
-import '../models/ProdutoModel.dart';
-import 'Vendedores.dart';
+import '../models/LojaModel.dart';
+import '../models/ProdutosPedidoModel.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
+  // This widget is the root of your application.
   @override
-  _HomeState createState() => _HomeState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+    );
+  }
 }
 
-class _HomeState extends State<Home> {
+class Vendedores extends StatefulWidget {
+  const Vendedores({Key? key}) : super(key: key);
+
+  @override
+  _ProdutosPedidoState createState() => _ProdutosPedidoState();
+}
+
+class _ProdutosPedidoState extends State<Vendedores> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
   bool search = false;
-
-  List<String> productIds = [];
 
   void _loadMore() async {
     if (_hasNextPage == true &&
@@ -41,8 +52,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _controller = ScrollController()
-      ..addListener(_loadMore);
+    _controller = ScrollController()..addListener(_loadMore);
   }
 
   @override
@@ -53,10 +63,13 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    String id = args.value.split(" - ")[0];
     return SizedBox(
-      height: 500,
       child: Scaffold(
-        body: search ? getFutureBuilderSearch(context) : getFutureBuilder(context),
+        body: search
+            ? getFutureBuilderSearch(context, id)
+            : getFutureBuilder(context, id),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -73,6 +86,9 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
+        appBar: AppBar(
+          actions: const <Widget>[],
+        ),
       ),
     );
   }
@@ -85,14 +101,10 @@ class _HomeState extends State<Home> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index].toString().split(" - ")[1]),
+              title: Text(values[index]),
               onTap: () {
-                Navigator.pushNamed(context,
-                    '/produtospedido',
-                    arguments: ScreenArguments(
-                        'idProduto',
-                        values[index].toString().split(" - ")[0]
-                    ));
+                Navigator.pushNamed(context, '/produtospedido',
+                    arguments: ScreenArguments('idProduto', values[index]));
               },
             ),
             const Divider(
@@ -104,9 +116,9 @@ class _HomeState extends State<Home> {
     );
   }
 
-  FutureBuilder getFutureBuilder(BuildContext context) {
+  FutureBuilder getFutureBuilder(BuildContext context, String idProduto) {
     return FutureBuilder(
-      future: ProdutoModel.get(),
+      future: LojaModel.findLojasByProduto(idProduto),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -123,9 +135,9 @@ class _HomeState extends State<Home> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String id) {
     return FutureBuilder(
-      future: ProdutoModel.findByName(_searchController.text),
+      future: LojaModel.findLojasByProduto(idProduto),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -153,10 +165,7 @@ class _HomeState extends State<Home> {
                 top: 20,
                 left: 20,
                 right: 20,
-                bottom: MediaQuery
-                    .of(ctx)
-                    .viewInsets
-                    .bottom + 20),
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,7 +174,7 @@ class _HomeState extends State<Home> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                      'Digite aqui para pesquisar entre os produtos...'),
+                      'Digite aqui o produto a pesquisar entre os pedidos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),
