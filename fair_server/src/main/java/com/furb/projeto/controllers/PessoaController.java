@@ -55,7 +55,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> postPessoa(@RequestBody @Valid PessoaDto pessoaDto) {
+        public ResponseEntity<Object> postPessoa(@RequestBody @Valid PessoaDto pessoaDto) {
         var pessoaModel = new PessoaModel();
         BeanUtils.copyProperties(pessoaDto, pessoaModel);
         pessoaModel.setFkLogradouro(logradouroRepository.findByIdLogradouro(pessoaDto.getFkLogradouro()));

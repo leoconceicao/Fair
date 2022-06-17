@@ -1,5 +1,7 @@
 import 'package:fair_app/commons/widgets/Checkbox.dart';
+import 'package:fair_app/models/PessoaModel.dart';
 import 'package:flutter/material.dart';
+
 import '../../main.dart';
 import '../Theme.dart';
 import 'LoginOption.dart';
@@ -15,7 +17,6 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _isObscure = true;
   bool _isCNPJ = false;
   final TextEditingController _nomeController = TextEditingController();
-  final TextEditingController _sobrenomeController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _enderecoController = TextEditingController();
   final TextEditingController _telefoneController = TextEditingController();
@@ -32,21 +33,23 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _estadoLojaController = TextEditingController();
 
   final TextEditingController _senhaController = TextEditingController();
-  final TextEditingController _confirmaSenhaController = TextEditingController();
+  final TextEditingController _confirmaSenhaController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         buildInputForm('Nome', _nomeController, false),
-        buildInputForm('Sobrenome', _sobrenomeController, false),
-        buildInputForm('CPF', _cpfController, false),
         buildInputForm('Email', _emailController, false),
+        buildInputForm('CPF', _cpfController, false),
         buildInputForm('Telefone', _telefoneController, false),
-        buildInputForm('Endereço', _enderecoController, false),
-        buildInputForm('CEP de Localização', _cepController, false),
-        buildInputForm('Cidade', _cidadeController, false),
-        buildInputForm('Estado', _estadoController, false),
+        // buildInputForm('Endereço', _enderecoController, false),
+        // buildInputForm('CEP de Localização', _cepController, false),
+        // buildInputForm('Cidade', _cidadeController, false),
+        // buildInputForm('Estado', _estadoController, false),
+        buildInputForm('Senha', _senhaController, true),
+        buildInputForm('Confirmar Senha', _confirmaSenhaController, true),
         CheckboxListTile(
           title: const Text(
               'É um fornecedor? Cadastre as informações da sua empresa!'),
@@ -63,14 +66,12 @@ class _SignUpFormState extends State<SignUpForm> {
             buildInputForm('Nome da Loja', _nomeLojaController, false),
             buildInputForm('CNPJ', _cnpjController, false),
             buildInputForm('Telefone da Loja', _telefoneLojaController, false),
-            buildInputForm('Endereço', _enderecoLojaController, false),
-            buildInputForm('CEP da Loja', _cepLojaController, false),
-            buildInputForm('Cidade', _cidadeLojaController, false),
-            buildInputForm('Estado', _estadoLojaController, false),
+            // buildInputForm('Endereço', _enderecoLojaController, false),
+            // buildInputForm('CEP da Loja', _cepLojaController, false),
+            // buildInputForm('Cidade', _cidadeLojaController, false),
+            // buildInputForm('Estado', _estadoLojaController, false),
           ]),
         ),
-        buildInputForm('Senha', _senhaController, true),
-        buildInputForm('Confirmar Senha', _confirmaSenhaController, true),
         const SizedBox(
           height: 20,
         ),
@@ -152,12 +153,35 @@ class _SignUpFormState extends State<SignUpForm> {
         ));
   }
 
+  void alert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            content: Text("Erro ao se cadastrar"),
+          );
+        });
+  }
+
   void _validarCadastro(context) {
-    if (1 == 1) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const MyHomePage(title: 'Fair')));
-    }
+    PessoaModel pessoaModel = PessoaModel(
+        idPessoa: 0,
+        nome: _nomeController.text,
+        telefone: _telefoneController.text,
+        cpf: _cpfController.text,
+        email: _emailController.text,
+        password: _estadoController.text);
+
+    PessoaModel.addPessoa(pessoaModel).then((value) => {
+          if (value == "Success")
+            {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MyHomePage(title: 'Fair')))
+            } else {
+              alert()
+          }
+        });
   }
 }

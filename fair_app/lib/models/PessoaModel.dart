@@ -35,4 +35,25 @@ class PessoaModel {
     }
     return HashMap();
   }
+
+  static Future<String> addPessoa(PessoaModel pessoa) async {
+    final response = await http.post(
+        Uri.parse('http://25.76.67.204:8080/pessoa'),
+        body: pessoa.toJson().toString(),
+        headers: {"Content-Type": "application/json"});
+    if (response.statusCode == 200) {
+      return "Success";
+    } else {
+      return "Error";
+    }
+  }
+
+  Map<String, dynamic> toJson() => {
+        '"idPessoa"': "\"" + idPessoa.toString() + "\"",
+        '"nome"': "\"" + nome + "\"",
+        '"telefone"': "\"" + telefone + "\"",
+        '"cpf"': "\"" + cpf + "\"",
+        '"email"': "\"" + email + "\"",
+        '"password"': "\"" + password + "\""
+      };
 }
