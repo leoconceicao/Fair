@@ -190,9 +190,9 @@ class _LogInScreenState extends State<LogInScreen> {
                     {
                       FuncionarioModel.findByIdPessoa(value["idPessoa"])
                           .then((f) => {
+                        args["userId"] = value["idPessoa"],
                                 if (f == "null")
                                   {
-                                    args["userId"] = value["idPessoa"],
                                     Navigator.pushNamed(context, '/maincliente',
                                         arguments: ScreenArguments(
                                             'isCnpj', 'N', args)),
@@ -207,7 +207,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                         arguments: ScreenArguments(
                                             'idLoja',
                                             args["idLoja"].toString(),
-                                            HashMap()))
+                                            args))
                                   }
                               }),
                     }

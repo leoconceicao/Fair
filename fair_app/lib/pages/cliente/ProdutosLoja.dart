@@ -88,7 +88,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    idUser = args.a["userId"];
+    idUser = args.a["idUser"];
     String value = args.value;
     return SizedBox(
       child: Scaffold(
