@@ -55,7 +55,7 @@ public class ProdutoLojaController {
     }
 
     @GetMapping("findProdutosByLoja/{id}")
-    public ResponseEntity<Object> findLojasByProduto(@PathVariable(value = "id") Integer idLoja) {
+    public ResponseEntity<Object> findProdutosByLoja(@PathVariable(value = "id") Integer idLoja) {
         return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findProdutosByLoja(idLoja));
     }
 

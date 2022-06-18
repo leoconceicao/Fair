@@ -11,10 +11,12 @@ class ValidaTipoUsuario extends StatefulWidget {
 }
 
 class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
-  ScreenArguments argumentsDono = ScreenArguments('isCnpj', 'S', HashMap());
+  HashMap a = HashMap();
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    a["idLoja"] = args.value;
     if (1 == 2) {
       Navigator.pushNamed(context, '/maincliente',
           arguments: ScreenArguments('isCnpj', 'N', HashMap()));
@@ -37,7 +39,7 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
             child: const Text('Fair Para Dono'),
             onPressed: () {
               Navigator.pushNamed(context, '/maindono',
-                  arguments: ScreenArguments('isCnpj', 'S', HashMap()));
+                  arguments: ScreenArguments('isCnpj', 'S', a));
             },
           )
         ]))));

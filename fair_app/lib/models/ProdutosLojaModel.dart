@@ -37,7 +37,7 @@ class ProdutosLojaModel {
     }
   }
 
-  static Future findProdutosByLoja(int idLoja) async {
+  static Future findProdutosByLoja(String idLoja) async {
     final response = await http.get(Uri.parse(
         'http://25.76.67.204:8080/produtoLoja/findProdutosByLoja/' +
             idLoja.toString()));

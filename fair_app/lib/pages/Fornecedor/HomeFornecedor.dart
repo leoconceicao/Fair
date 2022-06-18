@@ -58,12 +58,13 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return SizedBox(
       height: 500,
       child: Scaffold(
         body: search
-            ? getFutureBuilderSearch(context)
-            : getFutureBuilder(context, 0),
+            ? getFutureBuilderSearch(context, args.a["idLoja"])
+            : getFutureBuilder(context, args.a["idLoja"]),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -117,7 +118,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
     );
   }
 
-  FutureBuilder getFutureBuilder(BuildContext context, int idLoja) {
+  FutureBuilder getFutureBuilder(BuildContext context, String idLoja) {
     return FutureBuilder(
       future: ProdutosLojaModel.findProdutosByLoja(idLoja),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -136,9 +137,9 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String idLoja) {
     return FutureBuilder(
-      future: ProdutoModel.findByName(_searchController.text),
+      future: ProdutosLojaModel.findProdutosByLoja(_searchController.text),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:fair_app/models/FuncionariosModel.dart';
 import 'package:fair_app/pages/ResetPassword.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 
 import '../commons/ScreenArguments.dart';
 import '../commons/Theme.dart';
-import '../commons/ValidaTipoUsuario.dart';
 import '../commons/widgets/LoginOption.dart';
 import '../models/PessoaModel.dart';
 
@@ -174,6 +174,7 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   void _validarLogin(context) {
+    HashMap args = HashMap();
     String email = _emailController.text;
     String password = _passwordController.text;
     if (email == "" || password == "") {
@@ -187,15 +188,16 @@ class _LogInScreenState extends State<LogInScreen> {
                       if (f == "null")
                         {
                           Navigator.pushNamed(context, '/maincliente',
-                              arguments: ScreenArguments('isCnpj', 'N', HashMap())),
+                              arguments:
+                                  ScreenArguments('isCnpj', 'N', HashMap())),
                         }
                       else
                         {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ValidaTipoUsuario()))
+                          args["idLoja"] = jsonDecode(f)
+                              .cast<String, dynamic>()["fkLoja"]["idLoja"],
+                          Navigator.pushNamed(context, '/validatipousuario',
+                              arguments: ScreenArguments(
+                                  'idLoja', args["idLoja"].toString(), HashMap()))
                         }
                     }),
               }

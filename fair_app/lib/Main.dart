@@ -9,6 +9,7 @@ import 'package:fair_app/pages/Fornecedor/HomeFornecedor.dart';
 import 'package:fair_app/pages/Login.dart';
 
 import 'commons/ScreenArguments.dart';
+import 'commons/ValidaTipoUsuario.dart';
 
 
 void main() {
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/pedidos': (context) => const Pedidos(),
         '/produtospedido': (context) => const ProdutosPedido(),
         '/produtosloja': (context) => const ProdutosLoja(),
+        '/validatipousuario': (context) => const ValidaTipoUsuario(),
       },
     );
   }
