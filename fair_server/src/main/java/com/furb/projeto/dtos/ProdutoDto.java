@@ -1,5 +1,6 @@
 package com.furb.projeto.dtos;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class ProdutoDto {
@@ -8,13 +9,13 @@ public class ProdutoDto {
     private String nome;
     private String tipo;
 
-    private BigInteger preco;
+    private BigDecimal preco;
 
     private String foto;
     private String validade;
-    private BigInteger peso;
+    private BigDecimal peso;
 
-    public ProdutoDto(Integer produtoId, String nome, String tipo, BigInteger preco, String foto, String validade, BigInteger peso) {
+    public ProdutoDto(Integer produtoId, String nome, String tipo, BigDecimal preco, String foto, String validade, BigDecimal peso) {
         this.produtoId = produtoId;
         this.nome = nome;
         this.tipo = tipo;
@@ -51,11 +52,11 @@ public class ProdutoDto {
         this.tipo = tipo;
     }
 
-    public BigInteger getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(BigInteger preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
@@ -75,11 +76,11 @@ public class ProdutoDto {
         this.validade = validade;
     }
 
-    public BigInteger getPeso() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setPeso(BigInteger peso) {
+    public void setPeso(BigDecimal peso) {
         this.peso = peso;
     }
 }

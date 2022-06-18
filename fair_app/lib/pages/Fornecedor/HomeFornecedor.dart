@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,8 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
   bool search = false;
+
+  String idLoja = "";
 
   List<String> productIds = [];
 
@@ -59,6 +62,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    idLoja = args.a["idLoja"];
     return SizedBox(
       height: 500,
       child: Scaffold(
@@ -84,11 +88,10 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                 onPressed: _addProduct,
                 tooltip: 'Adicionar produto',
                 child: const Icon(Icons.add),
-              )]
-            )
+              )
+            ])
           ],
         ),
-
       ),
     );
   }
@@ -106,7 +109,8 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                 Navigator.pushNamed(context, '/produtosloja',
                     arguments: ScreenArguments(
                         values[index].toString().split(" - ")[0],
-                        values[index].toString().split(" - ")[1], HashMap()));
+                        values[index].toString().split(" - ")[1],
+                        HashMap()));
               },
             ),
             const Divider(
@@ -176,7 +180,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                      'Digite aqui para pesquisar entre os produtos...'),
+                          'Digite aqui para pesquisar entre os produtos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),
@@ -206,37 +210,33 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
               children: [
                 TextField(
                   controller: _nomeController,
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Nome do produto'),
+                  decoration:
+                      const InputDecoration(labelText: 'Nome do produto'),
                 ),
                 TextField(
                   controller: _tipoController,
                   decoration: const InputDecoration(
-                      labelText:
-                      'Tipo de produto a ser vendido'),
+                      labelText: 'Tipo de produto a ser vendido'),
                 ),
                 TextField(
                   controller: _precoController,
                   keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Preço do produto'),
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration:
+                      const InputDecoration(labelText: 'Preço do produto'),
                 ),
                 TextField(
                   controller: _validadeController,
                   decoration: const InputDecoration(
                       labelText:
-                      'Validade do produto conforme (Ex. 01/01/2021)'),
+                          'Validade do produto conforme (Ex. 01/01/2021)'),
                 ),
                 TextField(
                   controller: _pesoController,
                   keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Peso do produto'),
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration:
+                      const InputDecoration(labelText: 'Peso do produto'),
                 ),
                 ElevatedButton(
                   child: const Text('Adicionar produto'),
@@ -257,6 +257,18 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
   }
 
   void _callAdd() async {
+    ProdutoModel p = ProdutoModel(
+        idProduto: 0,
+        nome: _nomeController.text,
+        tipo: _tipoController.text,
+        preco: double.parse(_precoController.text),
+        foto: "null",
+        validade: _validadeController.text,
+        peso: double.parse(_pesoController.text));
 
+    ProdutoModel.addProduto(p).then((value) => {
+      jsonDecode(value),
+      ProdutosLojaModel.addProdutoLoja(jsonDecode(value)["idProduto"], 1, jsonDecode(value)["preco"])
+    });
   }
 }

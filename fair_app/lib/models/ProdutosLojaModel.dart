@@ -6,17 +6,25 @@ import 'package:http/http.dart' as http;
 class ProdutosLojaModel {
   final int fkProduto;
   final int fkLoja;
+  final double preco;
 
   const ProdutosLojaModel({
     required this.fkProduto,
     required this.fkLoja,
+    required this.preco,
   });
 
-  factory ProdutosLojaModel.fromJson(Map<String, dynamic> json) {
-    return ProdutosLojaModel(
-      fkProduto: json['fkProduto'],
-      fkLoja: json['fkLoja'],
-    );
+  static Future<String> addProdutoLoja(int idProduto, int idLoja, double preco) async {
+    ProdutosLojaModel plm = ProdutosLojaModel(fkProduto: idProduto, fkLoja: idLoja, preco: preco);
+    final response = await http.post(
+        Uri.parse('http://25.76.67.204:8080/produtoLoja'),
+        body: plm.toJson().toString(),
+        headers: {"Content-Type": "application/json"});
+    if (response.statusCode == 201) {
+      return response.body;
+    } else {
+      return "Error";
+    }
   }
 
   static Future findLojasByProduto(String idProduto) async {
@@ -54,4 +62,18 @@ class ProdutosLojaModel {
       return "Response: " + response.statusCode.toString();
     }
   }
+
+  factory ProdutosLojaModel.fromJson(Map<String, dynamic> json) {
+    return ProdutosLojaModel(
+      fkProduto: json['fkProduto'],
+      fkLoja: json['fkLoja'],
+      preco: json['preco'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    '"fkProduto"': fkProduto.toString(),
+    '"fkLoja"': "\"" + fkLoja.toString() + "\"",
+    '"preco"': "\"" + preco.toString() + "\"",
+  };
 }

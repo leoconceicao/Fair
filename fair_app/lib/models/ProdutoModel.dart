@@ -60,4 +60,26 @@ class ProdutoModel {
       return "Response: " + response.statusCode.toString();
     }
   }
+
+  static Future<String> addProduto(ProdutoModel produto) async {
+    final response = await http.post(
+        Uri.parse('http://25.76.67.204:8080/produto'),
+        body: produto.toJson().toString(),
+        headers: {"Content-Type": "application/json"});
+    if (response.statusCode == 201) {
+      return response.body;
+    } else {
+      return "Error";
+    }
+  }
+
+  Map<String, dynamic> toJson() => {
+    '"idProduto"': idProduto.toString(),
+    '"nome"': "\"" + nome + "\"",
+    '"tipo"': "\"" + tipo + "\"",
+    '"preco"': preco,
+    '"foto"': "\"" + foto + "\"",
+    '"validade"': "\"" + validade + "\"",
+    '"peso"': peso.toString()
+  };
 }
