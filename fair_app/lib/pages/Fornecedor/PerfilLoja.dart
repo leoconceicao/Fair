@@ -15,15 +15,13 @@ class PerfilLoja extends StatefulWidget {
 class _PerfilLojaState extends State<PerfilLoja> {
   final mascaraTelefone = MaskTextInputFormatter(
       mask: '(##) #####-####',
-      filter: { "#": RegExp(r'[0-9]') },
-      type: MaskAutoCompletionType.lazy
-  );
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   final mascaraCNPJ = MaskTextInputFormatter(
       mask: '##.###.###/####-##',
-      filter: { "#": RegExp(r'[0-9]') },
-      type: MaskAutoCompletionType.lazy
-  );
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _telefoneController = TextEditingController();
@@ -107,7 +105,7 @@ class _PerfilLojaState extends State<PerfilLoja> {
               ),
               ElevatedButton(
                   child: const Text(
-                    "Alterar perfil",
+                    "Alterar informações loja",
                     style: TextStyle(
                         letterSpacing: 2.0, fontWeight: FontWeight.w300),
                   ),
@@ -144,32 +142,27 @@ class _PerfilLojaState extends State<PerfilLoja> {
                     )),
                 TextField(
                   controller: _nomeController,
-                  decoration:
-                      const InputDecoration(labelText: 'Nome'),
+                  decoration: const InputDecoration(labelText: 'Nome'),
                 ),
                 TextField(
                   controller: _telefoneController,
                   inputFormatters: [mascaraTelefone],
                   keyboardType: TextInputType.number,
-                  decoration:
-                      const InputDecoration(labelText: 'Telefone'),
+                  decoration: const InputDecoration(labelText: 'Telefone'),
                 ),
                 TextField(
                   controller: _cpfController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [mascaraCNPJ],
-                  decoration:
-                      const InputDecoration(labelText: 'CNPJ'),
+                  decoration: const InputDecoration(labelText: 'CNPJ'),
                 ),
                 TextField(
                   controller: _cidadeController,
-                  decoration:
-                  const InputDecoration(labelText: 'Cidade'),
+                  decoration: const InputDecoration(labelText: 'Cidade'),
                 ),
                 TextField(
                   controller: _estadoController,
-                  decoration:
-                  const InputDecoration(labelText: 'Estado'),
+                  decoration: const InputDecoration(labelText: 'Estado'),
                 ),
                 const ElevatedButton(
                   child: Text('Alterar perfil'),

@@ -3,7 +3,6 @@ import 'package:fair_app/pages/Cliente/Perfil.dart';
 import 'package:fair_app/pages/Cliente/ProdutosPedido.dart';
 import 'package:fair_app/pages/Fornecedor/PerfilLoja.dart';
 import 'package:fair_app/pages/Fornecedor/ProdutosLoja.dart';
-import 'package:fair_app/pages/Fornecedor/VendasFornecedor.dart';
 import 'package:flutter/material.dart';
 import 'package:fair_app/pages/Cliente/Home.dart';
 import 'package:fair_app/pages/Fornecedor/HomeFornecedor.dart';
@@ -91,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     _isCNPJ = args.value == 'S' ? true : false;
-    _telas = !_isCNPJ ? [const Home(), const Pedidos(), const Perfil()] : [const HomeFornecedor(), const VendasFornecedor(), const PerfilLoja()];
+    _telas = !_isCNPJ ? [const Home(), const Pedidos(), const Perfil()] : [const HomeFornecedor(), const ProdutosLoja(), const PerfilLoja()];
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
