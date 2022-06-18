@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:fair_app/models/FuncionariosModel.dart';
 import 'package:fair_app/pages/ResetPassword.dart';
 import 'package:fair_app/pages/Signup.dart';
@@ -185,7 +187,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       if (f == "null")
                         {
                           Navigator.pushNamed(context, '/maincliente',
-                              arguments: ScreenArguments('isCnpj', 'N')),
+                              arguments: ScreenArguments('isCnpj', 'N', HashMap())),
                         }
                       else
                         {

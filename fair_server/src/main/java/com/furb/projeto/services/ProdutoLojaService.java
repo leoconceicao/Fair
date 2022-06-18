@@ -31,6 +31,10 @@ public class ProdutoLojaService {
         return produtoLojaRepository.findLojasByProduto(idProduto);
     }
 
+    public List<ProdutoLojaModel> findProdutosByLoja(Integer idLoja) {
+        return produtoLojaRepository.findProdutosByLoja(idLoja);
+    }
+
     @Transactional
     public ProdutoLojaModel save(ProdutoLojaModel produtoPedidoModel) {
         return produtoLojaRepository.save(produtoPedidoModel);

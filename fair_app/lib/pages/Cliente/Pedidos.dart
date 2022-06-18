@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:flutter/material.dart';
 
@@ -86,7 +88,7 @@ class _PedidosState extends State<Pedidos> {
               title: Text(values[index]),
               onTap: () {
                 Navigator.pushNamed(context, '/produtospedido',
-                    arguments: ScreenArguments('idProduto', values[index]));
+                    arguments: ScreenArguments('idProduto', values[index],HashMap()));
               },
             ),
             const Divider(

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 
 import '../../commons/ScreenArguments.dart';
@@ -89,7 +91,8 @@ class _HomeState extends State<Home> {
                 Navigator.pushNamed(context, '/produtosloja',
                     arguments: ScreenArguments(
                         values[index].toString().split(" - ")[0],
-                        values[index].toString().split(" - ")[1]));
+                        values[index].toString().split(" - ")[1],
+                        HashMap()));
               },
             ),
             const Divider(

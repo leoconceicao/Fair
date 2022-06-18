@@ -54,6 +54,11 @@ public class ProdutoLojaController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findLojasByProduto(idProduto));
     }
 
+    @GetMapping("findProdutosByLoja/{id}")
+    public ResponseEntity<Object> findLojasByProduto(@PathVariable(value = "id") Integer idLoja) {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findProdutosByLoja(idLoja));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteProdutoLoja(@PathVariable(value = "id") Integer id) {
         Optional<ProdutoLojaModel> produtoLojaModelOptional = produtoLojaService.findById(id);

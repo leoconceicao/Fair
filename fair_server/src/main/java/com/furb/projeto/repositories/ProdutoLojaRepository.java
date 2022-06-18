@@ -13,4 +13,7 @@ public interface ProdutoLojaRepository extends JpaRepository<ProdutoLojaModel, I
 
     @Query("SELECT u FROM ProdutoLojaModel u WHERE u.fkProduto.idProduto = :produtoId")
     List<ProdutoLojaModel> findLojasByProduto(@Param("produtoId") Integer produtoId);
+
+    @Query("SELECT u FROM ProdutoLojaModel u WHERE u.fkProduto.idProduto = :produtoId")
+    List<ProdutoLojaModel> findProdutosByLoja(@Param("produtoId") Integer produtoId);
 }

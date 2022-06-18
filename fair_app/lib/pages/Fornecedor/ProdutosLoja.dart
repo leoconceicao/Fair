@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import '../../commons/ScreenArguments.dart';
 import '../../models/ProdutosLojaModel.dart';
@@ -102,7 +104,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
               title: Text(values[index]),
               onTap: () {
                 Navigator.pushNamed(context, '/produtospedido',
-                    arguments: ScreenArguments('idProduto', values[index]));
+                    arguments: ScreenArguments('idProduto', values[index],HashMap()));
               },
             ),
             const Divider(

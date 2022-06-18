@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:fair_app/commons/widgets/Checkbox.dart';
@@ -224,7 +225,7 @@ class _SignUpFormState extends State<SignUpForm> {
               else
                 {
                   Navigator.pushNamed(context, '/maincliente',
-                      arguments: ScreenArguments('isCnpj', 'N')),
+                      arguments: ScreenArguments('isCnpj', 'N', HashMap())),
                 },
             }
           else

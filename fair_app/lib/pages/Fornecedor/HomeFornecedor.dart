@@ -1,7 +1,10 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 
 import '../../commons/ScreenArguments.dart';
 import '../../models/ProdutoModel.dart';
+import '../../models/ProdutosLojaModel.dart';
 
 class HomeFornecedor extends StatefulWidget {
   const HomeFornecedor({Key? key}) : super(key: key);
@@ -60,7 +63,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
       child: Scaffold(
         body: search
             ? getFutureBuilderSearch(context)
-            : getFutureBuilder(context),
+            : getFutureBuilder(context, 0),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -102,7 +105,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                 Navigator.pushNamed(context, '/produtosloja',
                     arguments: ScreenArguments(
                         values[index].toString().split(" - ")[0],
-                        values[index].toString().split(" - ")[1]));
+                        values[index].toString().split(" - ")[1], HashMap()));
               },
             ),
             const Divider(
@@ -114,9 +117,9 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
     );
   }
 
-  FutureBuilder getFutureBuilder(BuildContext context) {
+  FutureBuilder getFutureBuilder(BuildContext context, int idLoja) {
     return FutureBuilder(
-      future: ProdutoModel.get(),
+      future: ProdutosLojaModel.findProdutosByLoja(idLoja),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
