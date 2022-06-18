@@ -17,10 +17,6 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     a["idLoja"] = args.value;
-    if (1 == 2) {
-      Navigator.pushNamed(context, '/maincliente',
-          arguments: ScreenArguments('isCnpj', 'N', HashMap()));
-    }
     return Scaffold(
         body: Center(
             child: SingleChildScrollView(
@@ -29,7 +25,7 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
           ElevatedButton(
-            child: const Text('Fair Para Funcionários'),
+            child: const Text('Fair'),
             onPressed: () {
               Navigator.pushNamed(context, '/mainfuncionario',
                   arguments: ScreenArguments('isCnpj', 'N', HashMap()));
