@@ -4,6 +4,7 @@ import 'package:fair_app/commons/ScreenArguments.dart';
 import 'package:fair_app/models/PedidoModel.dart';
 import 'package:fair_app/models/ProdutoModel.dart';
 import 'package:fair_app/models/ProdutosLojaModel.dart';
+import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:fair_app/pages/shared/ProdutosPedido.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,8 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   late String idProduto;
   late String idLoja;
   late int idUser;
-  late String nameProduto;
+  late int quantidade;
+  late String preco;
 
   void _loadMore() async {
     if (_hasNextPage == true &&
@@ -347,6 +349,8 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                 ElevatedButton(
                     child: const Text('Comprar'),
                     onPressed: () {
+                      quantidade = int.parse(_quantidadeController.text);
+                      preco = _precoController.text;
                       _callFinalizarCompra();
                     })
               ],
@@ -364,7 +368,9 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
         fkCliente: idUser,
         fkVendedor: int.parse(idLoja.replaceAll(" #", "")));
     PedidoModel.addPedido(pedidoModel).then((value) => {
-      // jsonDecode(response.body)
+      ProdutoPedidoModel.addProdutoPedido(ProdutoPedidoModel(idProdutoPedido: 0,
+        fkProduto: int.parse(idProduto), fkPedido: jsonDecode(value)["idPedido"],
+          quantidade: quantidade, peso: jsonDecode(value)["peso"], preco: double.parse(preco))),
       if (value == "Error")
             {
               showDialog(
