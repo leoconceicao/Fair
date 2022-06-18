@@ -23,26 +23,26 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
           arguments: ScreenArguments('isCnpj', 'N'));
     }
     return Scaffold(
-        body:Center( child:
-        SingleChildScrollView(
-            child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                          ElevatedButton(
-                            child: const Text('Fair Para Funcionários'),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/mainfuncionario',
-                                  arguments: ScreenArguments('isCnpj', 'N'));
-                            },
-                          ),
-                          ElevatedButton(
-                            child: const Text('Fair Para Dono'),
-                            onPressed: () {
-    Navigator.pushNamed(context, '/maindono',
-    arguments: ScreenArguments('isCnpj', 'S'));
-    },
-                          )
-                  ]))));
+        body: Center(
+            child: SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+          ElevatedButton(
+            child: const Text('Fair Para Funcionários'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/mainfuncionario',
+                  arguments: ScreenArguments('isCnpj', 'N'));
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Fair Para Dono'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/maindono',
+                  arguments: ScreenArguments('isCnpj', 'S'));
+            },
+          )
+        ]))));
   }
 }
