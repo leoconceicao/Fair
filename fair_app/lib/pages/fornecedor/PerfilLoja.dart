@@ -36,7 +36,7 @@ class _PerfilLojaState extends State<PerfilLoja> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    // List<String> valoresLoja = _buscaInfoLoja(args.a['idLoja']);
+    //List<String> valoresLoja = _buscaInfoLoja(args.a['idLoja']);
     return Container(
         height: 500,
         child: Scaffold(
