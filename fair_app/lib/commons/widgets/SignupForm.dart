@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 
 import '../ScreenArguments.dart';
 import '../Theme.dart';
-import '../ValidaTipoUsuario.dart';
 import 'LoginOption.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -24,19 +23,11 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _isCNPJ = false;
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _enderecoController = TextEditingController();
   final TextEditingController _telefoneController = TextEditingController();
-  final TextEditingController _cepController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
-  final TextEditingController _cidadeController = TextEditingController();
-  final TextEditingController _estadoController = TextEditingController();
   final TextEditingController _nomeLojaController = TextEditingController();
   final TextEditingController _cnpjController = TextEditingController();
-  final TextEditingController _cepLojaController = TextEditingController();
   final TextEditingController _telefoneLojaController = TextEditingController();
-  final TextEditingController _enderecoLojaController = TextEditingController();
-  final TextEditingController _cidadeLojaController = TextEditingController();
-  final TextEditingController _estadoLojaController = TextEditingController();
 
   final TextEditingController _senhaController = TextEditingController();
   final TextEditingController _confirmaSenhaController =
@@ -50,10 +41,6 @@ class _SignUpFormState extends State<SignUpForm> {
         buildInputForm('Email', _emailController, false),
         buildInputForm('CPF', _cpfController, false),
         buildInputForm('Telefone', _telefoneController, false),
-        // buildInputForm('Endereço', _enderecoController, false),
-        // buildInputForm('CEP de Localização', _cepController, false),
-        // buildInputForm('Cidade', _cidadeController, false),
-        // buildInputForm('Estado', _estadoController, false),
         buildInputForm('Senha', _senhaController, true),
         buildInputForm('Confirmar Senha', _confirmaSenhaController, true),
         CheckboxListTile(
@@ -72,10 +59,6 @@ class _SignUpFormState extends State<SignUpForm> {
             buildInputForm('Nome da Loja', _nomeLojaController, false),
             buildInputForm('CNPJ', _cnpjController, false),
             buildInputForm('Telefone da Loja', _telefoneLojaController, false),
-            // buildInputForm('Endereço', _enderecoLojaController, false),
-            // buildInputForm('CEP da Loja', _cepLojaController, false),
-            // buildInputForm('Cidade', _cidadeLojaController, false),
-            // buildInputForm('Estado', _estadoLojaController, false),
           ]),
         ),
         const SizedBox(
@@ -181,7 +164,6 @@ class _SignUpFormState extends State<SignUpForm> {
     late FuncionarioModel funcionarioModel = FuncionarioModel(0, "F", 0, 0);
 
     bool success = true;
-    var resultLoja;
     if (_isCNPJ) {
       LojaModel lojaModel = LojaModel(
           idLoja: 0,
@@ -205,6 +187,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   void addPessoa(bool success, PessoaModel pessoaModel,
       FuncionarioModel funcionarioModel, int idLoja) {
+    // ignore: prefer_typing_uninitialized_variables
     var resultPessoa;
     PessoaModel.addPessoa(pessoaModel).then((value) => {
           if (value != "Error" && success)
@@ -219,7 +202,6 @@ class _SignUpFormState extends State<SignUpForm> {
                             if (value == "Error")
                               {alert("Erro ao cadastrar funcionario")}
                           }),
-
                   Navigator.pushNamed(context, '/validatipousuario',
                       arguments: ScreenArguments(
                           'idLoja', idLoja.toString(), HashMap()))

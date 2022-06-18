@@ -1,8 +1,8 @@
-import 'dart:collection';
 import 'dart:convert';
 
 import 'package:fair_app/models/PedidoModel.dart';
 import 'package:flutter/material.dart';
+
 import '../../commons/ScreenArguments.dart';
 import '../../models/ProdutoModel.dart';
 import '../../models/ProdutosLojaModel.dart';
@@ -34,11 +34,14 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   final TextEditingController _precoController = TextEditingController();
   final TextEditingController _validadeController = TextEditingController();
   final TextEditingController _pesoController = TextEditingController();
-  final TextEditingController _pesoEscolhidoController = TextEditingController();
+  final TextEditingController _pesoEscolhidoController =
+      TextEditingController();
   final TextEditingController _quantidadeController = TextEditingController();
   final TextEditingController _dataEntregaController = TextEditingController();
-  final TextEditingController _periodicidadeController = TextEditingController();
-  final TextEditingController _numeroEntregasController = TextEditingController();
+  final TextEditingController _periodicidadeController =
+      TextEditingController();
+  final TextEditingController _numeroEntregasController =
+      TextEditingController();
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
@@ -119,11 +122,14 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index].split(" - ")[1] + " - " + values[index].split(" - ")[2]),
+              title: Text(values[index].split(" - ")[1] +
+                  " - " +
+                  values[index].split(" - ")[2]),
               onTap: () {
                 idProduto = values[index]
                     .toString()
-                    .split(" - ")[0].replaceAll("#", "");
+                    .split(" - ")[0]
+                    .replaceAll("#", "");
                 _showProductInfo();
               },
             ),
@@ -155,9 +161,11 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context, String nomeProduto, String nomeLoja) {
+  FutureBuilder getFutureBuilderSearch(
+      BuildContext context, String nomeProduto, String nomeLoja) {
     return FutureBuilder(
-      future: ProdutosLojaModel.findLojasByProdutoAndName(nomeProduto, nomeLoja),
+      future:
+          ProdutosLojaModel.findLojasByProdutoAndName(nomeProduto, nomeLoja),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -312,13 +320,14 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                   controller: _pesoEscolhidoController,
                   readOnly: false,
                   keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
+                      const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(labelText: 'Peso'),
                 ),
                 TextField(
                   controller: _dataEntregaController,
                   readOnly: false,
-                  decoration: const InputDecoration(labelText: 'Data de entrega'),
+                  decoration:
+                      const InputDecoration(labelText: 'Data de entrega'),
                 ),
                 TextField(
                   controller: _periodicidadeController,
@@ -328,7 +337,8 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                 TextField(
                   controller: _numeroEntregasController,
                   readOnly: false,
-                  decoration: const InputDecoration(labelText: 'Numero de entregas:'),
+                  decoration:
+                      const InputDecoration(labelText: 'Numero de entregas:'),
                 ),
                 ElevatedButton(
                     child: const Text('Comprar'),
@@ -342,10 +352,12 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   }
 
   void _callFinalizarCompra() async {
-      PedidoModel pedidoModel = PedidoModel(idPedido: 0,
-          data: _dataEntregaController.text,
-          periodicidade: _periodicidadeController.text,
-          peso: double.parse(_pesoController.text),
-          fkCliente: 0, fkVendedor: 0);
+    PedidoModel pedidoModel = PedidoModel(
+        idPedido: 0,
+        data: _dataEntregaController.text,
+        periodicidade: _periodicidadeController.text,
+        peso: double.parse(_pesoController.text),
+        fkCliente: 0,
+        fkVendedor: 0);
   }
 }

@@ -89,10 +89,8 @@ class _HomeState extends State<Home> {
               title: Text(values[index]),
               onTap: () {
                 Navigator.pushNamed(context, '/produtosloja',
-                    arguments: ScreenArguments(
-                        "nome",
-                        values[index],
-                        HashMap()));
+                    arguments:
+                        ScreenArguments("nome", values[index], HashMap()));
               },
             ),
             const Divider(

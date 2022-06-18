@@ -11,8 +11,9 @@ class FuncionarioModel {
   FuncionarioModel(this.idFuncionario, this.cargo, this.fkLoja, this.fkPessoa);
 
   static Future<String> findByIdPessoa(int id) async {
-    final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/funcionario/findByIdPessoa/' + id.toString()));
+    final response = await http.get(Uri.parse(
+        'http://25.76.67.204:8080/funcionario/findByIdPessoa/' +
+            id.toString()));
     if (response.statusCode == 200) {
       return response.body;
     } else {

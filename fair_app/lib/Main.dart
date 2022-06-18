@@ -110,10 +110,10 @@ class _MyHomePageState extends State<MyHomePage> {
         currentIndex: _indiceAtual,
         onTap: onTabTapped,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: !_isCNPJ ? 'Início' : 'Produtos'),
+          BottomNavigationBarItem(icon: const Icon(Icons.home), label: !_isCNPJ ? 'Início' : 'Produtos'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket), label: !_isCNPJ ? 'Meus pedidos' : 'Vendas'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: !_isCNPJ ? 'Perfil' : 'Loja'),
+              icon: const Icon(Icons.shopping_basket), label: !_isCNPJ ? 'Meus pedidos' : 'Vendas'),
+          BottomNavigationBarItem(icon: const Icon(Icons.person), label: !_isCNPJ ? 'Perfil' : 'Loja'),
         ],
       ),
     );

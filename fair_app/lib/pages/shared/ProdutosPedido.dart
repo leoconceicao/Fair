@@ -80,22 +80,6 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
         body: search
             ? getFutureBuilderSearch(context, idPedido)
             : getFutureBuilder(context, idPedido),
-        // floatingActionButton: Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: <Widget>[
-        //     Visibility(
-        //       visible: _canShowButton, // bool
-        //       child: FloatingActionButton(
-        //         onPressed: _searchProducts,
-        //         tooltip: 'Pesquisar',
-        //         child: const Icon(Icons.search),
-        //       ), // widget to show/hide
-        //     ),
-        //     const SizedBox(
-        //       width: 10.0,
-        //     ),
-        //   ],
-        // ),
         appBar: AppBar(
           title: Text(args.value),
           actions: const <Widget>[],
@@ -202,8 +186,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   }
 
   void _showProductInfo() async {
-    ProdutoModel.findProductById(idProduto)
-        .then((value) => {
+    ProdutoModel.findProductById(idProduto).then((value) => {
           _nomeController.text = jsonDecode(value)["nome"],
           _tipoController.text = jsonDecode(value)["tipo"],
           _pesoController.text = jsonDecode(value)["peso"].toString(),

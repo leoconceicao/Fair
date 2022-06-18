@@ -14,7 +14,6 @@ class VendasFornecedor extends StatefulWidget {
 }
 
 class _VendasFornecedorState extends State<VendasFornecedor> {
-  final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
@@ -60,22 +59,6 @@ class _VendasFornecedorState extends State<VendasFornecedor> {
         body: search
             ? getFutureBuilderSearch(context, userId, _searchController.text)
             : getFutureBuilder(context, userId),
-        // floatingActionButton: Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: <Widget>[
-        //     Visibility(
-        //       visible: _canShowButton, // bool
-        //       child: FloatingActionButton(
-        //         onPressed: _searchProducts,
-        //         tooltip: 'Pesquisar',
-        //         child: const Icon(Icons.search),
-        //       ), // widget to show/hide
-        //     ),
-        //     const SizedBox(
-        //       width: 10.0,
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }
@@ -91,7 +74,8 @@ class _VendasFornecedorState extends State<VendasFornecedor> {
               title: Text(values[index]),
               onTap: () {
                 Navigator.pushNamed(context, '/produtospedido',
-                    arguments: ScreenArguments('idProduto', values[index],HashMap()));
+                    arguments:
+                        ScreenArguments('idProduto', values[index], HashMap()));
               },
             ),
             const Divider(
@@ -122,7 +106,8 @@ class _VendasFornecedorState extends State<VendasFornecedor> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context,  int lojaId, String name) {
+  FutureBuilder getFutureBuilderSearch(
+      BuildContext context, int lojaId, String name) {
     return FutureBuilder(
       future: ProdutoPedidoModel.findProdutosByName(0, name),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -161,7 +146,7 @@ class _VendasFornecedorState extends State<VendasFornecedor> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                      'Digite aqui o produto a pesquisar entre os pedidos...'),
+                          'Digite aqui o produto a pesquisar entre os pedidos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),

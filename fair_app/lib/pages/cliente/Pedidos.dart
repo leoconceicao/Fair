@@ -59,22 +59,6 @@ class _PedidosState extends State<Pedidos> {
         body: search
             ? getFutureBuilderSearch(context, userId, _searchController.text)
             : getFutureBuilder(context, userId),
-        // floatingActionButton: Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: <Widget>[
-        //     Visibility(
-        //       visible: _canShowButton, // bool
-        //       child: FloatingActionButton(
-        //         onPressed: _searchProducts,
-        //         tooltip: 'Pesquisar',
-        //         child: const Icon(Icons.search),
-        //       ), // widget to show/hide
-        //     ),
-        //     const SizedBox(
-        //       width: 10.0,
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }
@@ -90,7 +74,8 @@ class _PedidosState extends State<Pedidos> {
               title: Text(values[index]),
               onTap: () {
                 Navigator.pushNamed(context, '/produtospedido',
-                    arguments: ScreenArguments('idProduto', values[index],HashMap()));
+                    arguments:
+                        ScreenArguments('idProduto', values[index], HashMap()));
               },
             ),
             const Divider(
@@ -121,7 +106,8 @@ class _PedidosState extends State<Pedidos> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context, int userId, String name) {
+  FutureBuilder getFutureBuilderSearch(
+      BuildContext context, int userId, String name) {
     return FutureBuilder(
       future: ProdutoPedidoModel.findProdutosByName(userId, name),
       builder: (BuildContext context, AsyncSnapshot snapshot) {

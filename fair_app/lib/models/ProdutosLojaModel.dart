@@ -54,7 +54,10 @@ class ProdutosLojaModel {
   static Future findLojasByProdutoAndName(String nome, String nomeLoja) async {
     final response = await http.get(Uri.parse(
         'http://25.76.67.204:8080/produtoLoja/findLojasByProdutoAndName/"' +
-            nome + '"/"' + nomeLoja + '"'));
+            nome +
+            '"/"' +
+            nomeLoja +
+            '"'));
     if (response.statusCode == 200) {
       List<String> lojas = [];
       for (var loja in jsonDecode(response.body)) {
@@ -93,7 +96,9 @@ class ProdutosLojaModel {
   static Future findProdutosByLojaAndName(String name, String idLoja) async {
     final response = await http.get(Uri.parse(
         'http://25.76.67.204:8080/produtoLoja/findProdutosByLoja/' +
-            idLoja.toString() + '/' + name));
+            idLoja.toString() +
+            '/' +
+            name));
     if (response.statusCode == 200) {
       List<String> produtos = [];
       for (var produto in jsonDecode(response.body)) {

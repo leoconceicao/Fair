@@ -210,9 +210,9 @@ class _LogInScreenState extends State<LogInScreen> {
                                             HashMap()))
                                   }
                               }),
-                    } else {
-                    alert()
-                  }
+                    }
+                  else
+                    {alert()}
                 }
               else
                 {alert()}

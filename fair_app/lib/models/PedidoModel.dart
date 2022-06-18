@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -22,13 +21,14 @@ class PedidoModel {
   });
 
   static Future findPedidos(int userId) async {
-    final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/pedido/findPedidos/' + userId.toString()));
+    final response = await http.get(Uri.parse(
+        'http://25.76.67.204:8080/pedido/findPedidos/' + userId.toString()));
     if (response.statusCode == 200) {
       final parsed = jsonDecode(response.body);
       List<String> pedidos = [];
       for (var pedido in parsed) {
-        pedidos.add("#" + pedido["idPedido"].toString() + " - " + pedido["data"]);
+        pedidos
+            .add("#" + pedido["idPedido"].toString() + " - " + pedido["data"]);
       }
       return pedidos;
     } else {
@@ -37,13 +37,14 @@ class PedidoModel {
   }
 
   static Future findVendas(int lojaId) async {
-    final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/pedido/findVendas/' + lojaId.toString()));
+    final response = await http.get(Uri.parse(
+        'http://25.76.67.204:8080/pedido/findVendas/' + lojaId.toString()));
     if (response.statusCode == 200) {
       final parsed = jsonDecode(response.body);
       List<String> pedidos = [];
       for (var pedido in parsed) {
-        pedidos.add("#" + pedido["idPedido"].toString() + " - " + pedido["data"]);
+        pedidos
+            .add("#" + pedido["idPedido"].toString() + " - " + pedido["data"]);
       }
       return pedidos;
     } else {

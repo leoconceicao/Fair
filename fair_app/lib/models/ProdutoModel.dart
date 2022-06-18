@@ -63,7 +63,8 @@ class ProdutoModel {
   }
 
   static Future findAllByName(name) async {
-    final response = await http.get(Uri.parse('http://25.76.67.204:8080/produto/findByName/' + name));
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/produto/findByName/' + name));
     if (response.statusCode == 200) {
       List<String> produtos = [];
       HashMap p = HashMap();
@@ -92,8 +93,8 @@ class ProdutoModel {
   }
 
   static Future<String> deactivate(int id) async {
-    final response = await http
-        .put(Uri.parse('http://25.76.67.204:8080/produto/deactivate/' + id.toString()));
+    final response = await http.put(Uri.parse(
+        'http://25.76.67.204:8080/produto/deactivate/' + id.toString()));
     if (response.statusCode == 201) {
       return "Deleted";
     } else {
@@ -102,12 +103,12 @@ class ProdutoModel {
   }
 
   Map<String, dynamic> toJson() => {
-    '"idProduto"': idProduto.toString(),
-    '"nome"': "\"" + nome + "\"",
-    '"tipo"': "\"" + tipo + "\"",
-    '"preco"': preco,
-    '"foto"': "\"" + foto + "\"",
-    '"validade"': "\"" + validade + "\"",
-    '"peso"': peso.toString()
-  };
+        '"idProduto"': idProduto.toString(),
+        '"nome"': "\"" + nome + "\"",
+        '"tipo"': "\"" + tipo + "\"",
+        '"preco"': preco,
+        '"foto"': "\"" + foto + "\"",
+        '"validade"': "\"" + validade + "\"",
+        '"peso"': peso.toString()
+      };
 }
