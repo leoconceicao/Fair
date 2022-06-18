@@ -63,9 +63,10 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    String id = args.key;
+    String id = args.key == 'isCnpj' ? '0' : args.key;
     String title = args.value;
     return SizedBox(
+      height: 500,
       child: Scaffold(
         body: search
             ? getFutureBuilderSearch(context, id)
@@ -85,10 +86,6 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
               width: 10.0,
             ),
           ],
-        ),
-        appBar: AppBar(
-          title: Text(title),
-          actions: const <Widget>[],
         ),
       ),
     );
