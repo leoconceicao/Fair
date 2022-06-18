@@ -52,6 +52,16 @@ class ProdutoModel {
     }
   }
 
+  // static Future<String> findProductById(String id, String name) async {
+  //   final response = await http
+  //       .get(Uri.parse('http://25.76.67.204:8080/produto/findProductByIdAndName/' + id));
+  //   if (response.statusCode == 200) {
+  //     return response.body;
+  //   } else {
+  //     return "Response: " + response.statusCode.toString();
+  //   }
+  // }
+
   static Future<String> findProductById(String id) async {
     final response = await http
         .get(Uri.parse('http://25.76.67.204:8080/produto/findById/' + id));

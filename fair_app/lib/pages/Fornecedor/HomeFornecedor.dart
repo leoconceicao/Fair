@@ -104,7 +104,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index].toString().split(" - ")[1]),
+              title: Text(values[index].toString()),
               onTap: () {
                 Navigator.pushNamed(context, '/produtosloja',
                     arguments: ScreenArguments(

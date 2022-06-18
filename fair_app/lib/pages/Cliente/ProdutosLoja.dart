@@ -1,7 +1,9 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import '../../commons/ScreenArguments.dart';
+import '../../models/ProdutoModel.dart';
 import '../../models/ProdutosLojaModel.dart';
 
 class MyApp extends StatelessWidget {
@@ -26,6 +28,11 @@ class ProdutosLoja extends StatefulWidget {
 }
 
 class _ProdutosPedidoState extends State<ProdutosLoja> {
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _tipoController = TextEditingController();
+  final TextEditingController _precoController = TextEditingController();
+  final TextEditingController _validadeController = TextEditingController();
+  final TextEditingController _pesoController = TextEditingController();
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
@@ -33,6 +40,9 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
   bool search = false;
+
+  late String idProduto;
+  late String nameProduto;
 
   void _loadMore() async {
     if (_hasNextPage == true &&
@@ -67,7 +77,6 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     String value = args.value;
     return SizedBox(
-      height: 500,
       child: Scaffold(
         body: search
             ? getFutureBuilderSearch(context, value)
@@ -88,6 +97,10 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
             ),
           ],
         ),
+        appBar: AppBar(
+          title: Text(args.value),
+          actions: const <Widget>[],
+        ),
       ),
     );
   }
@@ -100,10 +113,12 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index]),
+              title: Text(values[index].split(" - ")[1] + " - " + values[index].split(" - ")[2]),
               onTap: () {
-                Navigator.pushNamed(context, '/produtospedido',
-                    arguments: ScreenArguments('idProduto', values[index],HashMap()));
+                idProduto = values[index]
+                    .toString()
+                    .split(" - ")[0].replaceAll("#", "");
+                _showProductInfo();
               },
             ),
             const Divider(
@@ -134,9 +149,9 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context, String idProduto) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String nomeProduto) {
     return FutureBuilder(
-      future: ProdutosLojaModel.findLojasByProduto(idProduto),
+      future: ProdutosLojaModel.findLojasByProduto(nomeProduto),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -151,6 +166,70 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
         }
       },
     );
+  }
+
+  void _showProductInfo() async {
+    ProdutoModel.findProductById(idProduto).then((value) => {
+          _nomeController.text = jsonDecode(value)["nome"],
+          _tipoController.text = jsonDecode(value)["tipo"],
+          _pesoController.text = jsonDecode(value)["peso"].toString(),
+          _validadeController.text = jsonDecode(value)["validade"],
+          _precoController.text = jsonDecode(value)["preco"].toString(),
+        });
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Informações do Produto",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.green,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.w300,
+                    )),
+                TextField(
+                  controller: _nomeController,
+                  readOnly: true,
+                  decoration: const InputDecoration(labelText: 'Nome'),
+                ),
+                TextField(
+                  controller: _tipoController,
+                  readOnly: true,
+                  decoration: const InputDecoration(labelText: 'Tipo'),
+                ),
+                TextField(
+                  controller: _precoController,
+                  readOnly: true,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(labelText: 'Preço'),
+                ),
+                TextField(
+                  controller: _validadeController,
+                  readOnly: true,
+                  decoration: const InputDecoration(labelText: 'Validade'),
+                ),
+                TextField(
+                  controller: _pesoController,
+                  readOnly: true,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(labelText: 'Peso'),
+                )
+              ],
+            ),
+          );
+        });
   }
 
   void _searchProducts() async {
