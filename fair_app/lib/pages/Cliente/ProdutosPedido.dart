@@ -29,6 +29,11 @@ class ProdutosPedido extends StatefulWidget {
 class _ProdutosPedidoState extends State<ProdutosPedido> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _tipoController = TextEditingController();
+  final TextEditingController _precoController = TextEditingController();
+  final TextEditingController _validadeController = TextEditingController();
+  final TextEditingController _pesoController = TextEditingController();
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
@@ -96,7 +101,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   }
 
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<String> values = snapshot.data;
+    List<String> values = snapshot.data.runtimeType == String ? ['Teste'] : snapshot.data;
     return ListView.builder(
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
@@ -105,8 +110,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
             ListTile(
               title: Text(values[index]),
               onTap: () {
-                Navigator.pushNamed(context, '/produtospedido',
-                    arguments: ScreenArguments('idProduto', values[index], HashMap()));
+                _showProductInfo();
               },
             ),
             const Divider(
@@ -181,6 +185,73 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
                 ElevatedButton(
                   child: const Text('Pesquisar'),
                   onPressed: _callSearch,
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  void _showProductInfo() async {
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Informações do Produto",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.green,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.w300,
+                    )),
+                TextField(
+                  controller: _nomeController,
+                  readOnly: true,
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Nome'),
+                ),
+                TextField(
+                  controller: _tipoController,
+                  readOnly: true,
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Tipo'),
+                ),
+                TextField(
+                  controller: _precoController,
+                  readOnly: true,
+                  keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Preço'),
+                ),
+                TextField(
+                  controller: _validadeController,
+                  readOnly: true,
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Validade'),
+                ),
+                TextField(
+                  controller: _pesoController,
+                  readOnly: true,
+                  keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Peso'),
                 )
               ],
             ),
