@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -22,14 +23,18 @@ class ProdutoModel {
     required this.peso,
   });
 
-  static Future get() async {
+  static Future findAll() async {
     final response =
         await http.get(Uri.parse('http://25.76.67.204:8080/produto'));
     if (response.statusCode == 200) {
       final parsed = jsonDecode(response.body).cast<String, dynamic>();
       List<String> produtos = [];
+      HashMap p = HashMap();
       for (var produto in parsed["content"]) {
-        produtos.add(produto["idProduto"].toString() + " - " + produto["nome"]);
+        if (p[produto["nome"]] == null) {
+          p[produto["nome"]] = produto["nome"];
+          produtos.add(produto["nome"]);
+        }
       }
       return produtos;
     } else {
@@ -42,6 +47,16 @@ class ProdutoModel {
         .get(Uri.parse('http://25.76.67.204:8080/produto/findById/' + id));
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["nome"];
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
+
+  static Future<String> findProductById(String id) async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/produto/findById/' + id));
+    if (response.statusCode == 200) {
+      return response.body;
     } else {
       return "Response: " + response.statusCode.toString();
     }

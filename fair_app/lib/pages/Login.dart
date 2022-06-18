@@ -180,30 +180,46 @@ class _LogInScreenState extends State<LogInScreen> {
     if (email == "" || password == "") {
       alert();
     } else {
-      PessoaModel.findByEmail(email, password).then((value) => {
-            if (value["email"].toString() == value["emailDb"].toString() &&
-                value["password"].toString() == value["passwordDb"].toString())
-              {
-                FuncionarioModel.findByIdPessoa(value["idPessoa"]).then((f) => {
-                      if (f == "null")
-                        {
-                          Navigator.pushNamed(context, '/maincliente',
-                              arguments:
-                                  ScreenArguments('isCnpj', 'N', HashMap())),
-                        }
-                      else
-                        {
-                          args["idLoja"] = jsonDecode(f)
-                              .cast<String, dynamic>()["fkLoja"]["idLoja"],
-                          Navigator.pushNamed(context, '/validatipousuario',
-                              arguments: ScreenArguments(
-                                  'idLoja', args["idLoja"].toString(), HashMap()))
-                        }
-                    }),
-              }
-            else
-              {alert()}
-          });
+      try {
+        PessoaModel.findByEmail(email, password).then((value) => {
+              if (value["email"].toString() == value["emailDb"].toString() &&
+                  value["password"].toString() ==
+                      value["passwordDb"].toString())
+                {
+                  if (value["idPessoa"] != null)
+                    {
+                      FuncionarioModel.findByIdPessoa(value["idPessoa"])
+                          .then((f) => {
+                                if (f == "null")
+                                  {
+                                    args["userId"] = value["idPessoa"],
+                                    Navigator.pushNamed(context, '/maincliente',
+                                        arguments: ScreenArguments(
+                                            'isCnpj', 'N', args)),
+                                  }
+                                else
+                                  {
+                                    args["idLoja"] = jsonDecode(f)
+                                            .cast<String, dynamic>()["fkLoja"]
+                                        ["idLoja"],
+                                    Navigator.pushNamed(
+                                        context, '/validatipousuario',
+                                        arguments: ScreenArguments(
+                                            'idLoja',
+                                            args["idLoja"].toString(),
+                                            HashMap()))
+                                  }
+                              }),
+                    } else {
+                    alert()
+                  }
+                }
+              else
+                {alert()}
+            });
+      } on Exception {
+        alert();
+      }
     }
   }
 }

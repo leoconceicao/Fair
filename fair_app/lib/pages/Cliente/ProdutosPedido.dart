@@ -1,5 +1,7 @@
 import 'dart:collection';
+import 'dart:convert';
 
+import 'package:fair_app/models/ProdutoModel.dart';
 import 'package:flutter/material.dart';
 
 import '../../commons/ScreenArguments.dart';
@@ -39,6 +41,9 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   bool _isLoadMoreRunning = false;
   bool search = false;
 
+  late String idPedido;
+  late String idProduto;
+
   void _loadMore() async {
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
@@ -70,12 +75,12 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    String id = args.value.split(" - ")[0];
+    idPedido = args.value.split(" - ")[0];
     return SizedBox(
       child: Scaffold(
         body: search
-            ? getFutureBuilderSearch(context, id)
-            : getFutureBuilder(context, id),
+            ? getFutureBuilderSearch(context, idPedido)
+            : getFutureBuilder(context, idPedido),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -101,7 +106,8 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   }
 
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<String> values = snapshot.data.runtimeType == String ? ['Teste'] : snapshot.data;
+    List<String> values =
+        snapshot.data.runtimeType == String ? ['Teste'] : snapshot.data;
     return ListView.builder(
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
@@ -110,6 +116,10 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
             ListTile(
               title: Text(values[index]),
               onTap: () {
+                idProduto = values[index]
+                    .toString()
+                    .split(" - ")[0]
+                    .replaceAll("#", "");
                 _showProductInfo();
               },
             ),
@@ -193,6 +203,14 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   }
 
   void _showProductInfo() async {
+    ProdutoModel.findProductById(idProduto)
+        .then((value) => {
+          _nomeController.text = jsonDecode(value)["nome"],
+          _tipoController.text = jsonDecode(value)["tipo"],
+          _pesoController.text = jsonDecode(value)["peso"].toString(),
+          _validadeController.text = jsonDecode(value)["validade"],
+          _precoController.text = jsonDecode(value)["preco"].toString(),
+        });
     await showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -217,41 +235,31 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
                 TextField(
                   controller: _nomeController,
                   readOnly: true,
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Nome'),
+                  decoration: const InputDecoration(labelText: 'Nome'),
                 ),
                 TextField(
                   controller: _tipoController,
                   readOnly: true,
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Tipo'),
+                  decoration: const InputDecoration(labelText: 'Tipo'),
                 ),
                 TextField(
                   controller: _precoController,
                   readOnly: true,
                   keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Preço'),
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(labelText: 'Preço'),
                 ),
                 TextField(
                   controller: _validadeController,
                   readOnly: true,
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Validade'),
+                  decoration: const InputDecoration(labelText: 'Validade'),
                 ),
                 TextField(
                   controller: _pesoController,
                   readOnly: true,
                   keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Peso'),
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(labelText: 'Peso'),
                 )
               ],
             ),

@@ -56,12 +56,14 @@ class ProdutoPedidoModel {
 
   static Future findProdutos(String id) async {
     final response = await http.get(
-        Uri.parse('http://25.76.67.204:8080/produtoPedido/findProdutos/' + id));
+        Uri.parse('http://25.76.67.204:8080/produtoPedido/findProdutos/' + id.replaceAll("#", "")));
     if (response.statusCode == 200) {
       List<String> produtos = [];
       for (var pedido in jsonDecode(response.body)) {
         var produto = pedido["fkProduto"];
-        produtos.add(produto["nome"]);
+        produtos.add("#" + produto["idProduto"].toString() + " - " + produto["nome"] +
+            " - " + pedido["fkPedido"]["peso"].toString() + "kg" +
+            " - " + pedido["fkPedido"]["quantidade"].toString());
       }
       return produtos;
     } else {

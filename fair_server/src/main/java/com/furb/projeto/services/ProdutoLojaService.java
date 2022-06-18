@@ -27,8 +27,8 @@ public class ProdutoLojaService {
         return produtoLojaRepository.findById(id);
     }
 
-    public List<ProdutoLojaModel> findLojasByProduto(Integer idProduto) {
-        return produtoLojaRepository.findLojasByProduto(idProduto);
+    public List<ProdutoLojaModel> findLojasByProduto(String nome) {
+        return produtoLojaRepository.findLojasByProduto(nome);
     }
 
     public List<ProdutoLojaModel> findProdutosByLoja(Integer idLoja) {

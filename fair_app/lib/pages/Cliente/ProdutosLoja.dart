@@ -65,14 +65,13 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    String id = args.key == 'isCnpj' ? '0' : args.key;
-    String title = args.value;
+    String value = args.value;
     return SizedBox(
       height: 500,
       child: Scaffold(
         body: search
-            ? getFutureBuilderSearch(context, id)
-            : getFutureBuilder(context, id),
+            ? getFutureBuilderSearch(context, value)
+            : getFutureBuilder(context, value),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -116,9 +115,9 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     );
   }
 
-  FutureBuilder getFutureBuilder(BuildContext context, String idProduto) {
+  FutureBuilder getFutureBuilder(BuildContext context, String nome) {
     return FutureBuilder(
-      future: ProdutosLojaModel.findLojasByProduto(idProduto),
+      future: ProdutosLojaModel.findLojasByProduto(nome),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

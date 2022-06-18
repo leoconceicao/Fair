@@ -43,7 +43,7 @@ class PedidoModel {
       final parsed = jsonDecode(response.body);
       List<String> pedidos = [];
       for (var pedido in parsed) {
-        pedidos.add(pedido["idPedido"].toString() + " - " + pedido["data"]);
+        pedidos.add("#" + pedido["idPedido"].toString() + " - " + pedido["data"]);
       }
       return pedidos;
     } else {

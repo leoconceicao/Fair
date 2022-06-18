@@ -24,6 +24,10 @@ public class ProdutoService {
         return produtoRepository.findAll(pageable);
     }
 
+    public List<ProdutoModel> findDistinctProducts() {
+        return produtoRepository.findDistinctProducts();
+    }
+
     public Optional<ProdutoModel> findById(Integer id) {
         return produtoRepository.findById(id);
     }

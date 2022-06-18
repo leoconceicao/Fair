@@ -86,12 +86,12 @@ class _HomeState extends State<Home> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index].toString().split(" - ")[1]),
+              title: Text(values[index]),
               onTap: () {
                 Navigator.pushNamed(context, '/produtosloja',
                     arguments: ScreenArguments(
-                        values[index].toString().split(" - ")[0],
-                        values[index].toString().split(" - ")[1],
+                        "nome",
+                        values[index],
                         HashMap()));
               },
             ),
@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
 
   FutureBuilder getFutureBuilder(BuildContext context) {
     return FutureBuilder(
-      future: ProdutoModel.get(),
+      future: ProdutoModel.findAll(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

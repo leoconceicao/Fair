@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -15,4 +19,10 @@ public interface ProdutoRepository extends JpaRepository<ProdutoModel, Integer> 
 
     @Query("SELECT u FROM ProdutoModel u WHERE u.nome LIKE %:name%")
     List<ProdutoModel> findByName(@Param("name") String name);
+
+    @Query("SELECT DISTINCT nome FROM ProdutoModel u")
+    List<ProdutoModel> findDistinctProducts();
+
+
+
 }

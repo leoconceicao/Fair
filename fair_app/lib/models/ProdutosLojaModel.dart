@@ -27,16 +27,16 @@ class ProdutosLojaModel {
     }
   }
 
-  static Future findLojasByProduto(String idProduto) async {
+  static Future findLojasByProduto(String nome) async {
     final response = await http.get(Uri.parse(
-        'http://25.76.67.204:8080/produtoLoja/findLojasByProduto/' +
-            idProduto));
+        'http://25.76.67.204:8080/produtoLoja/findLojasByProduto/"' +
+            nome + '"'));
     if (response.statusCode == 200) {
       List<String> lojas = [];
       for (var loja in jsonDecode(response.body)) {
         lojas.add(loja["fkLoja"]["nome"] +
             " - R\$ " +
-            (loja["preco"] as int).toDouble().toString() +
+            (loja["preco"].toString()) +
             "0");
       }
       return lojas;

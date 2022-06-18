@@ -180,9 +180,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
     late FuncionarioModel funcionarioModel = FuncionarioModel(0, "F", 0, 0);
 
-    int fkLoja = 0;
-
-    var success = true;
+    bool success = true;
     var resultLoja;
     if (_isCNPJ) {
       LojaModel lojaModel = LojaModel(
@@ -191,36 +189,40 @@ class _SignUpFormState extends State<SignUpForm> {
           cnpj: _cnpjController.text,
           telefone: _telefoneLojaController.text);
       LojaModel.addLoja(lojaModel).then((value) => {
-            resultLoja = jsonDecode(value).cast<String, dynamic>(),
             if (value == "Error")
               {alert("Erro ao cadastrar loja"), success = false}
             else
-              {fkLoja = resultLoja["idLoja"]}
+              {
+                addPessoa(success, pessoaModel, funcionarioModel,
+                    jsonDecode(value).cast<String, dynamic>()["idLoja"])
+              }
           });
       funcionarioModel.cargo = "D";
+    } else {
+      addPessoa(success, pessoaModel, funcionarioModel, 0);
     }
+  }
 
-    int fkPessoa;
-
+  void addPessoa(bool success, PessoaModel pessoaModel,
+      FuncionarioModel funcionarioModel, int idLoja) {
     var resultPessoa;
     PessoaModel.addPessoa(pessoaModel).then((value) => {
           if (value != "Error" && success)
             {
-              resultPessoa = jsonDecode(value).cast<String, dynamic>(),
-              fkPessoa = resultPessoa["idPessoa"],
-              funcionarioModel.fkPessoa = fkPessoa,
-              funcionarioModel.fkLoja = fkLoja,
               if (_isCNPJ)
                 {
+                  resultPessoa = jsonDecode(value).cast<String, dynamic>(),
+                  funcionarioModel.fkPessoa = resultPessoa["idPessoa"],
+                  funcionarioModel.fkLoja = idLoja,
                   FuncionarioModel.addFuncionario(funcionarioModel)
                       .then((value) => {
                             if (value == "Error")
                               {alert("Erro ao cadastrar funcionario")}
                           }),
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ValidaTipoUsuario()))
+
+                  Navigator.pushNamed(context, '/validatipousuario',
+                      arguments: ScreenArguments(
+                          'idLoja', idLoja.toString(), HashMap()))
                 }
               else
                 {

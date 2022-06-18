@@ -49,9 +49,9 @@ public class ProdutoLojaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoLojaService.save(produtoLojaModel));
     }
 
-    @GetMapping("findLojasByProduto/{id}")
-    public ResponseEntity<Object> findLojasByProduto(@PathVariable(value = "id") Integer idProduto) {
-        return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findLojasByProduto(idProduto));
+    @GetMapping("findLojasByProduto/\"{nome}\"")
+    public ResponseEntity<Object> findLojasByProduto(@PathVariable(value = "nome") String nome) {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findLojasByProduto(nome));
     }
 
     @GetMapping("findProdutosByLoja/{id}")

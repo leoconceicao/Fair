@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -43,6 +44,11 @@ public class ProdutoController {
     @GetMapping("findByName/{name}")
     public ResponseEntity<Object> getProdutoPedido(@PathVariable(value = "name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.findByName(name));
+    }
+
+    @GetMapping("findDistinctProducts")
+    public ResponseEntity<List<ProdutoModel>> findDistinctProducts() {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoService.findDistinctProducts());
     }
 
     @PostMapping
