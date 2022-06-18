@@ -208,19 +208,18 @@ class _SignUpFormState extends State<SignUpForm> {
               fkPessoa = resultPessoa["idPessoa"],
               funcionarioModel.fkPessoa = fkPessoa,
               funcionarioModel.fkLoja = fkLoja,
-              FuncionarioModel.addFuncionario(funcionarioModel)
-                  .then((value) => {
-                        if (value != "Error")
-                          {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MyHomePage(title: 'Fair')))
-                          }
-                        else
-                          {alert("Erro ao cadastrar funcionario")}
-                      }),
+              if (_isCNPJ)
+                {
+                  FuncionarioModel.addFuncionario(funcionarioModel)
+                      .then((value) => {
+                            if (value == "Error")
+                              {alert("Erro ao cadastrar funcionario")}
+                          }),
+                },
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MyHomePage(title: 'Fair')))
             }
           else
             {alert("Erro ao cadastrar pessoa")}
