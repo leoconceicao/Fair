@@ -154,7 +154,11 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(labelText: 'Peso'),
-                )
+                ), ElevatedButton(
+                    child: const Text('Remover Produto'),
+                    onPressed: () {
+                      _callAdd();
+                    })
               ],
             ),
           );
@@ -209,7 +213,8 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
 
   FutureBuilder getFutureBuilderSearch(BuildContext context, String idLoja) {
     return FutureBuilder(
-      future: ProdutosLojaModel.findProdutosByLoja(_searchController.text),
+      future: ProdutosLojaModel.findProdutosByLojaAndName(
+          _searchController.text, idLoja),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

@@ -80,22 +80,22 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
         body: search
             ? getFutureBuilderSearch(context, idPedido)
             : getFutureBuilder(context, idPedido),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Visibility(
-              visible: _canShowButton, // bool
-              child: FloatingActionButton(
-                onPressed: _searchProducts,
-                tooltip: 'Pesquisar',
-                child: const Icon(Icons.search),
-              ), // widget to show/hide
-            ),
-            const SizedBox(
-              width: 10.0,
-            ),
-          ],
-        ),
+        // floatingActionButton: Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: <Widget>[
+        //     Visibility(
+        //       visible: _canShowButton, // bool
+        //       child: FloatingActionButton(
+        //         onPressed: _searchProducts,
+        //         tooltip: 'Pesquisar',
+        //         child: const Icon(Icons.search),
+        //       ), // widget to show/hide
+        //     ),
+        //     const SizedBox(
+        //       width: 10.0,
+        //     ),
+        //   ],
+        // ),
         appBar: AppBar(
           title: Text(args.value),
           actions: const <Widget>[],

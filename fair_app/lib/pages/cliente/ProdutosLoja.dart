@@ -79,7 +79,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     return SizedBox(
       child: Scaffold(
         body: search
-            ? getFutureBuilderSearch(context, value)
+            ? getFutureBuilderSearch(context, value, _searchController.text)
             : getFutureBuilder(context, value),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -149,9 +149,9 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context, String nomeProduto) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String nomeProduto, String nomeLoja) {
     return FutureBuilder(
-      future: ProdutosLojaModel.findLojasByProduto(nomeProduto),
+      future: ProdutosLojaModel.findLojasByProdutoAndName(nomeProduto, nomeLoja),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -225,7 +225,12 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(labelText: 'Peso'),
-                )
+                ),
+                ElevatedButton(
+                    child: const Text('Comprar'),
+                    onPressed: () {
+                      _callCompra();
+                    })
               ],
             ),
           );
@@ -268,5 +273,8 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     setState(() {
       search = _searchController.text == "" ? false : true;
     });
+  }
+
+  void _callCompra() async {
   }
 }

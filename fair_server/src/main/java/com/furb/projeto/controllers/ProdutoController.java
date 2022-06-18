@@ -42,7 +42,7 @@ public class ProdutoController {
     }
 
     @GetMapping("findByName/{name}")
-    public ResponseEntity<Object> getProdutoPedido(@PathVariable(value = "name") String name) {
+    public ResponseEntity<Object> findAllByName(@PathVariable(value = "name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.findByName(name));
     }
 

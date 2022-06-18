@@ -52,16 +52,6 @@ class ProdutoModel {
     }
   }
 
-  // static Future<String> findProductById(String id, String name) async {
-  //   final response = await http
-  //       .get(Uri.parse('http://25.76.67.204:8080/produto/findProductByIdAndName/' + id));
-  //   if (response.statusCode == 200) {
-  //     return response.body;
-  //   } else {
-  //     return "Response: " + response.statusCode.toString();
-  //   }
-  // }
-
   static Future<String> findProductById(String id) async {
     final response = await http
         .get(Uri.parse('http://25.76.67.204:8080/produto/findById/' + id));
@@ -72,13 +62,16 @@ class ProdutoModel {
     }
   }
 
-  static Future findByName(String name) async {
-    final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/produto/findByName/' + name));
+  static Future findAllByName(name) async {
+    final response = await http.get(Uri.parse('http://25.76.67.204:8080/produto/findByName/' + name));
     if (response.statusCode == 200) {
       List<String> produtos = [];
+      HashMap p = HashMap();
       for (var produto in jsonDecode(response.body)) {
-        produtos.add(produto["nome"]);
+        if (p[produto["nome"]] == null) {
+          p[produto["nome"]] = produto["nome"];
+          produtos.add(produto["nome"]);
+        }
       }
       return produtos;
     } else {

@@ -60,22 +60,22 @@ class _VendasFornecedorState extends State<VendasFornecedor> {
         body: search
             ? getFutureBuilderSearch(context, userId, _searchController.text)
             : getFutureBuilder(context, userId),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Visibility(
-              visible: _canShowButton, // bool
-              child: FloatingActionButton(
-                onPressed: _searchProducts,
-                tooltip: 'Pesquisar',
-                child: const Icon(Icons.search),
-              ), // widget to show/hide
-            ),
-            const SizedBox(
-              width: 10.0,
-            ),
-          ],
-        ),
+        // floatingActionButton: Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: <Widget>[
+        //     Visibility(
+        //       visible: _canShowButton, // bool
+        //       child: FloatingActionButton(
+        //         onPressed: _searchProducts,
+        //         tooltip: 'Pesquisar',
+        //         child: const Icon(Icons.search),
+        //       ), // widget to show/hide
+        //     ),
+        //     const SizedBox(
+        //       width: 10.0,
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

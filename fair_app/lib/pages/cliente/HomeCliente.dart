@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
 
   FutureBuilder getFutureBuilderSearch(BuildContext context) {
     return FutureBuilder(
-      future: ProdutoModel.findByName(_searchController.text),
+      future: ProdutoModel.findAllByName(_searchController.text),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

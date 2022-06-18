@@ -54,9 +54,19 @@ public class ProdutoLojaController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findLojasByProduto(nome));
     }
 
+    @GetMapping("findLojasByProdutoAndName/\"{nome}\"/\"{nomeLoja}\"")
+    public ResponseEntity<Object> findLojasByProdutoAndName(@PathVariable(value = "nome") String nome, @PathVariable(value = "nomeLoja") String nomeLoja) {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findLojasByProdutoAndName(nome, nomeLoja));
+    }
+
     @GetMapping("findProdutosByLoja/{id}")
     public ResponseEntity<Object> findProdutosByLoja(@PathVariable(value = "id") Integer idLoja) {
         return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findProdutosByLoja(idLoja));
+    }
+
+    @GetMapping("findProdutosByLoja/{id}/{nome}")
+    public ResponseEntity<Object> findProdutosByLojaAndName(@PathVariable(value = "id") Integer idLoja, @PathVariable(value = "nome") String nome) {
+        return ResponseEntity.status(HttpStatus.OK).body(produtoLojaService.findProdutosByLojaAndNome(idLoja, nome));
     }
 
     @DeleteMapping("/{id}")

@@ -31,8 +31,16 @@ public class ProdutoLojaService {
         return produtoLojaRepository.findLojasByProduto(nome);
     }
 
+    public List<ProdutoLojaModel> findLojasByProdutoAndName(String nome, String nomeLoja) {
+        return produtoLojaRepository.findLojasByProdutoAndName(nome, nomeLoja);
+    }
+
     public List<ProdutoLojaModel> findProdutosByLoja(Integer idLoja) {
         return produtoLojaRepository.findProdutosByLoja(idLoja);
+    }
+
+    public List<ProdutoLojaModel> findProdutosByLojaAndNome(Integer idLoja, String nome) {
+        return produtoLojaRepository.findProdutosByLojaAndNome(idLoja, nome);
     }
 
     @Transactional

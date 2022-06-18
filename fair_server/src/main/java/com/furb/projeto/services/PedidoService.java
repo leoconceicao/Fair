@@ -1,6 +1,7 @@
 package com.furb.projeto.services;
 
 import com.furb.projeto.models.PedidoModel;
+import com.furb.projeto.models.ProdutoModel;
 import com.furb.projeto.models.ProdutoPedidoModel;
 import com.furb.projeto.repositories.PedidoRepository;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,10 @@ public class PedidoService {
 
     public List<PedidoModel> findVendas(Integer lojaId) {
         return pedidoRepository.findVendas(lojaId);
+    }
+
+    public List<ProdutoModel> findByName(String name, Integer userId) {
+        return pedidoRepository.findByName(name, userId);
     }
 
     @Transactional

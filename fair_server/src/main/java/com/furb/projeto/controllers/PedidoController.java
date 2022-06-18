@@ -57,6 +57,11 @@ public class PedidoController {
         return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findVendas(lojaId));
     }
 
+    @GetMapping("findByName/{name}/{userId}")
+    public ResponseEntity<Object> findAllByName(@PathVariable(value = "name") String name, @PathVariable(value = "userId") Integer userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findByName(name, userId));
+    }
+
     @PostMapping
     public ResponseEntity<Object> postPedido(@RequestBody @Valid PedidoDto pedidoDto) {
         var pedidoModel = new PedidoModel();
