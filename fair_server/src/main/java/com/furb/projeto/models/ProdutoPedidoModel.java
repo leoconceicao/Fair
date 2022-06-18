@@ -20,10 +20,10 @@ public class ProdutoPedidoModel implements Serializable {
     @JoinColumn(name = "idPedido")
     private PedidoModel fkPedido;
 
-    @Column(nullable = false)
+    @Column()
     private Integer quantidade;
 
-    @Column(nullable = false, length = 10)
+    @Column(length = 10)
     private BigDecimal peso;
 
     @Column(nullable = false, length = 10)
