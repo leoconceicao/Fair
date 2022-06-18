@@ -3,6 +3,7 @@ import 'package:fair_app/pages/Signup.dart';
 import 'package:flutter/material.dart';
 
 import '../Main.dart';
+import '../commons/ValidaTipoUsuario.dart';
 import '../commons/Theme.dart';
 import '../commons/widgets/LoginOption.dart';
 import '../models/PessoaModel.dart';
@@ -193,7 +194,7 @@ class _LogInScreenState extends State<LogInScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const MyHomePage(title: 'Fair')));
+              builder: (context) => const ValidaTipoUsuario()));
     // }
   }
 }

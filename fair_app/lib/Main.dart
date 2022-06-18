@@ -1,6 +1,8 @@
 import 'package:fair_app/pages/Home.dart';
+import 'package:fair_app/pages/HomeFornecedor.dart';
 import 'package:fair_app/pages/Login.dart';
 import 'package:fair_app/pages/ProdutosLoja.dart';
+import 'package:fair_app/pages/VendasFornecedor.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/Home.dart';
@@ -57,9 +59,11 @@ class NewPageScreen extends StatelessWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _isCNPJ = false;
   int _indiceAtual = 0;
   bool _canShowButton = true;
-  final List<Widget> _telas = [const Home(), const Pedidos(), const Perfil()];
+  List<Widget> _telas = [const Home(), const Pedidos(), const Perfil()];
+
 
   void onTabTapped(int index) {
     if (index == 2) {
@@ -81,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _telas = _isCNPJ ? [const Home(), const Pedidos(), const Perfil()] : [const HomeFornecedor(), const VendasFornecedor(), const Perfil()];
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
