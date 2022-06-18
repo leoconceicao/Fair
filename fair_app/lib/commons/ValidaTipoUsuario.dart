@@ -27,7 +27,7 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
           ElevatedButton(
             child: const Text('Fair'),
             onPressed: () {
-              Navigator.pushNamed(context, '/mainfuncionario',
+              Navigator.pushNamed(context, '/maincliente',
                   arguments: ScreenArguments('isCnpj', 'N', HashMap()));
             },
           ),
