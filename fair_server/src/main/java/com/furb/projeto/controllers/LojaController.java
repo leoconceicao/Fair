@@ -36,7 +36,7 @@ public class LojaController {
         return ResponseEntity.status(HttpStatus.OK).body(lojaService.findAll(pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<Object> getLoja(@PathVariable(value = "id") Integer id) {
         Optional<LojaModel> lojaModelOptional = lojaService.findById(id);
         if (lojaModelOptional.isEmpty()) {

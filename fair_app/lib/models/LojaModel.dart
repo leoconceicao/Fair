@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:collection';
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
@@ -26,10 +28,34 @@ class LojaModel {
     }
   }
 
+  static Future<HashMap> findById(idLoja) async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/loja/findById/' + idLoja));
+    if (response.statusCode == 200) {
+      final parsed = jsonDecode(response.body).cast<String, dynamic>();
+      HashMap dadosLoja = HashMap();
+      dadosLoja["idLoja"] = parsed["idLoja"];
+      dadosLoja["nome"] = parsed["nome"];
+      dadosLoja["cnpj"] = parsed["cnpj"];
+      dadosLoja["telefone"] = parsed["telefone"];
+      return dadosLoja;
+    }
+    return HashMap();
+  }
+
   Map<String, dynamic> toJson() => {
         '"idLoja"': "\"" + idLoja.toString() + "\"",
         '"nome"': "\"" + nome + "\"",
         '"cnpj"': "\"" + cnpj + "\"",
         '"telefone"': "\"" + telefone + "\"",
       };
+
+  factory LojaModel.fromJson(Map<String, dynamic> json) {
+    return LojaModel(
+      idLoja: json['idPedido'],
+      nome: json['nome'],
+      telefone: json['telefone'],
+      cnpj: json['cpf'],
+    );
+  }
 }

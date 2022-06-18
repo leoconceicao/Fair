@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:fair_app/commons/ScreenArguments.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -34,6 +35,8 @@ class _PerfilLojaState extends State<PerfilLoja> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    List<String> valoresLoja = _buscaInfoLoja(args.a['idLoja']);
     return Container(
         height: 500,
         child: Scaffold(
