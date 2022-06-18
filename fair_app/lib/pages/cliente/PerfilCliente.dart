@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:fair_app/commons/ScreenArguments.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,6 +24,8 @@ class _PerfilState extends State<Perfil> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    get(args.a["userId"].toString());
     return Container(
         height: 500,
         child: Scaffold(
@@ -159,16 +162,16 @@ class _PerfilState extends State<Perfil> {
         });
   }
 
-  Future<List<String>> get() async {
+  Future<String> get(String idUser) async {
     final response =
-        await http.get(Uri.parse('http://25.76.67.204:8080/cidade'));
+        await http.get(Uri.parse('http://25.76.67.204:8080/pessoa/' + idUser));
     if (response.statusCode == 200) {
       final parsed = jsonDecode(response.body).cast<String, dynamic>();
-      List<String> cidades = [];
-      for (var cidade in parsed["content"]) {
-        cidades.add(cidade["dsCidade"]);
-      }
-      return cidades;
+      _nomeController.text = parsed["nome"];
+      _telefoneController.text = parsed["telefone"];
+      _cpfController.text = parsed["cpf"];
+      _emailController.text = parsed["email"];
+      return "Response: " + response.statusCode.toString();;
     } else {
       throw "Response: " + response.statusCode.toString();
     }
