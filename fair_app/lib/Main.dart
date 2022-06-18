@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
       // home: const MyHomePage(title: 'Fair'),
       routes: {
         '/maincliente': (context) => const MyHomePage(title: 'Fair'),
-        '/mainfuncionario': (context) => const MyHomePage(title: 'Fair Para Funcionários'),
         '/maindono': (context) => const MyHomePage(title: 'Fair Para Donos'),
         '/login': (context) => const LogInScreen(),
         '/home': (context) => const Home(),
