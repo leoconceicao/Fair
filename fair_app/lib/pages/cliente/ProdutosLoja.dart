@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:fair_app/models/PedidoModel.dart';
 import 'package:flutter/material.dart';
 import '../../commons/ScreenArguments.dart';
 import '../../models/ProdutoModel.dart';
@@ -33,6 +34,11 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   final TextEditingController _precoController = TextEditingController();
   final TextEditingController _validadeController = TextEditingController();
   final TextEditingController _pesoController = TextEditingController();
+  final TextEditingController _pesoEscolhidoController = TextEditingController();
+  final TextEditingController _quantidadeController = TextEditingController();
+  final TextEditingController _dataEntregaController = TextEditingController();
+  final TextEditingController _periodicidadeController = TextEditingController();
+  final TextEditingController _numeroEntregasController = TextEditingController();
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
@@ -276,5 +282,70 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   }
 
   void _callCompra() async {
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Comprar:",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.green,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.w300,
+                    )),
+                TextField(
+                  controller: _quantidadeController,
+                  readOnly: false,
+                  decoration: const InputDecoration(labelText: 'Quantidade'),
+                ),
+                TextField(
+                  controller: _pesoEscolhidoController,
+                  readOnly: false,
+                  keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(labelText: 'Peso'),
+                ),
+                TextField(
+                  controller: _dataEntregaController,
+                  readOnly: false,
+                  decoration: const InputDecoration(labelText: 'Data de entrega'),
+                ),
+                TextField(
+                  controller: _periodicidadeController,
+                  readOnly: false,
+                  decoration: const InputDecoration(labelText: 'Periodicidade'),
+                ),
+                TextField(
+                  controller: _numeroEntregasController,
+                  readOnly: false,
+                  decoration: const InputDecoration(labelText: 'Numero de entregas:'),
+                ),
+                ElevatedButton(
+                    child: const Text('Comprar'),
+                    onPressed: () {
+                      _callFinalizarCompra();
+                    })
+              ],
+            ),
+          );
+        });
+  }
+
+  void _callFinalizarCompra() async {
+      PedidoModel pedidoModel = PedidoModel(idPedido: 0,
+          data: _dataEntregaController.text,
+          periodicidade: _periodicidadeController.text,
+          peso: double.parse(_pesoController.text),
+          fkCliente: 0, fkVendedor: 0);
   }
 }
