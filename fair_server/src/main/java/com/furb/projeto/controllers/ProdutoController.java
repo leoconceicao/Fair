@@ -1,6 +1,7 @@
 package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.ProdutoDto;
+import com.furb.projeto.models.ProdutoLojaModel;
 import com.furb.projeto.models.ProdutoModel;
 import com.furb.projeto.services.ProdutoService;
 import org.springframework.beans.BeanUtils;
@@ -79,6 +80,21 @@ public class ProdutoController {
         BeanUtils.copyProperties(produtoDto, produtoModel);
         produtoModel.setIdProduto(produtoModelOptional.get().getIdProduto());
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.save(produtoModel));
+    }
+
+    @PutMapping("deactivate/{id}")
+    public ResponseEntity<Object> deactivateProduto(@PathVariable(value = "id") Integer id) {
+        Optional<ProdutoModel> pmo = produtoService.findById(id);
+        ProdutoModel pm = new ProdutoModel();
+        pm.setIdProduto(pmo.get().getIdProduto());
+        pm.setNome(pmo.get().getNome());
+        pm.setPreco(pmo.get().getPreco());
+        pm.setFoto(pmo.get().getFoto());
+        pm.setPeso(pmo.get().getPeso());
+        pm.setTipo(pmo.get().getTipo());
+        pm.setValidade(pmo.get().getValidade());
+        pm.setActive(false);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(pm));
     }
 
 

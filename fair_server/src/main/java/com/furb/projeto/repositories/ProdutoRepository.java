@@ -17,10 +17,10 @@ public interface ProdutoRepository extends JpaRepository<ProdutoModel, Integer> 
 
     ProdutoModel findByIdProduto(Integer idProduto);
 
-    @Query("SELECT u FROM ProdutoModel u WHERE u.nome LIKE %:name%")
+    @Query("SELECT u FROM ProdutoModel u WHERE u.nome LIKE %:name% AND u.active = 1")
     List<ProdutoModel> findByName(@Param("name") String name);
 
-    @Query("SELECT DISTINCT nome FROM ProdutoModel u")
+    @Query("SELECT DISTINCT nome FROM ProdutoModel u WHERE u.active = 1")
     List<ProdutoModel> findDistinctProducts();
 
 

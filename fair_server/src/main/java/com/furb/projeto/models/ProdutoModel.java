@@ -25,7 +25,10 @@ public class ProdutoModel implements Serializable {
     @Column(nullable = false, length = 10)
     private BigDecimal peso;
 
-    public ProdutoModel(Integer idProduto, String nome, String tipo, BigDecimal preco, String foto, String validade, BigDecimal peso) {
+    @Column(nullable = false, columnDefinition="tinyint(1) default 1")
+    private Boolean active;
+
+    public ProdutoModel(Integer idProduto, String nome, String tipo, BigDecimal preco, String foto, String validade, BigDecimal peso, Boolean active) {
         this.idProduto = idProduto;
         this.nome = nome;
         this.tipo = tipo;
@@ -33,6 +36,7 @@ public class ProdutoModel implements Serializable {
         this.foto = foto;
         this.validade = validade;
         this.peso = peso;
+        this.active = active;
     }
 
     public ProdutoModel() {
@@ -92,5 +96,13 @@ public class ProdutoModel implements Serializable {
 
     public void setPeso(BigDecimal peso) {
         this.peso = peso;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

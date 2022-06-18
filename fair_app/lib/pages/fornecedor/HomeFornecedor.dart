@@ -154,13 +154,56 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(labelText: 'Peso'),
-                ), ElevatedButton(
+                ),
+                ElevatedButton(
                     child: const Text('Remover Produto'),
                     onPressed: () {
-                      _callAdd();
+                      _callRemove(_nomeController.text);
                     })
               ],
             ),
+          );
+        });
+  }
+
+  void alertDelete(nomeProduto) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Remover produto: " + nomeProduto),
+            titleTextStyle: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
+            actionsOverflowButtonSpacing: 20,
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    ProdutoModel.deactivate(int.parse(idProduto))
+                        .then((value) => {
+                              if (value == "Deleted")
+                                {Navigator.of(context).pop()}
+                              else
+                                {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          content: Text(
+                                              "Erro ao deletar Produto: " +
+                                                  nomeProduto),
+                                        );
+                                      })
+                                }
+                            });
+                  },
+                  child: const Text("Sim")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Não")),
+            ],
+            // content: Text(""),
           );
         });
   }
@@ -340,5 +383,9 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
           ProdutosLojaModel.addProdutoLoja(jsonDecode(value)["idProduto"],
               int.parse(idLoja), jsonDecode(value)["preco"])
         });
+  }
+
+  void _callRemove(String nomeProduto) async {
+    alertDelete(nomeProduto);
   }
 }

@@ -91,6 +91,16 @@ class ProdutoModel {
     }
   }
 
+  static Future<String> deactivate(int id) async {
+    final response = await http
+        .put(Uri.parse('http://25.76.67.204:8080/produto/deactivate/' + id.toString()));
+    if (response.statusCode == 201) {
+      return "Deleted";
+    } else {
+      return "Response: " + response.statusCode.toString();
+    }
+  }
+
   Map<String, dynamic> toJson() => {
     '"idProduto"': idProduto.toString(),
     '"nome"': "\"" + nome + "\"",
