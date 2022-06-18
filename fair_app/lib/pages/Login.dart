@@ -36,7 +36,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 height: 120,
               ),
               Text(
-                'Welcome Back',
+                'Bem-vindo(a) ao Fair',
                 style: titleText,
               ),
               const SizedBox(
@@ -45,7 +45,7 @@ class _LogInScreenState extends State<LogInScreen> {
               Row(
                 children: [
                   Text(
-                    'New to this app?',
+                    'Novo no aplicativo?',
                     style: subTitle,
                   ),
                   const SizedBox(
@@ -61,7 +61,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       );
                     },
                     child: Text(
-                      'Sign Up',
+                      'Inscreva-se já!',
                       style: textButton.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 1,
@@ -75,8 +75,8 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
               Column(
                 children: [
-                  buildInputForm('Email', _emailController, false),
-                  buildInputForm('Password', _passwordController, true),
+                  buildInputForm('E-mail', _emailController, false),
+                  buildInputForm('Senha', _passwordController, true),
                 ],
               ),
               const SizedBox(
@@ -90,9 +90,9 @@ class _LogInScreenState extends State<LogInScreen> {
                           builder: (context) => const ResetPasswordScreen()));
                 },
                 child: const Text(
-                  'Forgot password?',
+                  'Esqueci minha senha',
                   style: TextStyle(
-                    color: kZambeziColor,
+                    color: kSecondaryColor,
                     fontSize: 14,
                     decoration: TextDecoration.underline,
                     decorationThickness: 1,
@@ -103,7 +103,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 height: 20,
               ),
               ElevatedButton(
-                child: const Text('Log In'),
+                child: const Text('Login'),
                 onPressed: () {
                   _validarLogin(context);
                 },
@@ -112,7 +112,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 height: 20,
               ),
               Text(
-                'Or log in with:',
+                'Ou realize seu login com:',
                 style: subTitle.copyWith(color: kBlackColor),
               ),
               const SizedBox(
