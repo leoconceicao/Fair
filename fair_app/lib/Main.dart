@@ -1,14 +1,14 @@
-import 'package:fair_app/pages/Home.dart';
-import 'package:fair_app/pages/HomeFornecedor.dart';
-import 'package:fair_app/pages/Login.dart';
-import 'package:fair_app/pages/ProdutosLoja.dart';
-import 'package:fair_app/pages/VendasFornecedor.dart';
+import 'package:fair_app/pages/Cliente/Pedidos.dart';
+import 'package:fair_app/pages/Cliente/Perfil.dart';
+import 'package:fair_app/pages/Cliente/ProdutosPedido.dart';
+import 'package:fair_app/pages/Fornecedor/ProdutosLoja.dart';
+import 'package:fair_app/pages/Fornecedor/VendasFornecedor.dart';
 import 'package:flutter/material.dart';
+import 'package:fair_app/pages/Cliente/Home.dart';
+import 'package:fair_app/pages/Fornecedor/HomeFornecedor.dart';
+import 'package:fair_app/pages/Login.dart';
 
-import 'pages/Home.dart';
-import 'pages/Pedidos.dart';
-import 'pages/Perfil.dart';
-import 'pages/ProdutosPedido.dart';
+import 'commons/ScreenArguments.dart';
 
 
 void main() {
@@ -28,6 +28,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       // home: const MyHomePage(title: 'Fair'),
       routes: {
+        '/maincliente': (context) => const MyHomePage(title: 'Fair'),
+        '/mainfuncionario': (context) => const MyHomePage(title: 'Fair Para Funcionários'),
+        '/maindono': (context) => const MyHomePage(title: 'Fair Para Donos'),
         '/login': (context) => const LogInScreen(),
         '/home': (context) => const Home(),
         '/pedidos': (context) => const Pedidos(),
@@ -85,7 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _telas = _isCNPJ ? [const Home(), const Pedidos(), const Perfil()] : [const HomeFornecedor(), const VendasFornecedor(), const Perfil()];
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    _isCNPJ = args.value == 'S' ? true : false;
+    _telas = !_isCNPJ ? [const Home(), const Pedidos(), const Perfil()] : [const HomeFornecedor(), const VendasFornecedor(), const Perfil()];
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -102,11 +107,11 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _indiceAtual,
         onTap: onTabTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Início'),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: !_isCNPJ ? 'Início' : 'Produtos'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket), label: 'Meus pedidos'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+              icon: Icon(Icons.shopping_basket), label: !_isCNPJ ? 'Meus pedidos' : 'Vendas'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: !_isCNPJ ? 'Perfil' : 'Loja'),
         ],
       ),
     );

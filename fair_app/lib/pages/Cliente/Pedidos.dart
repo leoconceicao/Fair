@@ -1,17 +1,17 @@
 import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:flutter/material.dart';
 
-import '../commons/ScreenArguments.dart';
-import '../models/PedidoModel.dart';
+import '../../commons/ScreenArguments.dart';
+import '../../models/PedidoModel.dart';
 
-class VendasFornecedor extends StatefulWidget {
-  const VendasFornecedor({Key? key}) : super(key: key);
+class Pedidos extends StatefulWidget {
+  const Pedidos({Key? key}) : super(key: key);
 
   @override
-  _VendasFornecedorState createState() => _VendasFornecedorState();
+  _PedidosState createState() => _PedidosState();
 }
 
-class _VendasFornecedorState extends State<VendasFornecedor> {
+class _PedidosState extends State<Pedidos> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
   final bool _hasNextPage = true;
@@ -156,7 +156,7 @@ class _VendasFornecedorState extends State<VendasFornecedor> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                      'Digite aqui o produto a pesquisar entre os pedidos...'),
+                          'Digite aqui o produto a pesquisar entre os pedidos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),

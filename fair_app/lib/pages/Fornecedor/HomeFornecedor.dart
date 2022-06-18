@@ -1,23 +1,29 @@
-import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:flutter/material.dart';
 
-import '../commons/ScreenArguments.dart';
-import '../models/PedidoModel.dart';
+import '../../commons/ScreenArguments.dart';
+import '../../models/ProdutoModel.dart';
 
-class Pedidos extends StatefulWidget {
-  const Pedidos({Key? key}) : super(key: key);
+class HomeFornecedor extends StatefulWidget {
+  const HomeFornecedor({Key? key}) : super(key: key);
 
   @override
-  _PedidosState createState() => _PedidosState();
+  _HomeFornecedorState createState() => _HomeFornecedorState();
 }
 
-class _PedidosState extends State<Pedidos> {
+class _HomeFornecedorState extends State<HomeFornecedor> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _tipoController = TextEditingController();
+  final TextEditingController _precoController = TextEditingController();
+  final TextEditingController _validadeController = TextEditingController();
+  final TextEditingController _pesoController = TextEditingController();
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
   bool search = false;
+
+  List<String> productIds = [];
 
   void _loadMore() async {
     if (_hasNextPage == true &&
@@ -53,7 +59,7 @@ class _PedidosState extends State<Pedidos> {
       height: 500,
       child: Scaffold(
         body: search
-            ? getFutureBuilderSearch(context, _searchController.text)
+            ? getFutureBuilderSearch(context)
             : getFutureBuilder(context),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -67,10 +73,18 @@ class _PedidosState extends State<Pedidos> {
               ), // widget to show/hide
             ),
             const SizedBox(
-              width: 10.0,
+              width: 8.0,
             ),
+            Row(children: [
+              FloatingActionButton(
+                onPressed: _addProduct,
+                tooltip: 'Adicionar produto',
+                child: const Icon(Icons.add),
+              )]
+            )
           ],
         ),
+
       ),
     );
   }
@@ -83,10 +97,12 @@ class _PedidosState extends State<Pedidos> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index]),
+              title: Text(values[index].toString().split(" - ")[1]),
               onTap: () {
-                Navigator.pushNamed(context, '/produtospedido',
-                    arguments: ScreenArguments('idProduto', values[index]));
+                Navigator.pushNamed(context, '/produtosloja',
+                    arguments: ScreenArguments(
+                        values[index].toString().split(" - ")[0],
+                        values[index].toString().split(" - ")[1]));
               },
             ),
             const Divider(
@@ -100,7 +116,7 @@ class _PedidosState extends State<Pedidos> {
 
   FutureBuilder getFutureBuilder(BuildContext context) {
     return FutureBuilder(
-      future: PedidoModel.findPedidos(),
+      future: ProdutoModel.get(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -117,9 +133,9 @@ class _PedidosState extends State<Pedidos> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context, String name) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context) {
     return FutureBuilder(
-      future: ProdutoPedidoModel.findProdutosByName(name),
+      future: ProdutoModel.findByName(_searchController.text),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -156,7 +172,7 @@ class _PedidosState extends State<Pedidos> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                          'Digite aqui o produto a pesquisar entre os pedidos...'),
+                      'Digite aqui para pesquisar entre os produtos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),
@@ -168,9 +184,75 @@ class _PedidosState extends State<Pedidos> {
         });
   }
 
+  void _addProduct() async {
+    _searchController.text = '';
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  controller: _nomeController,
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Nome do produto'),
+                ),
+                TextField(
+                  controller: _tipoController,
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Tipo de produto a ser vendido'),
+                ),
+                TextField(
+                  controller: _precoController,
+                  keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Preço do produto'),
+                ),
+                TextField(
+                  controller: _validadeController,
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Validade do produto conforme (Ex. 01/01/2021)'),
+                ),
+                TextField(
+                  controller: _pesoController,
+                  keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                      labelText:
+                      'Peso do produto'),
+                ),
+                ElevatedButton(
+                  child: const Text('Adicionar produto'),
+                  onPressed: (){
+                    _callAdd();
+                  }
+                )
+              ],
+            ),
+          );
+        });
+  }
+
   void _callSearch() async {
     setState(() {
       search = _searchController.text == "" ? false : true;
     });
+  }
+
+  void _callAdd() async {
+
   }
 }

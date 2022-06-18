@@ -1,3 +1,4 @@
+import 'package:fair_app/commons/ScreenArguments.dart';
 import 'package:fair_app/pages/ResetPassword.dart';
 import 'package:fair_app/pages/Signup.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +19,8 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
   @override
   Widget build(BuildContext context) {
     if (1 == 2) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const MyHomePage(title: 'Fair')));
+      Navigator.pushNamed(context, '/maincliente',
+          arguments: ScreenArguments('isCnpj', 'N'));
     }
     return Scaffold(
         body:Center( child:
@@ -31,24 +30,18 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                           ElevatedButton(
-                            child: const Text('Fair Usuário'),
+                            child: const Text('Fair Para Funcionários'),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const MyHomePage(
-                                          title: 'Fair Empresa Usuário')));
+                              Navigator.pushNamed(context, '/mainfuncionario',
+                                  arguments: ScreenArguments('isCnpj', 'N'));
                             },
                           ),
                           ElevatedButton(
-                            child: const Text('Fair Dono'),
+                            child: const Text('Fair Para Dono'),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute( // TODO Trocar Cor do Scaffold no Dono
-                                      builder: (context) => const MyHomePage(
-                                          title: 'Fair Empresa Dono')));
-                            },
+    Navigator.pushNamed(context, '/maindono',
+    arguments: ScreenArguments('isCnpj', 'S'));
+    },
                           )
                   ]))));
   }

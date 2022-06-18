@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../commons/ScreenArguments.dart';
-import '../models/ProdutosPedidoModel.dart';
+import '../../commons/ScreenArguments.dart';
+import '../../models/ProdutosLojaModel.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,16 +16,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class ProdutosPedido extends StatefulWidget {
-  const ProdutosPedido({Key? key}) : super(key: key);
+class ProdutosLoja extends StatefulWidget {
+  const ProdutosLoja({Key? key}) : super(key: key);
 
   @override
   _ProdutosPedidoState createState() => _ProdutosPedidoState();
 }
 
-class _ProdutosPedidoState extends State<ProdutosPedido> {
+class _ProdutosPedidoState extends State<ProdutosLoja> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
@@ -63,7 +63,8 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    String id = args.value.split(" - ")[0];
+    String id = args.key;
+    String title = args.value;
     return SizedBox(
       child: Scaffold(
         body: search
@@ -86,7 +87,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
           ],
         ),
         appBar: AppBar(
-          title: Text(args.value),
+          title: Text(title),
           actions: const <Widget>[],
         ),
       ),
@@ -116,9 +117,9 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
     );
   }
 
-  FutureBuilder getFutureBuilder(BuildContext context, String id) {
+  FutureBuilder getFutureBuilder(BuildContext context, String idProduto) {
     return FutureBuilder(
-      future: ProdutoPedidoModel.findProdutos(id),
+      future: ProdutosLojaModel.findLojasByProduto(idProduto),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -135,9 +136,9 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context, String id) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String idProduto) {
     return FutureBuilder(
-      future: ProdutoPedidoModel.getById(id),
+      future: ProdutosLojaModel.findLojasByProduto(idProduto),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

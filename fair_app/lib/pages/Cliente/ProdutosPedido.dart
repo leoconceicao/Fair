@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
 
-import '../commons/ScreenArguments.dart';
-import '../models/ProdutoModel.dart';
+import '../../commons/ScreenArguments.dart';
+import '../../models/ProdutosPedidoModel.dart';
 
-class HomeFornecedor extends StatefulWidget {
-  const HomeFornecedor({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
+  // This widget is the root of your application.
   @override
-  _HomeFornecedorState createState() => _HomeFornecedorState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+    );
+  }
 }
 
-class _HomeFornecedorState extends State<HomeFornecedor> {
+class ProdutosPedido extends StatefulWidget {
+  const ProdutosPedido({Key? key}) : super(key: key);
+
+  @override
+  _ProdutosPedidoState createState() => _ProdutosPedidoState();
+}
+
+class _ProdutosPedidoState extends State<ProdutosPedido> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
-  final TextEditingController _nomeController = TextEditingController();
-  final TextEditingController _tipoController = TextEditingController();
-  final TextEditingController _precoController = TextEditingController();
-  final TextEditingController _validadeController = TextEditingController();
-  final TextEditingController _pesoController = TextEditingController();
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
   bool search = false;
-
-  List<String> productIds = [];
 
   void _loadMore() async {
     if (_hasNextPage == true &&
@@ -55,12 +62,13 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    String id = args.value.split(" - ")[0];
     return SizedBox(
-      height: 500,
       child: Scaffold(
         body: search
-            ? getFutureBuilderSearch(context)
-            : getFutureBuilder(context),
+            ? getFutureBuilderSearch(context, id)
+            : getFutureBuilder(context, id),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -73,18 +81,14 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
               ), // widget to show/hide
             ),
             const SizedBox(
-              width: 8.0,
+              width: 10.0,
             ),
-            Row(children: [
-              FloatingActionButton(
-                onPressed: _addProduct,
-                tooltip: 'Adicionar produto',
-                child: const Icon(Icons.add),
-              )]
-            )
           ],
         ),
-
+        appBar: AppBar(
+          title: Text(args.value),
+          actions: const <Widget>[],
+        ),
       ),
     );
   }
@@ -97,12 +101,10 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index].toString().split(" - ")[1]),
+              title: Text(values[index]),
               onTap: () {
-                Navigator.pushNamed(context, '/produtosloja',
-                    arguments: ScreenArguments(
-                        values[index].toString().split(" - ")[0],
-                        values[index].toString().split(" - ")[1]));
+                Navigator.pushNamed(context, '/produtospedido',
+                    arguments: ScreenArguments('idProduto', values[index]));
               },
             ),
             const Divider(
@@ -114,9 +116,9 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
     );
   }
 
-  FutureBuilder getFutureBuilder(BuildContext context) {
+  FutureBuilder getFutureBuilder(BuildContext context, String id) {
     return FutureBuilder(
-      future: ProdutoModel.get(),
+      future: ProdutoPedidoModel.findProdutos(id),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -133,9 +135,9 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String id) {
     return FutureBuilder(
-      future: ProdutoModel.findByName(_searchController.text),
+      future: ProdutoPedidoModel.getById(id),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -172,7 +174,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                      'Digite aqui para pesquisar entre os produtos...'),
+                          'Digite aqui o produto a pesquisar entre os pedidos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),
@@ -184,75 +186,9 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
         });
   }
 
-  void _addProduct() async {
-    _searchController.text = '';
-    await showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext ctx) {
-          return Padding(
-            padding: EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextField(
-                  controller: _nomeController,
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Nome do produto'),
-                ),
-                TextField(
-                  controller: _tipoController,
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Tipo de produto a ser vendido'),
-                ),
-                TextField(
-                  controller: _precoController,
-                  keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Preço do produto'),
-                ),
-                TextField(
-                  controller: _validadeController,
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Validade do produto conforme (Ex. 01/01/2021)'),
-                ),
-                TextField(
-                  controller: _pesoController,
-                  keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      labelText:
-                      'Peso do produto'),
-                ),
-                ElevatedButton(
-                  child: const Text('Adicionar produto'),
-                  onPressed: (){
-                    _callAdd();
-                  }
-                )
-              ],
-            ),
-          );
-        });
-  }
-
   void _callSearch() async {
     setState(() {
       search = _searchController.text == "" ? false : true;
     });
-  }
-
-  void _callAdd() async {
-
   }
 }

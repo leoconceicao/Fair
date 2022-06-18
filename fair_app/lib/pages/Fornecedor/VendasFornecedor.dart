@@ -1,32 +1,19 @@
+import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:flutter/material.dart';
-import '../commons/ScreenArguments.dart';
-import '../models/ProdutosLojaModel.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+import '../../commons/ScreenArguments.dart';
+import '../../models/PedidoModel.dart';
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-    );
-  }
-}
-
-class ProdutosLoja extends StatefulWidget {
-  const ProdutosLoja({Key? key}) : super(key: key);
+class VendasFornecedor extends StatefulWidget {
+  const VendasFornecedor({Key? key}) : super(key: key);
 
   @override
-  _ProdutosPedidoState createState() => _ProdutosPedidoState();
+  _VendasFornecedorState createState() => _VendasFornecedorState();
 }
 
-class _ProdutosPedidoState extends State<ProdutosLoja> {
+class _VendasFornecedorState extends State<VendasFornecedor> {
   final bool _canShowButton = true;
   final TextEditingController _searchController = TextEditingController();
-  final TextEditingController titleController = TextEditingController();
   final bool _hasNextPage = true;
   final bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
@@ -62,14 +49,12 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    String id = args.key;
-    String title = args.value;
     return SizedBox(
+      height: 500,
       child: Scaffold(
         body: search
-            ? getFutureBuilderSearch(context, id)
-            : getFutureBuilder(context, id),
+            ? getFutureBuilderSearch(context, _searchController.text)
+            : getFutureBuilder(context),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -85,10 +70,6 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
               width: 10.0,
             ),
           ],
-        ),
-        appBar: AppBar(
-          title: Text(title),
-          actions: const <Widget>[],
         ),
       ),
     );
@@ -117,9 +98,9 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     );
   }
 
-  FutureBuilder getFutureBuilder(BuildContext context, String idProduto) {
+  FutureBuilder getFutureBuilder(BuildContext context) {
     return FutureBuilder(
-      future: ProdutosLojaModel.findLojasByProduto(idProduto),
+      future: PedidoModel.findPedidos(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -136,9 +117,9 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
     );
   }
 
-  FutureBuilder getFutureBuilderSearch(BuildContext context, String idProduto) {
+  FutureBuilder getFutureBuilderSearch(BuildContext context, String name) {
     return FutureBuilder(
-      future: ProdutosLojaModel.findLojasByProduto(idProduto),
+      future: ProdutoPedidoModel.findProdutosByName(name),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -175,7 +156,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                   controller: _searchController,
                   decoration: const InputDecoration(
                       labelText:
-                          'Digite aqui o produto a pesquisar entre os pedidos...'),
+                      'Digite aqui o produto a pesquisar entre os pedidos...'),
                 ),
                 ElevatedButton(
                   child: const Text('Pesquisar'),
