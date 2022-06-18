@@ -1,7 +1,6 @@
 package com.furb.projeto.dtos;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class ProdutoDto {
 

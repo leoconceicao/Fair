@@ -2,7 +2,7 @@ package com.furb.projeto.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Produto_Pedido")
@@ -24,15 +24,15 @@ public class ProdutoPedidoModel implements Serializable {
     private Integer quantidade;
 
     @Column(nullable = false, length = 10)
-    private BigInteger peso;
+    private BigDecimal peso;
 
     @Column(nullable = false, length = 10)
-    private BigInteger preco;
+    private BigDecimal preco;
 
     public ProdutoPedidoModel() {
     }
 
-    public ProdutoPedidoModel(Integer idProdutoPedido, ProdutoModel fkProduto, PedidoModel fkPedido, Integer quantidade, BigInteger peso, BigInteger preco) {
+    public ProdutoPedidoModel(Integer idProdutoPedido, ProdutoModel fkProduto, PedidoModel fkPedido, Integer quantidade, BigDecimal peso, BigDecimal preco) {
         this.idProdutoPedido = idProdutoPedido;
         this.fkProduto = fkProduto;
         this.fkPedido = fkPedido;
@@ -73,19 +73,19 @@ public class ProdutoPedidoModel implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public BigInteger getPeso() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setPeso(BigInteger peso) {
+    public void setPeso(BigDecimal peso) {
         this.peso = peso;
     }
 
-    public BigInteger getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(BigInteger preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 }

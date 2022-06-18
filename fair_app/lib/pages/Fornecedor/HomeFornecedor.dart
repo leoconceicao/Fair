@@ -267,8 +267,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
         peso: double.parse(_pesoController.text));
 
     ProdutoModel.addProduto(p).then((value) => {
-      jsonDecode(value),
-      ProdutosLojaModel.addProdutoLoja(jsonDecode(value)["idProduto"], 1, jsonDecode(value)["preco"])
+      ProdutosLojaModel.addProdutoLoja(jsonDecode(value)["idProduto"], int.parse(idLoja), jsonDecode(value)["preco"])
     });
   }
 }

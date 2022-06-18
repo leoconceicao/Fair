@@ -26,7 +26,7 @@ public class ProdutoLojaController {
     final ProdutoLojaService produtoLojaService;
 
     @Autowired
-    private LojaRepository pedidoRepository;
+    private LojaRepository lojaRepository;
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -45,7 +45,7 @@ public class ProdutoLojaController {
         var produtoLojaModel = new ProdutoLojaModel();
         BeanUtils.copyProperties(produtoLojaDto, produtoLojaModel);
         produtoLojaModel.setFkProduto(produtoRepository.findByIdProduto(produtoLojaDto.getFkProduto()));
-        produtoLojaModel.setFkLoja(pedidoRepository.findByIdLoja(produtoLojaDto.getFkProduto()));
+        produtoLojaModel.setFkLoja(lojaRepository.findByIdLoja(produtoLojaDto.getFkLoja()));
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoLojaService.save(produtoLojaModel));
     }
 
@@ -79,7 +79,7 @@ public class ProdutoLojaController {
         var produtoLojaModel = new ProdutoLojaModel();
         BeanUtils.copyProperties(produtoLojaDto, produtoLojaModel);
         produtoLojaModel.setFkProduto(produtoRepository.findByIdProduto(produtoLojaDto.getFkProduto()));
-        produtoLojaModel.setFkLoja(pedidoRepository.findByIdLoja(produtoLojaDto.getFkProduto()));
+        produtoLojaModel.setFkLoja(lojaRepository.findByIdLoja(produtoLojaDto.getFkProduto()));
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoLojaService.save(produtoLojaModel));
     }
 }

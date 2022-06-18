@@ -9,5 +9,5 @@ public interface PessoaRepository extends JpaRepository<PessoaModel, Integer> {
 
     PessoaModel findByIdPessoa(Integer idPessoa);
 
-    PessoaModel findByEmail(String email);
+    PessoaModel findByEmail(String idPessoa);
 }

@@ -1,19 +1,19 @@
 package com.furb.projeto.dtos;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 public class ProdutoPedidoDto {
 
     private Integer fkProduto;
     private Integer fkPedido;
     private Integer quantidade;
-    private BigInteger peso;
-    private BigInteger preco;
+    private BigDecimal peso;
+    private BigDecimal preco;
 
     public ProdutoPedidoDto() {
     }
 
-    public ProdutoPedidoDto(Integer fkProduto, Integer fkPedido, Integer quantidade, BigInteger peso, BigInteger preco) {
+    public ProdutoPedidoDto(Integer fkProduto, Integer fkPedido, Integer quantidade, BigDecimal peso, BigDecimal preco) {
         this.fkProduto = fkProduto;
         this.fkPedido = fkPedido;
         this.quantidade = quantidade;
@@ -45,19 +45,19 @@ public class ProdutoPedidoDto {
         this.quantidade = quantidade;
     }
 
-    public BigInteger getPeso() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setPeso(BigInteger peso) {
+    public void setPeso(BigDecimal peso) {
         this.peso = peso;
     }
 
-    public BigInteger getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(BigInteger preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 }

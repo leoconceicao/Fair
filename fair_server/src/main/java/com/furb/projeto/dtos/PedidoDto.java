@@ -1,6 +1,6 @@
 package com.furb.projeto.dtos;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 public class PedidoDto {
 
@@ -8,11 +8,11 @@ public class PedidoDto {
 
     private String data;
     private String periodicidade;
-    private BigInteger peso;
+    private BigDecimal peso;
     private Integer fkCliente;
     private Integer fkVendedor;
 
-    public PedidoDto(Integer idPedido, String data, Integer quantidade, String periodicidade, BigInteger peso, Integer fkCliente, Integer fkVendedor) {
+    public PedidoDto(Integer idPedido, String data, Integer quantidade, String periodicidade, BigDecimal peso, Integer fkCliente, Integer fkVendedor) {
         this.idPedido = idPedido;
         this.data = data;
         this.periodicidade = periodicidade;
@@ -48,11 +48,11 @@ public class PedidoDto {
         this.periodicidade = periodicidade;
     }
 
-    public BigInteger getPeso() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setPeso(BigInteger peso) {
+    public void setPeso(BigDecimal peso) {
         this.peso = peso;
     }
 

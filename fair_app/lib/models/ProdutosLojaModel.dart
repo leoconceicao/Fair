@@ -50,14 +50,11 @@ class ProdutosLojaModel {
         'http://25.76.67.204:8080/produtoLoja/findProdutosByLoja/' +
             idLoja.toString()));
     if (response.statusCode == 200) {
-      List<String> lojas = [];
-      for (var loja in jsonDecode(response.body)) {
-        lojas.add(loja["fkLoja"]["nome"] +
-            " - R\$ " +
-            (loja["preco"] as int).toDouble().toString() +
-            "0");
+      List<String> produtos = [];
+      for (var produto in jsonDecode(response.body)) {
+        produtos.add("#" + produto["fkProduto"]["idProduto"].toString() + " - " + produto["fkProduto"]["nome"].toString());
       }
-      return lojas;
+      return produtos;
     } else {
       return "Response: " + response.statusCode.toString();
     }
