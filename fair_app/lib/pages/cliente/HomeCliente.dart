@@ -1,9 +1,9 @@
 import 'dart:collection';
 
+import 'package:fair_app/commons/ScreenArguments.dart';
+import 'package:fair_app/models/ProdutoModel.dart';
 import 'package:flutter/material.dart';
 
-import '../../commons/ScreenArguments.dart';
-import '../../models/ProdutoModel.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:fair_app/commons/ScreenArguments.dart';
 import 'package:fair_app/models/PedidoModel.dart';
+import 'package:fair_app/models/ProdutoModel.dart';
+import 'package:fair_app/models/ProdutosLojaModel.dart';
 import 'package:flutter/material.dart';
 
-import '../../commons/ScreenArguments.dart';
-import '../../models/ProdutoModel.dart';
-import '../../models/ProdutosLojaModel.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

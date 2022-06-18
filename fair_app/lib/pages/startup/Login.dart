@@ -1,15 +1,15 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:fair_app/commons/ScreenArguments.dart';
+import 'package:fair_app/commons/Theme.dart';
+import 'package:fair_app/commons/widgets/LoginOption.dart';
 import 'package:fair_app/models/FuncionariosModel.dart';
+import 'package:fair_app/models/PessoaModel.dart';
 import 'package:fair_app/pages/startup/ResetPassword.dart';
 import 'package:fair_app/pages/startup/Signup.dart';
 import 'package:flutter/material.dart';
 
-import '../../commons/ScreenArguments.dart';
-import '../../commons/Theme.dart';
-import '../../commons/widgets/LoginOption.dart';
-import '../../models/PessoaModel.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);

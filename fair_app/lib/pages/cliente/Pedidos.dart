@@ -1,10 +1,10 @@
 import 'dart:collection';
 
+import 'package:fair_app/commons/ScreenArguments.dart';
+import 'package:fair_app/models/PedidoModel.dart';
 import 'package:fair_app/models/ProdutosPedidoModel.dart';
 import 'package:flutter/material.dart';
 
-import '../../commons/ScreenArguments.dart';
-import '../../models/PedidoModel.dart';
 
 class Pedidos extends StatefulWidget {
   const Pedidos({Key? key}) : super(key: key);

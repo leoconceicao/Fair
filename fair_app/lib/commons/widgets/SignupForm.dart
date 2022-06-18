@@ -1,14 +1,14 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:fair_app/commons/ScreenArguments.dart';
+import 'package:fair_app/commons/Theme.dart';
 import 'package:fair_app/commons/widgets/Checkbox.dart';
 import 'package:fair_app/models/FuncionariosModel.dart';
 import 'package:fair_app/models/LojaModel.dart';
 import 'package:fair_app/models/PessoaModel.dart';
 import 'package:flutter/material.dart';
 
-import '../ScreenArguments.dart';
-import '../Theme.dart';
 import 'LoginOption.dart';
 
 class SignUpForm extends StatefulWidget {

@@ -1,3 +1,5 @@
+import 'package:fair_app/commons/ScreenArguments.dart';
+import 'package:fair_app/commons/ValidaTipoUsuario.dart';
 import 'package:fair_app/pages/Cliente/HomeCliente.dart';
 import 'package:fair_app/pages/Cliente/Pedidos.dart';
 import 'package:fair_app/pages/Cliente/PerfilCliente.dart';
@@ -8,10 +10,6 @@ import 'package:fair_app/pages/Fornecedor/PerfilLoja.dart';
 import 'package:fair_app/pages/Fornecedor/VendasFornecedor.dart';
 import 'package:fair_app/pages/startup/Login.dart';
 import 'package:flutter/material.dart';
-
-import 'commons/ScreenArguments.dart';
-import 'commons/ValidaTipoUsuario.dart';
-
 
 void main() {
   runApp(const MyApp());

@@ -1,6 +1,6 @@
+import 'package:fair_app/commons/Theme.dart';
 import 'package:flutter/material.dart';
 
-import '../Theme.dart';
 
 class ResetForm extends StatelessWidget {
   const ResetForm({Key? key}) : super(key: key);

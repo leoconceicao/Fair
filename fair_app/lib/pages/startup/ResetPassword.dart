@@ -1,8 +1,8 @@
+import 'package:fair_app/commons/Theme.dart';
+import 'package:fair_app/commons/widgets/PrimaryButton.dart';
+import 'package:fair_app/commons/widgets/ResetForm.dart';
 import 'package:flutter/material.dart';
 
-import '../../commons/Theme.dart';
-import '../../commons/widgets/PrimaryButton.dart';
-import '../../commons/widgets/ResetForm.dart';
 import 'Login.dart';
 
 class ResetPasswordScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
+import 'package:fair_app/commons/Theme.dart';
+import 'package:fair_app/commons/widgets/SignupForm.dart';
 import 'package:flutter/material.dart';
 
-import '../../commons/Theme.dart';
-import '../../commons/widgets/SignupForm.dart';
 import 'Login.dart';
 
 class SignUpScreen extends StatelessWidget {
