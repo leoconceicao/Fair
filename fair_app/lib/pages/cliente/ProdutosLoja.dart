@@ -4,8 +4,8 @@ import 'package:fair_app/commons/ScreenArguments.dart';
 import 'package:fair_app/models/PedidoModel.dart';
 import 'package:fair_app/models/ProdutoModel.dart';
 import 'package:fair_app/models/ProdutosLojaModel.dart';
+import 'package:fair_app/pages/shared/ProdutosPedido.dart';
 import 'package:flutter/material.dart';
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -51,6 +51,8 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   bool search = false;
 
   late String idProduto;
+  late String idLoja;
+  late int idUser;
   late String nameProduto;
 
   void _loadMore() async {
@@ -84,6 +86,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    idUser = args.a["userId"];
     String value = args.value;
     return SizedBox(
       child: Scaffold(
@@ -122,14 +125,15 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index].split(" - ")[1] +
+              title: Text(values[index].split(" - ")[2] +
                   " - " +
-                  values[index].split(" - ")[2]),
+                  values[index].split(" - ")[3]),
               onTap: () {
                 idProduto = values[index]
                     .toString()
                     .split(" - ")[0]
                     .replaceAll("#", "");
+                idLoja = values[index].toString().split(" - ")[1];
                 _showProductInfo();
               },
             ),
@@ -357,7 +361,21 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
         data: _dataEntregaController.text,
         periodicidade: _periodicidadeController.text,
         peso: double.parse(_pesoController.text),
-        fkCliente: 0,
-        fkVendedor: 0);
+        fkCliente: idUser,
+        fkVendedor: int.parse(idLoja.replaceAll(" #", "")));
+    PedidoModel.addPedido(pedidoModel).then((value) => {
+      // jsonDecode(response.body)
+      if (value == "Error")
+            {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const AlertDialog(
+                      content: Text("Email ou senha incorreta"),
+                    );
+                  }),
+            },
+          Navigator.of(context).pop()
+        });
   }
 }

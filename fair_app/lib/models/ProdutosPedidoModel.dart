@@ -23,6 +23,21 @@ class ProdutoPedidoModel {
     required this.preco,
   });
 
+  // static Future<String> addProdutoPedido(
+  //     int idProduto, int idLoja) async {
+  //   ProdutoPedidoModel plm = ProdutoPedidoModel(idProdutoPedido: 0,
+  //       fkProduto: fkProduto, fkPedido: idPedido, quantidade: quantidade, peso: peso, preco: preco)
+  //   final response = await http.post(
+  //       Uri.parse('http://25.76.67.204:8080/produtoLoja'),
+  //       body: plm.toJson().toString(),
+  //       headers: {"Content-Type": "application/json"});
+  //   if (response.statusCode == 201) {
+  //     return response.body;
+  //   } else {
+  //     return "Error";
+  //   }
+  // }
+
   static Future get() async {
     final response =
         await http.get(Uri.parse('http://25.76.67.204:8080/produtoPedido'));

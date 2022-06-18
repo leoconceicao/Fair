@@ -179,7 +179,13 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                     ProdutoModel.deactivate(int.parse(idProduto))
                         .then((value) => {
                               if (value == "Deleted")
-                                {Navigator.of(context).pop()}
+                                {
+                                  setState(() {
+                                    search = _searchController.text == ""
+                                        ? false
+                                        : true;
+                                  })
+                                }
                               else
                                 {
                                   showDialog(
@@ -191,7 +197,8 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                                                   nomeProduto),
                                         );
                                       })
-                                }
+                                },
+                              Navigator.of(context).pop()
                             });
                   },
                   child: const Text("Sim")),
@@ -380,7 +387,8 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
         active: true);
 
     ProdutoModel.addProduto(p).then((value) => {
-          ProdutosLojaModel.addProdutoLoja(jsonDecode(value)["idProduto"], int.parse(idLoja), jsonDecode(value)["preco"]),
+          ProdutosLojaModel.addProdutoLoja(jsonDecode(value)["idProduto"],
+              int.parse(idLoja), jsonDecode(value)["preco"]),
           Navigator.of(context).pop()
         });
   }

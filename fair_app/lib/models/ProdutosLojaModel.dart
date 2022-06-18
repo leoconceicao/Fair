@@ -40,6 +40,8 @@ class ProdutosLojaModel {
         lojas.add("#" +
             loja["fkProduto"]["idProduto"].toString() +
             " - " +
+            " #" + loja["fkLoja"]["idLoja"].toString() +
+            " - " +
             loja["fkLoja"]["nome"] +
             " - R\$ " +
             (loja["preco"].toString()) +

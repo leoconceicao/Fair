@@ -20,6 +20,18 @@ class PedidoModel {
     required this.fkVendedor,
   });
 
+  static Future<String> addPedido(PedidoModel pedido) async {
+    final response = await http.post(
+        Uri.parse('http://25.76.67.204:8080/pedido'),
+        body: pedido.toJson().toString(),
+        headers: {"Content-Type": "application/json"});
+    if (response.statusCode == 201) {
+      return response.body;
+    } else {
+      return "Error";
+    }
+  }
+
   static Future findPedidos(int userId) async {
     final response = await http.get(Uri.parse(
         'http://25.76.67.204:8080/pedido/findPedidos/' + userId.toString()));
@@ -62,4 +74,13 @@ class PedidoModel {
       fkVendedor: json['fkVendedor']["idPessoa"],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    '"idPedido"': idPedido.toString(),
+    '"data"': "\"" + data + "\"",
+    '"periodicidade"': "\"" + periodicidade + "\"",
+    '"peso"': peso,
+    '"fkCliente"': "\"" + fkCliente.toString() + "\"",
+    '"fkVendedor"': "\"" + fkVendedor.toString() + "\"",
+  };
 }

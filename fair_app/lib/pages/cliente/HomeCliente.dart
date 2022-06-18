@@ -80,6 +80,7 @@ class _HomeState extends State<Home> {
 
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
     List<String> values = snapshot.data;
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return ListView.builder(
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
@@ -90,7 +91,7 @@ class _HomeState extends State<Home> {
               onTap: () {
                 Navigator.pushNamed(context, '/produtosloja',
                     arguments:
-                        ScreenArguments("nome", values[index], HashMap()));
+                        ScreenArguments("nome", values[index], args.a));
               },
             ),
             const Divider(
