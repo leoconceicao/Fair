@@ -49,7 +49,7 @@ public class ProdutoLojaService {
     }
 
     @Transactional
-        public void delete(ProdutoLojaModel produtoPedidoModel) {
+    public void delete(ProdutoLojaModel produtoPedidoModel) {
         produtoLojaRepository.delete(produtoPedidoModel);
     }
 }

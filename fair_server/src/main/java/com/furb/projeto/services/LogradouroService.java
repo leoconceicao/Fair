@@ -32,7 +32,7 @@ public class LogradouroService {
     }
 
     @Transactional
-        public void delete(LogradouroModel logradouroModel) {
+    public void delete(LogradouroModel logradouroModel) {
         logradouroRepository.delete(logradouroModel);
     }
 }

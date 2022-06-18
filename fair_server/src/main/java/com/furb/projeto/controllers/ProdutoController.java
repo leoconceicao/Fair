@@ -1,7 +1,6 @@
 package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.ProdutoDto;
-import com.furb.projeto.models.ProdutoLojaModel;
 import com.furb.projeto.models.ProdutoModel;
 import com.furb.projeto.services.ProdutoService;
 import org.springframework.beans.BeanUtils;

@@ -1,7 +1,6 @@
 package com.furb.projeto.services;
 
 import com.furb.projeto.models.ProdutoModel;
-import com.furb.projeto.models.ProdutoPedidoModel;
 import com.furb.projeto.repositories.ProdutoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -26,6 +26,7 @@ public class ProdutoPedidoService {
     public Optional<ProdutoPedidoModel> findById(Integer id) {
         return produtoPedidoRepository.findById(id);
     }
+
     public Optional<ProdutoPedidoModel> findById(Integer produto, Integer pedido) {
         return produtoPedidoRepository.findById(produto, pedido);
     }
@@ -44,7 +45,7 @@ public class ProdutoPedidoService {
     }
 
     @Transactional
-        public void delete(ProdutoPedidoModel produtoPedidoModel) {
+    public void delete(ProdutoPedidoModel produtoPedidoModel) {
         produtoPedidoRepository.delete(produtoPedidoModel);
     }
 }

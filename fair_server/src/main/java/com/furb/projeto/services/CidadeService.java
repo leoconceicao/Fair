@@ -32,7 +32,7 @@ public class CidadeService {
     }
 
     @Transactional
-        public void delete(CidadeModel cidadeModel) {
+    public void delete(CidadeModel cidadeModel) {
         cidadeRepository.delete(cidadeModel);
     }
 }

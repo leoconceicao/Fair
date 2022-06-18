@@ -25,7 +25,7 @@ public class ProdutoModel implements Serializable {
     @Column(nullable = false, length = 10)
     private BigDecimal peso;
 
-    @Column(nullable = false, columnDefinition="tinyint(1) default 1")
+    @Column(nullable = false, columnDefinition = "tinyint(1) default 1")
     private Boolean active;
 
     public ProdutoModel(Integer idProduto, String nome, String tipo, BigDecimal preco, String foto, String validade, BigDecimal peso, Boolean active) {

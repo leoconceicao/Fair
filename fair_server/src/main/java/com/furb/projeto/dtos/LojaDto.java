@@ -1,7 +1,5 @@
 package com.furb.projeto.dtos;
 
-import com.furb.projeto.models.LogradouroModel;
-
 public class LojaDto {
 
     private Integer idLoja;

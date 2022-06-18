@@ -1,7 +1,6 @@
 package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.ProdutoPedidoDto;
-import com.furb.projeto.models.PedidoModel;
 import com.furb.projeto.models.ProdutoPedidoModel;
 import com.furb.projeto.repositories.PedidoRepository;
 import com.furb.projeto.repositories.ProdutoRepository;
