@@ -21,24 +21,9 @@ class PedidoModel {
     required this.fkVendedor,
   });
 
-  static Future get(id) async {
-    final response =
-        await http.get(Uri.parse('http://25.76.67.204:8080/pedido'));
-    if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body).cast<String, dynamic>();
-      List<String> pedidos = [];
-      for (var pedido in parsed["content"]) {
-        pedidos.add(pedido["idPedido"].toString());
-      }
-      return pedidos;
-    } else {
-      return "Response: " + response.statusCode.toString();
-    }
-  }
-
-  static Future findPedidos() async {
+  static Future findPedidos(int userId) async {
     final response = await http
-        .get(Uri.parse('http://25.76.67.204:8080/pedido/findPedidos'));
+        .get(Uri.parse('http://25.76.67.204:8080/pedido/findPedidos/' + userId.toString()));
     if (response.statusCode == 200) {
       final parsed = jsonDecode(response.body);
       List<String> pedidos = [];
@@ -51,14 +36,14 @@ class PedidoModel {
     }
   }
 
-  static Future findByPedidos() async {
-    final response =
-        await http.get(Uri.parse('http://25.76.67.204:8080/pedido'));
+  static Future findVendas(int lojaId) async {
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/pedido/findVendas/' + lojaId.toString()));
     if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body).cast<String, dynamic>();
+      final parsed = jsonDecode(response.body);
       List<String> pedidos = [];
-      for (var pedido in parsed["content"]) {
-        pedidos.add(pedido["idPedido"].toString());
+      for (var pedido in parsed) {
+        pedidos.add("#" + pedido["idPedido"].toString() + " - " + pedido["data"]);
       }
       return pedidos;
     } else {

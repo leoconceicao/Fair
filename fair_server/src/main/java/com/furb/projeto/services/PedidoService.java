@@ -28,8 +28,12 @@ public class PedidoService {
         return pedidoRepository.findById(id);
     }
 
-    public List<PedidoModel> findPedidos() {
-        return pedidoRepository.findPedidos();
+    public List<PedidoModel> findPedidos(Integer userId) {
+        return pedidoRepository.findPedidos(userId);
+    }
+
+    public List<PedidoModel> findVendas(Integer lojaId) {
+        return pedidoRepository.findVendas(lojaId);
     }
 
     @Transactional

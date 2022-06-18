@@ -71,7 +71,7 @@ class ProdutoPedidoModel {
     }
   }
 
-  static Future findProdutosByName(String name) async {
+  static Future findProdutosByName(int userId, String name) async {
     final response = await http.get(
         Uri.parse('http://25.76.67.204:8080/findByProdutosByName/' + name));
     if (response.statusCode == 200) {

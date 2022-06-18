@@ -2,6 +2,7 @@ package com.furb.projeto.controllers;
 
 import com.furb.projeto.dtos.PedidoDto;
 import com.furb.projeto.models.PedidoModel;
+import com.furb.projeto.repositories.LojaRepository;
 import com.furb.projeto.repositories.PessoaRepository;
 import com.furb.projeto.services.PedidoService;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +28,9 @@ public class PedidoController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @Autowired
+    private LojaRepository lojaRepository;
+
     public PedidoController(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
     }
@@ -44,9 +48,13 @@ public class PedidoController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(pedidoModelOptional.get());
     }
-    @GetMapping("/findPedidos")
-    public ResponseEntity<Object> findPedidos() {
-        return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findPedidos());
+    @GetMapping("/findPedidos/{userId}")
+    public ResponseEntity<Object> findPedidos(@PathVariable(value = "userId") Integer userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findPedidos(userId));
+    }
+    @GetMapping("/findVendas/{lojaId}")
+    public ResponseEntity<Object> findVendas(@PathVariable(value = "lojaId") Integer lojaId) {
+        return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findVendas(lojaId));
     }
 
     @PostMapping
@@ -54,7 +62,7 @@ public class PedidoController {
         var pedidoModel = new PedidoModel();
         BeanUtils.copyProperties(pedidoDto, pedidoModel);
         pedidoModel.setFkCliente(pessoaRepository.findByIdPessoa(pedidoDto.getFkCliente()));
-        pedidoModel.setFkVendedor(pessoaRepository.findByIdPessoa(pedidoDto.getFkVendedor()));
+        pedidoModel.setFkVendedor(lojaRepository.findByIdLoja(pedidoDto.getFkVendedor()));
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.save(pedidoModel));
     }
 
@@ -79,7 +87,7 @@ public class PedidoController {
         BeanUtils.copyProperties(pedidoDto, pedidoModel);
         pedidoModel.setIdPedido(pedidoModelOptional.get().getIdPedido());
         pedidoModel.setFkCliente(pessoaRepository.findByIdPessoa(pedidoDto.getFkCliente()));
-        pedidoModel.setFkVendedor(pessoaRepository.findByIdPessoa(pedidoDto.getFkVendedor()));
+        pedidoModel.setFkVendedor(lojaRepository.findByIdLoja(pedidoDto.getFkVendedor()));
         return ResponseEntity.status(HttpStatus.OK).body(pedidoService.save(pedidoModel));
     }
 

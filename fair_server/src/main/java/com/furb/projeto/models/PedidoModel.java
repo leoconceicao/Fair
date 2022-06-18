@@ -24,9 +24,9 @@ public class PedidoModel implements Serializable {
     private PessoaModel fkCliente;
     @OneToOne
     @JoinColumn(name = "idVendedor")
-    private PessoaModel fkVendedor;
+    private LojaModel fkVendedor;
 
-    public PedidoModel(Integer idPedido, String data, String periodicidade, BigDecimal peso, PessoaModel fkCliente, PessoaModel fkVendedor) {
+    public PedidoModel(Integer idPedido, String data, String periodicidade, BigDecimal peso, PessoaModel fkCliente, LojaModel fkVendedor) {
         this.idPedido = idPedido;
         this.data = data;
         this.periodicidade = periodicidade;
@@ -78,11 +78,11 @@ public class PedidoModel implements Serializable {
         this.fkCliente = fkCliente;
     }
 
-    public PessoaModel getFkVendedor() {
+    public LojaModel getFkVendedor() {
         return fkVendedor;
     }
 
-    public void setFkVendedor(PessoaModel fkVendedor) {
+    public void setFkVendedor(LojaModel fkVendedor) {
         this.fkVendedor = fkVendedor;
     }
 }
