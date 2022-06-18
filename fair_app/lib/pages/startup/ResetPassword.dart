@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../commons/Theme.dart';
-import '../commons/widgets/PrimaryButton.dart';
-import '../commons/widgets/ResetForm.dart';
+import '../../commons/Theme.dart';
+import '../../commons/widgets/PrimaryButton.dart';
+import '../../commons/widgets/ResetForm.dart';
 import 'Login.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -20,14 +20,14 @@ class ResetPasswordScreen extends StatelessWidget {
               height: 250,
             ),
             Text(
-              'Reset Password',
+              'Resetar senha',
               style: titleText,
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              'Please enter your email address',
+              'Por favor informe seu email',
               style: subTitle.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(
@@ -45,7 +45,7 @@ class ResetPasswordScreen extends StatelessWidget {
                         builder: (context) => const LogInScreen(),
                       ));
                 },
-                child: const PrimaryButton(buttonText: 'Reset Password')),
+                child: const PrimaryButton(buttonText: 'Resetar senha')),
           ],
         ),
       ),

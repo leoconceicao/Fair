@@ -22,7 +22,7 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
             child: SingleChildScrollView(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
           ElevatedButton(
             child: const Text('Fair'),

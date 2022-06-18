@@ -1,13 +1,13 @@
+import 'package:fair_app/pages/Cliente/HomeCliente.dart';
 import 'package:fair_app/pages/Cliente/Pedidos.dart';
-import 'package:fair_app/pages/Cliente/Perfil.dart';
-import 'package:fair_app/pages/Cliente/ProdutosPedido.dart';
-import 'package:fair_app/pages/Fornecedor/PerfilLoja.dart';
+import 'package:fair_app/pages/Cliente/PerfilCliente.dart';
 import 'package:fair_app/pages/Cliente/ProdutosLoja.dart';
-import 'package:fair_app/pages/Fornecedor/VendasFornecedor.dart';
-import 'package:flutter/material.dart';
-import 'package:fair_app/pages/Cliente/Home.dart';
+import 'package:fair_app/pages/Shared/ProdutosPedido.dart';
 import 'package:fair_app/pages/Fornecedor/HomeFornecedor.dart';
-import 'package:fair_app/pages/Login.dart';
+import 'package:fair_app/pages/Fornecedor/PerfilLoja.dart';
+import 'package:fair_app/pages/Fornecedor/VendasFornecedor.dart';
+import 'package:fair_app/pages/startup/Login.dart';
+import 'package:flutter/material.dart';
 
 import 'commons/ScreenArguments.dart';
 import 'commons/ValidaTipoUsuario.dart';
