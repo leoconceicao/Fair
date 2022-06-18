@@ -14,7 +14,9 @@ public class ProdutoDto {
     private String validade;
     private BigDecimal peso;
 
-    public ProdutoDto(Integer produtoId, String nome, String tipo, BigDecimal preco, String foto, String validade, BigDecimal peso) {
+    private Boolean active;
+
+    public ProdutoDto(Integer produtoId, String nome, String tipo, BigDecimal preco, String foto, String validade, BigDecimal peso, Boolean active) {
         this.produtoId = produtoId;
         this.nome = nome;
         this.tipo = tipo;
@@ -22,6 +24,7 @@ public class ProdutoDto {
         this.foto = foto;
         this.validade = validade;
         this.peso = peso;
+        this.active = active;
     }
 
     public ProdutoDto() {
@@ -81,5 +84,21 @@ public class ProdutoDto {
 
     public void setPeso(BigDecimal peso) {
         this.peso = peso;
+    }
+
+    public Integer getProdutoId() {
+        return produtoId;
+    }
+
+    public void setProdutoId(Integer produtoId) {
+        this.produtoId = produtoId;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

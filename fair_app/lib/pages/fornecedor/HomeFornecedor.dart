@@ -5,7 +5,6 @@ import 'package:fair_app/models/ProdutoModel.dart';
 import 'package:fair_app/models/ProdutosLojaModel.dart';
 import 'package:flutter/material.dart';
 
-
 class HomeFornecedor extends StatefulWidget {
   const HomeFornecedor({Key? key}) : super(key: key);
 
@@ -365,6 +364,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
   void _callSearch() async {
     setState(() {
       search = _searchController.text == "" ? false : true;
+      Navigator.of(context).pop();
     });
   }
 
@@ -376,11 +376,12 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
         preco: double.parse(_precoController.text),
         foto: "null",
         validade: _validadeController.text,
-        peso: double.parse(_pesoController.text));
+        peso: double.parse(_pesoController.text),
+        active: true);
 
     ProdutoModel.addProduto(p).then((value) => {
-          ProdutosLojaModel.addProdutoLoja(jsonDecode(value)["idProduto"],
-              int.parse(idLoja), jsonDecode(value)["preco"])
+          ProdutosLojaModel.addProdutoLoja(jsonDecode(value)["idProduto"], int.parse(idLoja), jsonDecode(value)["preco"]),
+          Navigator.of(context).pop()
         });
   }
 

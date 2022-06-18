@@ -12,6 +12,7 @@ class ProdutoModel {
   final String foto;
   final String validade;
   final double peso;
+  final bool active;
 
   const ProdutoModel({
     required this.idProduto,
@@ -21,6 +22,7 @@ class ProdutoModel {
     required this.foto,
     required this.validade,
     required this.peso,
+    required this.active,
   });
 
   static Future findAll() async {
@@ -109,6 +111,7 @@ class ProdutoModel {
         '"preco"': preco,
         '"foto"': "\"" + foto + "\"",
         '"validade"': "\"" + validade + "\"",
-        '"peso"': peso.toString()
+        '"peso"': peso.toString(),
+        '"active"': active.toString()
       };
 }

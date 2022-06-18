@@ -175,6 +175,7 @@ class _HomeState extends State<Home> {
   void _callSearch() async {
     setState(() {
       search = _searchController.text == "" ? false : true;
+      Navigator.of(context).pop();
     });
   }
 }
