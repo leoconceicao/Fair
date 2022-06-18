@@ -41,8 +41,8 @@ class PessoaModel {
         Uri.parse('http://25.76.67.204:8080/pessoa'),
         body: pessoa.toJson().toString(),
         headers: {"Content-Type": "application/json"});
-    if (response.statusCode == 200) {
-      return "Success";
+    if (response.statusCode == 201) {
+      return response.body;
     } else {
       return "Error";
     }
@@ -56,4 +56,15 @@ class PessoaModel {
         '"email"': "\"" + email + "\"",
         '"password"': "\"" + password + "\""
       };
+
+  factory PessoaModel.fromJson(Map<String, dynamic> json) {
+    return PessoaModel(
+      idPessoa: json['idPedido'],
+      nome: json['nome'],
+      telefone: json['telefone'],
+      cpf: json['cpf'],
+      email: json['email'],
+      password: json['password'],
+    );
+  }
 }

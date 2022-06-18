@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:fair_app/commons/widgets/Checkbox.dart';
+import 'package:fair_app/models/FuncionariosModel.dart';
+import 'package:fair_app/models/LojaModel.dart';
 import 'package:fair_app/models/PessoaModel.dart';
 import 'package:flutter/material.dart';
 
@@ -153,12 +157,12 @@ class _SignUpFormState extends State<SignUpForm> {
         ));
   }
 
-  void alert() {
+  void alert(String text) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const AlertDialog(
-            content: Text("Erro ao se cadastrar"),
+          return AlertDialog(
+            content: Text(text),
           );
         });
   }
@@ -172,16 +176,54 @@ class _SignUpFormState extends State<SignUpForm> {
         email: _emailController.text,
         password: _estadoController.text);
 
+    late FuncionarioModel funcionarioModel = FuncionarioModel(0, "F", 0, 0);
+
+    int fkLoja = 0;
+
+    var success = true;
+    var resultLoja;
+    if (_isCNPJ) {
+      LojaModel lojaModel = LojaModel(
+          idLoja: 0,
+          nome: _nomeLojaController.text,
+          cnpj: _cnpjController.text,
+          telefone: _telefoneLojaController.text);
+      LojaModel.addLoja(lojaModel).then((value) => {
+            resultLoja = jsonDecode(value).cast<String, dynamic>(),
+            if (value == "Error")
+              {alert("Erro ao cadastrar loja"), success = false}
+            else
+              {fkLoja = resultLoja["idLoja"]}
+          });
+      funcionarioModel.cargo = "D";
+    }
+
+    int fkPessoa;
+
+    var resultPessoa;
     PessoaModel.addPessoa(pessoaModel).then((value) => {
-          if (value == "Success")
+          if (value != "Error" && success)
             {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MyHomePage(title: 'Fair')))
-            } else {
-              alert()
-          }
+              resultPessoa = jsonDecode(value).cast<String, dynamic>(),
+              fkPessoa = resultPessoa["idPessoa"],
+              funcionarioModel.fkPessoa = fkPessoa,
+              funcionarioModel.fkLoja = fkLoja,
+              FuncionarioModel.addFuncionario(funcionarioModel)
+                  .then((value) => {
+                        if (value != "Error")
+                          {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyHomePage(title: 'Fair')))
+                          }
+                        else
+                          {alert("Erro ao cadastrar funcionario")}
+                      }),
+            }
+          else
+            {alert("Erro ao cadastrar pessoa")}
         });
   }
 }
