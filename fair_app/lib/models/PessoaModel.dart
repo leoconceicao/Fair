@@ -27,6 +27,7 @@ class PessoaModel {
     if (response.statusCode == 200) {
       final parsed = jsonDecode(response.body).cast<String, dynamic>();
       HashMap dadosPessoa = HashMap();
+      dadosPessoa["idPessoa"] = parsed["idPessoa"];
       dadosPessoa["emailDb"] = parsed["email"];
       dadosPessoa["passwordDb"] = parsed["password"];
       dadosPessoa["email"] = email;

@@ -30,6 +30,10 @@ public class FuncionarioService {
         return funcionarioRepository.findById(pessoa, loja);
     }
 
+    public Optional<FuncionarioModel> findByIdPessoa(Integer idPessoa) {
+        return funcionarioRepository.findByIdPessoa(idPessoa);
+    }
+
     @Transactional
     public FuncionarioModel save(FuncionarioModel funcionarioModel) {
         return funcionarioRepository.save(funcionarioModel);

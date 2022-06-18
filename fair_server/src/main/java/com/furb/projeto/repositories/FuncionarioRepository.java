@@ -13,4 +13,7 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioModel, I
 
     @Query("SELECT u FROM FuncionarioModel u WHERE u.fkPessoa = :pessoa and u.fkLoja = :loja")
     Optional<FuncionarioModel> findById(@Param("pessoa") Integer pessoa, @Param("loja") Integer loja);
+
+    @Query("SELECT u FROM FuncionarioModel u WHERE u.fkPessoa.idPessoa = :idPessoa")
+    Optional<FuncionarioModel> findByIdPessoa(Integer idPessoa);
 }

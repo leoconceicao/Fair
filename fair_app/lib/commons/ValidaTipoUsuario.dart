@@ -1,12 +1,5 @@
 import 'package:fair_app/commons/ScreenArguments.dart';
-import 'package:fair_app/pages/ResetPassword.dart';
-import 'package:fair_app/pages/Signup.dart';
 import 'package:flutter/material.dart';
-
-import '../Main.dart';
-import '../commons/Theme.dart';
-import '../commons/widgets/LoginOption.dart';
-import '../models/PessoaModel.dart';
 
 class ValidaTipoUsuario extends StatefulWidget {
   const ValidaTipoUsuario({Key? key}) : super(key: key);

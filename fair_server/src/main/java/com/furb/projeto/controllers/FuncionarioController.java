@@ -49,6 +49,11 @@ public class FuncionarioController {
         return ResponseEntity.status(HttpStatus.OK).body(funcionarioModelOptional.get());
     }
 
+    @GetMapping("findByIdPessoa/{pessoa}")
+    public ResponseEntity<Object> findByIdPessoa(@PathVariable(value = "pessoa") Integer idPessoa) {
+        return ResponseEntity.status(HttpStatus.OK).body(funcionarioService.findByIdPessoa(idPessoa));
+    }
+
     @PostMapping
     public ResponseEntity<Object> postFuncionario(@RequestBody @Valid FuncionarioDto funcionarioDto) {
         var funcionarioModel = new FuncionarioModel();

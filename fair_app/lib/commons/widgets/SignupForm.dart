@@ -6,8 +6,9 @@ import 'package:fair_app/models/LojaModel.dart';
 import 'package:fair_app/models/PessoaModel.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
+import '../ScreenArguments.dart';
 import '../Theme.dart';
+import '../ValidaTipoUsuario.dart';
 import 'LoginOption.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -174,7 +175,7 @@ class _SignUpFormState extends State<SignUpForm> {
         telefone: _telefoneController.text,
         cpf: _cpfController.text,
         email: _emailController.text,
-        password: _estadoController.text);
+        password: _senhaController.text);
 
     late FuncionarioModel funcionarioModel = FuncionarioModel(0, "F", 0, 0);
 
@@ -215,11 +216,16 @@ class _SignUpFormState extends State<SignUpForm> {
                             if (value == "Error")
                               {alert("Erro ao cadastrar funcionario")}
                           }),
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ValidaTipoUsuario()))
+                }
+              else
+                {
+                  Navigator.pushNamed(context, '/maincliente',
+                      arguments: ScreenArguments('isCnpj', 'N')),
                 },
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MyHomePage(title: 'Fair')))
             }
           else
             {alert("Erro ao cadastrar pessoa")}

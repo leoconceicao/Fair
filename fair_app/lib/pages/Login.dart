@@ -1,10 +1,11 @@
+import 'package:fair_app/models/FuncionariosModel.dart';
 import 'package:fair_app/pages/ResetPassword.dart';
 import 'package:fair_app/pages/Signup.dart';
 import 'package:flutter/material.dart';
 
-import '../Main.dart';
-import '../commons/ValidaTipoUsuario.dart';
+import '../commons/ScreenArguments.dart';
 import '../commons/Theme.dart';
+import '../commons/ValidaTipoUsuario.dart';
 import '../commons/widgets/LoginOption.dart';
 import '../models/PessoaModel.dart';
 
@@ -173,28 +174,32 @@ class _LogInScreenState extends State<LogInScreen> {
   void _validarLogin(context) {
     String email = _emailController.text;
     String password = _passwordController.text;
-    // if (email == "" || password == "") {
-    //   alert();
-    // } else {
-      // PessoaModel.findByEmail(email, password).then((value) => {
-      //       if (value["email"].toString() == value["emailDb"].toString() &&
-      //           value["password"].toString() == value["passwordDb"].toString())
-      //         {
-      //           {
-      //             Navigator.push(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                     builder: (context) =>
-      //                         const MyHomePage(title: 'Fair')))
-      //           }
-      //         }
-      //       else
-      //         {alert()}
-      //     });
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const ValidaTipoUsuario()));
-    // }
+    if (email == "" || password == "") {
+      alert();
+    } else {
+      PessoaModel.findByEmail(email, password).then((value) => {
+            if (value["email"].toString() == value["emailDb"].toString() &&
+                value["password"].toString() == value["passwordDb"].toString())
+              {
+                FuncionarioModel.findByIdPessoa(value["idPessoa"]).then((f) => {
+                      if (f == "null")
+                        {
+                          Navigator.pushNamed(context, '/maincliente',
+                              arguments: ScreenArguments('isCnpj', 'N')),
+                        }
+                      else
+                        {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ValidaTipoUsuario()))
+                        }
+                    }),
+              }
+            else
+              {alert()}
+          });
+    }
   }
 }
