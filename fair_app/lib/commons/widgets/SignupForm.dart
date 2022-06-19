@@ -318,7 +318,8 @@ class _SignUpFormState extends State<SignUpForm> {
             idLoja: 0,
             nome: _nomeLojaController.text,
             cnpj: _cnpjController.text,
-            telefone: _telefoneLojaController.text);
+            telefone: _telefoneLojaController.text,
+            endereco: "");
         LojaModel.addLoja(lojaModel).then((value) =>
         {
           if (value == "Error")

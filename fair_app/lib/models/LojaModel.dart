@@ -9,13 +9,14 @@ class LojaModel {
   final String nome;
   final String cnpj;
   final String telefone;
+  final String endereco;
 
-  const LojaModel({
-    required this.idLoja,
-    required this.nome,
-    required this.cnpj,
-    required this.telefone,
-  });
+  const LojaModel(
+      {required this.idLoja,
+      required this.nome,
+      required this.cnpj,
+      required this.telefone,
+      required this.endereco});
 
   static Future<String> addLoja(LojaModel loja) async {
     final response = await http.post(Uri.parse('http://25.76.67.204:8080/loja'),
@@ -29,10 +30,11 @@ class LojaModel {
   }
 
   static Future<String> atualizaLoja(LojaModel loja) async {
-    final response = await http.post(Uri.parse('http://25.76.67.204:8080/loja/update'),
+    final response = await http.put(
+        Uri.parse('http://25.76.67.204:8080/loja/update/' + loja.idLoja.toString()),
         body: loja.toJson().toString(),
         headers: {"Content-Type": "application/json"});
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return response.body;
     } else {
       return "Error";
@@ -59,6 +61,7 @@ class LojaModel {
         '"nome"': "\"" + nome + "\"",
         '"cnpj"': "\"" + cnpj + "\"",
         '"telefone"': "\"" + telefone + "\"",
+        '"endereco"': "\"" + endereco + "\"",
       };
 
   factory LojaModel.fromJson(Map<String, dynamic> json) {
@@ -67,6 +70,7 @@ class LojaModel {
       nome: json['nome'],
       telefone: json['telefone'],
       cnpj: json['cpf'],
+      endereco: json['endereco'],
     );
   }
 }

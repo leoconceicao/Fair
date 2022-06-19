@@ -42,12 +42,14 @@ class _PerfilLojaState extends State<PerfilLoja> {
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _telefoneController = TextEditingController();
   final TextEditingController _cnpjController = TextEditingController();
-  final TextEditingController _cidadeController = TextEditingController();
-  final TextEditingController _estadoController = TextEditingController();
-  final TextEditingController _bairroController = TextEditingController();
+  final TextEditingController _enderecoController = TextEditingController();
   late int _idLoja;
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    if (_nomeController.text == "") {
+      get(args.a["idLoja"].toString(), context);
+    }
     return Container(
         height: 500,
         child: Scaffold(
@@ -55,64 +57,47 @@ class _PerfilLojaState extends State<PerfilLoja> {
           child: Column(
             children: [
               Container(),
-              /*Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "https://www.canaldapeca.com.br/blog/wp-content/uploads/2014/01/Curiosidades-Canal-da-Pe%C3%A7a-A-hist%C3%B3ria-do-Camaro.jpg"
-                        ),
-                        //fit: BoxFit.cover
-                    )
-                ),
-                child: Container(
-                  width: double.infinity,
-                  height: 150,
-                  child: Container(
-                    alignment: Alignment(0.0,2.5),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://media-exp1.licdn.com/dms/image/C4E03AQEJCzI5uFl1Jg/profile-displayphoto-shrink_200_200/0/1600276692983?e=2147483647&v=beta&t=mBy4eOSgBKIJEQrlpLOGj2JT7P5RWLIVq5UpwvcUpOk"
-                      ),
-                      radius: 60.0,
-                    ),
-                  ),
-                ),
-              ),*/
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                _nomeController.text.trim() != "" ? _nomeController.text : "Nome da Loja" //Trocar pelo nome do usuário
-                ,
-                style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.green,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                _cnpjController.text.trim() != "" ? _cnpjController.text : "CNPJ da Loja",
-                style: TextStyle(
+              TextField(
+                style: const TextStyle(
                   fontSize: 14.0,
                   color: Colors.green,
                   letterSpacing: 2.0,
                   fontWeight: FontWeight.w300,
                 ),
+                readOnly: true,
+                controller: _nomeController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Nome Lojas',
+                ),
               ),
-              const SizedBox(
-                height: 10,
+              TextField(
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.green,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                ),
+                readOnly: true,
+                controller: _enderecoController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Endereço Loja',
+                ),
               ),
-              const Text(
-                "Blumenau, Santa Catarina" //Alterar para cidade pelo banco
-                ,
-                style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.green,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.w300),
+              TextField(
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.green,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                ),
+                readOnly: true,
+                controller: _telefoneController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Telefone',
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -159,29 +144,28 @@ class _PerfilLojaState extends State<PerfilLoja> {
                   decoration: const InputDecoration(labelText: 'Nome'),
                 ),
                 TextField(
+                  controller: _enderecoController,
+                  decoration: const InputDecoration(labelText: 'Endereço'),
+                ),
+                TextField(
                   controller: _telefoneController,
                   inputFormatters: [mascaraTelefone],
-                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(labelText: 'Telefone'),
                 ),
-                TextField(
-                  controller: _cnpjController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [mascaraCNPJ],
-                  decoration: const InputDecoration(labelText: 'CNPJ'),
-                ),
-                TextField(
-                  controller: _cidadeController,
-                  decoration: const InputDecoration(labelText: 'Cidade'),
-                ),
-                TextField(
-                  controller: _estadoController,
-                  decoration: const InputDecoration(labelText: 'Estado'),
-                ),
                 ElevatedButton(
-                  child: Text('Alterar perfil'),
+                  child: const Text('Alterar perfil'),
                   onPressed: () {
-                    _callChangePerfil;
+                      LojaModel lojaModel = LojaModel(
+                          idLoja: _idLoja,
+                          nome: _nomeController.text,
+                          telefone: _telefoneController.text,
+                          cnpj: _cnpjController.text,
+                          endereco: _enderecoController.text);
+                      LojaModel.atualizaLoja(lojaModel).then((value) => {
+                            if (value == "Error")
+                              {alert("Erro ao atualizar informações da loja")}
+                          });
+                      Navigator.of(context).pop();
                   },
                 )
               ],
@@ -190,21 +174,7 @@ class _PerfilLojaState extends State<PerfilLoja> {
         });
   }
 
-  void _callChangePerfil() async {
-    final FormState form = _formKey.currentState!;
-    if (form.validate()) {
-      LojaModel lojaModel = LojaModel(
-          idLoja: _idLoja,
-          nome: _nomeController.text,
-          telefone: _telefoneController.text,
-          cnpj: _cnpjController.text);
-      LojaModel.atualizaLoja(lojaModel).then((value) => {
-        if (value == "Error") {
-          alert("Erro ao atualizar informações da loja")
-        }
-      });
-    }
-  }
+  void _callChangePerfil() async {}
 
   void alert(String text) {
     showDialog(
@@ -214,5 +184,21 @@ class _PerfilLojaState extends State<PerfilLoja> {
             content: Text(text),
           );
         });
+  }
+
+  Future<String> get(String idLoja, BuildContext context) async {
+    _idLoja = int.parse(idLoja);
+    final response = await http
+        .get(Uri.parse('http://25.76.67.204:8080/loja/findById/' + idLoja));
+    if (response.statusCode == 200) {
+      final parsed = jsonDecode(response.body).cast<String, dynamic>();
+      _nomeController.text = parsed["nome"];
+      _telefoneController.text = parsed["telefone"];
+      _enderecoController.text = parsed["endereco"];
+      build(context);
+      return "Response: " + response.statusCode.toString();
+    } else {
+      throw "Response: " + response.statusCode.toString();
+    }
   }
 }

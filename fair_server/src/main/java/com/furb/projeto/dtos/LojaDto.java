@@ -6,16 +6,19 @@ public class LojaDto {
     private String nome;
     private String cnpj;
     private String telefone;
+
+    private String endereco;
     private Integer fkLogradouro;
 
     public LojaDto() {
     }
 
-    public LojaDto(Integer idLoja, String nome, String cnpj, String telefone, Integer fkLogradouro) {
+    public LojaDto(Integer idLoja, String nome, String cnpj, String telefone, String endereco, Integer fkLogradouro) {
         this.idLoja = idLoja;
         this.nome = nome;
         this.cnpj = cnpj;
         this.telefone = telefone;
+        this.endereco = endereco;
         this.fkLogradouro = fkLogradouro;
     }
 
@@ -49,6 +52,14 @@ public class LojaDto {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public Integer getFkLogradouro() {
