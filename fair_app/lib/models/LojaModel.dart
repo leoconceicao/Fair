@@ -28,6 +28,17 @@ class LojaModel {
     }
   }
 
+  static Future<String> atualizaLoja(LojaModel loja) async {
+    final response = await http.post(Uri.parse('http://25.76.67.204:8080/loja/update'),
+        body: loja.toJson().toString(),
+        headers: {"Content-Type": "application/json"});
+    if (response.statusCode == 201) {
+      return response.body;
+    } else {
+      return "Error";
+    }
+  }
+
   static Future<HashMap> findById(idLoja) async {
     final response = await http
         .get(Uri.parse('http://25.76.67.204:8080/loja/findById/' + idLoja));

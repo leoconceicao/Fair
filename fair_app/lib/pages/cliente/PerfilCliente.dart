@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:fair_app/commons/ScreenArguments.dart';
+import 'package:fair_app/models/PessoaModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:validadores/Validador.dart';
 
 class Perfil extends StatefulWidget {
   const Perfil({Key? key}) : super(key: key);
@@ -13,6 +16,14 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
+
+  void initState() {
+    // TODO: implement initState
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    get(args.a["userId"].toString());
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _telefoneController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
@@ -21,11 +32,20 @@ class _PerfilState extends State<Perfil> {
   final TextEditingController _estadoController = TextEditingController();
   final TextEditingController _bairroController = TextEditingController();
   final TextEditingController _cepController = TextEditingController();
+  late int _idUsuario;
+
+  final mascaraTelefone = MaskTextInputFormatter(
+      mask: '(##) #####-####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
+  final mascaraCPF = MaskTextInputFormatter(
+      mask: '###.###.###-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    get(args.a["userId"].toString());
     return Container(
         height: 500,
         child: Scaffold(
@@ -59,9 +79,8 @@ class _PerfilState extends State<Perfil> {
               const SizedBox(
                 height: 30,
               ),
-              const Text(
-                "Gustavo Bulhmann" //Trocar pelo nome do usuário
-                ,
+              Text(
+                _nomeController.text.trim() != "" ? _nomeController.text : "Nome do Usuário",
                 style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.green,
@@ -71,8 +90,8 @@ class _PerfilState extends State<Perfil> {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                "Email do usuário",
+              Text(
+                _emailController.text.trim() != "" ? _emailController.text : "Email do usuário",
                 style: TextStyle(
                   fontSize: 14.0,
                   color: Colors.green,
@@ -121,7 +140,9 @@ class _PerfilState extends State<Perfil> {
                 left: 20,
                 right: 20,
                 bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
-            child: Column(
+            child:  Form(
+          key: _formKey,
+          child:Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -139,11 +160,20 @@ class _PerfilState extends State<Perfil> {
                 ),
                 TextField(
                   controller: _telefoneController,
+                  inputFormatters: [mascaraTelefone],
                   decoration:
                       const InputDecoration(labelText: 'Telefone do usuário'),
                 ),
-                TextField(
+                TextFormField(
                   controller: _cpfController,
+                  inputFormatters: [mascaraCPF],
+                  validator: (value) {
+                    // Aqui entram as validações
+                    return Validador()
+                        .add(Validar.CPF, msg: 'CPF inválido')
+                        .add(Validar.OBRIGATORIO, msg: 'Campo obrigatório')
+                        .valido(value, clearNoNumber: true);
+                  },
                   decoration:
                       const InputDecoration(labelText: 'CPF do usuário'),
                 ),
@@ -152,17 +182,49 @@ class _PerfilState extends State<Perfil> {
                   decoration:
                       const InputDecoration(labelText: 'E-mail do usuário'),
                 ),
-                const ElevatedButton(
+                ElevatedButton(
                   child: Text('Alterar perfil'),
-                  onPressed: null,
+                  onPressed: () {
+                    _callChangePerfil;
+                  },
                 )
               ],
             ),
+          ));
+        });
+  }
+
+  void _callChangePerfil() async {
+    final FormState form = _formKey.currentState!;
+    if (form.validate()) {
+      PessoaModel pessoaModel = PessoaModel(
+          idPessoa: _idUsuario,
+          nome: _nomeController.text,
+          telefone: _telefoneController.text,
+          cpf: _cpfController.text,
+          email: _emailController.text,
+          password: '');
+      PessoaModel.atualizaPessoa(pessoaModel).then((value) => {
+        if (value == "Error") {
+          alert("Erro ao atualizar perfil do usuário")
+        }
+      });
+    }
+  }
+
+  void alert(String text) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(text),
           );
         });
   }
 
+
   Future<String> get(String idUser) async {
+    _idUsuario = int.parse(idUser);
     final response =
         await http.get(Uri.parse('http://25.76.67.204:8080/pessoa/' + idUser));
     if (response.statusCode == 200) {
@@ -171,7 +233,7 @@ class _PerfilState extends State<Perfil> {
       _telefoneController.text = parsed["telefone"];
       _cpfController.text = parsed["cpf"];
       _emailController.text = parsed["email"];
-      return "Response: " + response.statusCode.toString();;
+      return "Response: " + response.statusCode.toString();
     } else {
       throw "Response: " + response.statusCode.toString();
     }

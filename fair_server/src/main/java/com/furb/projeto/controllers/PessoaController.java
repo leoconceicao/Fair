@@ -72,7 +72,7 @@ public class PessoaController {
         return ResponseEntity.status(HttpStatus.OK).body("Pessoa deleted successfully.");
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Object> putPessoa(@PathVariable(value = "id") Integer id,
                                             @RequestBody @Valid PessoaDto pessoaDto) {
         Optional<PessoaModel> pessoaModelOptional = pessoaService.findById(id);

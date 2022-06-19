@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:fair_app/commons/ScreenArguments.dart';
+import 'package:fair_app/models/LojaModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -14,6 +16,18 @@ class PerfilLoja extends StatefulWidget {
 }
 
 class _PerfilLojaState extends State<PerfilLoja> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    _idLoja = int.parse(args.a['idLoja']);
+    super.initState();
+    LojaModel.findById(args.a['idLoja']).then((value) => {
+      _nomeController.text = value['nome'],
+      _cnpjController.text = value['cnpj'],
+      _telefoneController.text = value['telefone'],
+    });
+  }
   final mascaraTelefone = MaskTextInputFormatter(
       mask: '(##) #####-####',
       filter: {"#": RegExp(r'[0-9]')},
@@ -24,19 +38,16 @@ class _PerfilLojaState extends State<PerfilLoja> {
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _telefoneController = TextEditingController();
-  final TextEditingController _cpfController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _cnpjController = TextEditingController();
   final TextEditingController _cidadeController = TextEditingController();
   final TextEditingController _estadoController = TextEditingController();
   final TextEditingController _bairroController = TextEditingController();
-  final TextEditingController _cepController = TextEditingController();
-
+  late int _idLoja;
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    //List<String> valoresLoja = _buscaInfoLoja(args.a['idLoja']);
     return Container(
         height: 500,
         child: Scaffold(
@@ -70,8 +81,8 @@ class _PerfilLojaState extends State<PerfilLoja> {
               const SizedBox(
                 height: 30,
               ),
-              const Text(
-                "Gustavo Bulhmann" //Trocar pelo nome do usuário
+              Text(
+                _nomeController.text.trim() != "" ? _nomeController.text : "Nome da Loja" //Trocar pelo nome do usuário
                 ,
                 style: TextStyle(
                     fontSize: 20.0,
@@ -82,8 +93,8 @@ class _PerfilLojaState extends State<PerfilLoja> {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                "Email do usuário",
+              Text(
+                _cnpjController.text.trim() != "" ? _cnpjController.text : "CNPJ da Loja",
                 style: TextStyle(
                   fontSize: 14.0,
                   color: Colors.green,
@@ -154,7 +165,7 @@ class _PerfilLojaState extends State<PerfilLoja> {
                   decoration: const InputDecoration(labelText: 'Telefone'),
                 ),
                 TextField(
-                  controller: _cpfController,
+                  controller: _cnpjController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [mascaraCNPJ],
                   decoration: const InputDecoration(labelText: 'CNPJ'),
@@ -167,9 +178,11 @@ class _PerfilLojaState extends State<PerfilLoja> {
                   controller: _estadoController,
                   decoration: const InputDecoration(labelText: 'Estado'),
                 ),
-                const ElevatedButton(
+                ElevatedButton(
                   child: Text('Alterar perfil'),
-                  onPressed: null,
+                  onPressed: () {
+                    _callChangePerfil;
+                  },
                 )
               ],
             ),
@@ -177,18 +190,29 @@ class _PerfilLojaState extends State<PerfilLoja> {
         });
   }
 
-  Future<List<String>> get() async {
-    final response =
-        await http.get(Uri.parse('http://25.76.67.204:8080/cidade'));
-    if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body).cast<String, dynamic>();
-      List<String> cidades = [];
-      for (var cidade in parsed["content"]) {
-        cidades.add(cidade["dsCidade"]);
-      }
-      return cidades;
-    } else {
-      throw "Response: " + response.statusCode.toString();
+  void _callChangePerfil() async {
+    final FormState form = _formKey.currentState!;
+    if (form.validate()) {
+      LojaModel lojaModel = LojaModel(
+          idLoja: _idLoja,
+          nome: _nomeController.text,
+          telefone: _telefoneController.text,
+          cnpj: _cnpjController.text);
+      LojaModel.atualizaLoja(lojaModel).then((value) => {
+        if (value == "Error") {
+          alert("Erro ao atualizar informações da loja")
+        }
+      });
     }
+  }
+
+  void alert(String text) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(text),
+          );
+        });
   }
 }

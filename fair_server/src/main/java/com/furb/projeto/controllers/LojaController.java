@@ -63,7 +63,7 @@ public class LojaController {
         return ResponseEntity.status(HttpStatus.OK).body("Loja deleted successfully.");
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Object> putLoja(@PathVariable(value = "id") Integer id,
                                             @RequestBody @Valid LojaDto lojaDto) {
         Optional<LojaModel> lojaModelOptional = lojaService.findById(id);

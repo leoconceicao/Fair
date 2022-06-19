@@ -49,6 +49,18 @@ class PessoaModel {
     }
   }
 
+  static Future<String> atualizaPessoa(PessoaModel pessoa) async {
+    final response = await http.post(
+        Uri.parse('http://25.76.67.204:8080/pessoa/update/'),
+        body: pessoa.toJson().toString(),
+        headers: {"Content-Type": "application/json"});
+    if (response.statusCode == 201) {
+      return response.body;
+    } else {
+      return "Error";
+    }
+  }
+
   Map<String, dynamic> toJson() => {
         '"idPessoa"': "\"" + idPessoa.toString() + "\"",
         '"nome"': "\"" + nome + "\"",
