@@ -11,6 +11,7 @@ class PessoaModel {
   final String cpf;
   final String email;
   final String password;
+  final String endereco;
 
   const PessoaModel({
     required this.idPessoa,
@@ -19,6 +20,7 @@ class PessoaModel {
     required this.cpf,
     required this.email,
     required this.password,
+    required this.endereco,
   });
 
   static Future<HashMap> findByEmail(email, password) async {
@@ -50,11 +52,11 @@ class PessoaModel {
   }
 
   static Future<String> atualizaPessoa(PessoaModel pessoa) async {
-    final response = await http.post(
-        Uri.parse('http://25.76.67.204:8080/pessoa/update/'),
+    final response = await http.put(
+        Uri.parse('http://25.76.67.204:8080/pessoa/update/' + pessoa.idPessoa.toString()),
         body: pessoa.toJson().toString(),
         headers: {"Content-Type": "application/json"});
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return response.body;
     } else {
       return "Error";
@@ -67,6 +69,7 @@ class PessoaModel {
         '"telefone"': "\"" + telefone + "\"",
         '"cpf"': "\"" + cpf + "\"",
         '"email"': "\"" + email + "\"",
+        '"endereco"': "\"" + endereco + "\"",
         '"password"': "\"" + password + "\""
       };
 
@@ -78,6 +81,7 @@ class PessoaModel {
       cpf: json['cpf'],
       email: json['email'],
       password: json['password'],
+      endereco: json['endereco'],
     );
   }
 }

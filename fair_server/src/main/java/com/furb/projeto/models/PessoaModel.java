@@ -20,7 +20,10 @@ public class PessoaModel implements Serializable {
     @Column(nullable = false, length = 45, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 255, unique = true)
+    private String endereco;
+
+    @Column(length = 45)
     private String password;
 
     @OneToOne
@@ -30,12 +33,13 @@ public class PessoaModel implements Serializable {
     public PessoaModel() {
     }
 
-    public PessoaModel(Integer idPessoa, String nome, String telefone, String cpf, String email, String password, LogradouroModel fkLogradouro) {
+    public PessoaModel(Integer idPessoa, String nome, String telefone, String cpf, String email, String endereco, String password, LogradouroModel fkLogradouro) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.telefone = telefone;
         this.cpf = cpf;
         this.email = email;
+        this.endereco = endereco;
         this.password = password;
         this.fkLogradouro = fkLogradouro;
     }
@@ -86,6 +90,14 @@ public class PessoaModel implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public LogradouroModel getFkLogradouro() {

@@ -307,7 +307,8 @@ class _SignUpFormState extends State<SignUpForm> {
           telefone: _telefoneController.text,
           cpf: _cpfController.text,
           email: _emailController.text,
-          password: _senhaController.text);
+          password: _senhaController.text,
+          endereco: "");
 
       late FuncionarioModel funcionarioModel = FuncionarioModel(0, "F", 0, 0);
 

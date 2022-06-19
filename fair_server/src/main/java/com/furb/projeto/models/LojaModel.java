@@ -18,6 +18,9 @@ public class LojaModel implements Serializable {
     @Column(nullable = false, length = 45)
     private String telefone;
 
+    @Column
+    private String endereco;
+
     @OneToOne
     @JoinColumn(name = "fkLogradouro")
     private LogradouroModel fkLogradouro;
@@ -25,11 +28,12 @@ public class LojaModel implements Serializable {
     public LojaModel() {
     }
 
-    public LojaModel(Integer idLoja, String nome, String cnpj, String telefone, LogradouroModel fkLogradouro) {
+    public LojaModel(Integer idLoja, String nome, String cnpj, String telefone, String endereco, LogradouroModel fkLogradouro) {
         this.idLoja = idLoja;
         this.nome = nome;
         this.cnpj = cnpj;
         this.telefone = telefone;
+        this.endereco = endereco;
         this.fkLogradouro = fkLogradouro;
     }
 
@@ -63,6 +67,14 @@ public class LojaModel implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public LogradouroModel getFkLogradouro() {

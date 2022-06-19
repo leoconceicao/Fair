@@ -6,7 +6,6 @@ import 'package:fair_app/models/PessoaModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:validadores/Validador.dart';
 
 class Perfil extends StatefulWidget {
   const Perfil({Key? key}) : super(key: key);
@@ -16,22 +15,16 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
-
-  void initState() {
-    // TODO: implement initState
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    get(args.a["userId"].toString());
-  }
+  void initState() {}
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _telefoneController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _cidadeController = TextEditingController();
-  final TextEditingController _estadoController = TextEditingController();
-  final TextEditingController _bairroController = TextEditingController();
-  final TextEditingController _cepController = TextEditingController();
+  final TextEditingController _enderecoController = TextEditingController();
+  final TextEditingController _senha01Controller = TextEditingController();
+  final TextEditingController _senha02Controller = TextEditingController();
   late int _idUsuario;
 
   final mascaraTelefone = MaskTextInputFormatter(
@@ -46,70 +39,88 @@ class _PerfilState extends State<Perfil> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    if (_nomeController.text == "") {
+      get(args.a["userId"].toString(), context);
+    }
     return Container(
         height: 500,
         child: Scaffold(
             body: SafeArea(
           child: Column(
             children: [
-              Container(),
-              /*Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "https://www.canaldapeca.com.br/blog/wp-content/uploads/2014/01/Curiosidades-Canal-da-Pe%C3%A7a-A-hist%C3%B3ria-do-Camaro.jpg"
-                        ),
-                        //fit: BoxFit.cover
-                    )
-                ),
-                child: Container(
-                  width: double.infinity,
-                  height: 150,
-                  child: Container(
-                    alignment: Alignment(0.0,2.5),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://media-exp1.licdn.com/dms/image/C4E03AQEJCzI5uFl1Jg/profile-displayphoto-shrink_200_200/0/1600276692983?e=2147483647&v=beta&t=mBy4eOSgBKIJEQrlpLOGj2JT7P5RWLIVq5UpwvcUpOk"
-                      ),
-                      radius: 60.0,
-                    ),
-                  ),
-                ),
-              ),*/
               const SizedBox(
                 height: 30,
               ),
-              Text(
-                _nomeController.text.trim() != "" ? _nomeController.text : "Nome do Usuário",
-                style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.green,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                _emailController.text.trim() != "" ? _emailController.text : "Email do usuário",
-                style: TextStyle(
+              TextField(
+                style: const TextStyle(
                   fontSize: 14.0,
                   color: Colors.green,
                   letterSpacing: 2.0,
                   fontWeight: FontWeight.w300,
                 ),
+                readOnly: true,
+                controller: _nomeController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Nome',
+                ),
               ),
-              const SizedBox(
-                height: 10,
+              TextField(
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.green,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                ),
+                readOnly: true,
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Email',
+                ),
               ),
-              const Text(
-                "Blumenau, Santa Catarina" //Alterar para cidade pelo banco
-                ,
-                style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.green,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.w300),
+              TextField(
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.green,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                ),
+                readOnly: true,
+                controller: _telefoneController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Telefone',
+                ),
+              ),
+              TextField(
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.green,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                ),
+                readOnly: true,
+                controller: _cpfController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'CPF',
+                ),
+              ),
+              TextField(
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.green,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                ),
+                readOnly: true,
+                controller: _enderecoController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Endereco',
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -135,81 +146,93 @@ class _PerfilState extends State<Perfil> {
         context: context,
         builder: (BuildContext ctx) {
           return Padding(
-            padding: EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
-            child:  Form(
-          key: _formKey,
-          child:Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Informações do usuário",
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.green,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.w300,
-                    )),
-                TextField(
-                  controller: _nomeController,
-                  decoration:
-                      const InputDecoration(labelText: 'Nome do usuário'),
+              padding: EdgeInsets.only(
+                  top: 20,
+                  left: 20,
+                  right: 20,
+                  bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Informações do usuário",
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.green,
+                          letterSpacing: 2.0,
+                          fontWeight: FontWeight.w300,
+                        )),
+                    TextField(
+                      controller: _nomeController,
+                      decoration:
+                          const InputDecoration(labelText: 'Nome do usuário'),
+                    ),
+                    TextField(
+                      controller: _emailController,
+                      decoration:
+                          const InputDecoration(labelText: 'E-mail do usuário'),
+                    ),
+                    TextField(
+                      controller: _telefoneController,
+                      inputFormatters: [mascaraTelefone],
+                      decoration: const InputDecoration(
+                          labelText: 'Telefone do usuário'),
+                    ),
+                    TextField(
+                      controller: _enderecoController,
+                      decoration: const InputDecoration(labelText: 'Endereco'),
+                    ),
+                    TextField(
+                      controller: _senha01Controller,
+                      decoration: const InputDecoration(labelText: 'Senha'),
+                    ),
+                    TextField(
+                      controller: _senha02Controller,
+                      decoration:
+                          const InputDecoration(labelText: 'Confirmar Senha'),
+                    ),
+                    ElevatedButton(
+                      child: const Text('Alterar perfil'),
+                      onPressed: () {
+                        final FormState form = _formKey.currentState!;
+                        if (form.validate()) {
+                          PessoaModel pessoaModel = PessoaModel(
+                              idPessoa: _idUsuario,
+                              nome: _nomeController.text,
+                              telefone: _telefoneController.text,
+                              cpf: _cpfController.text,
+                              email: _emailController.text,
+                              password: _senha01Controller.text,
+                              endereco: _enderecoController.text);
+                          if (_senha01Controller.text != "" &&
+                              _senha02Controller.text != "") {
+                            if (_senha01Controller.text ==
+                                _senha02Controller.text) {
+                              PessoaModel.atualizaPessoa(pessoaModel)
+                                  .then((value) => {
+                                        if (value == "Error")
+                                          {
+                                            alert(
+                                                "Erro ao atualizar perfil do usuário")
+                                          }
+                                        else
+                                          {Navigator.of(context).pop()}
+                                      });
+                            } else {
+                              alert("Confirmação de senha incorreta.");
+                            }
+                          } else {
+                            alert("Senha em branco");
+                          }
+                        }
+                      },
+                    )
+                  ],
                 ),
-                TextField(
-                  controller: _telefoneController,
-                  inputFormatters: [mascaraTelefone],
-                  decoration:
-                      const InputDecoration(labelText: 'Telefone do usuário'),
-                ),
-                TextFormField(
-                  controller: _cpfController,
-                  inputFormatters: [mascaraCPF],
-                  validator: (value) {
-                    // Aqui entram as validações
-                    return Validador()
-                        .add(Validar.CPF, msg: 'CPF inválido')
-                        .add(Validar.OBRIGATORIO, msg: 'Campo obrigatório')
-                        .valido(value, clearNoNumber: true);
-                  },
-                  decoration:
-                      const InputDecoration(labelText: 'CPF do usuário'),
-                ),
-                TextField(
-                  controller: _emailController,
-                  decoration:
-                      const InputDecoration(labelText: 'E-mail do usuário'),
-                ),
-                ElevatedButton(
-                  child: Text('Alterar perfil'),
-                  onPressed: () {
-                    _callChangePerfil;
-                  },
-                )
-              ],
-            ),
-          ));
+              ));
         });
-  }
-
-  void _callChangePerfil() async {
-    final FormState form = _formKey.currentState!;
-    if (form.validate()) {
-      PessoaModel pessoaModel = PessoaModel(
-          idPessoa: _idUsuario,
-          nome: _nomeController.text,
-          telefone: _telefoneController.text,
-          cpf: _cpfController.text,
-          email: _emailController.text,
-          password: '');
-      PessoaModel.atualizaPessoa(pessoaModel).then((value) => {
-        if (value == "Error") {
-          alert("Erro ao atualizar perfil do usuário")
-        }
-      });
-    }
   }
 
   void alert(String text) {
@@ -222,8 +245,7 @@ class _PerfilState extends State<Perfil> {
         });
   }
 
-
-  Future<String> get(String idUser) async {
+  Future<String> get(String idUser, BuildContext context) async {
     _idUsuario = int.parse(idUser);
     final response =
         await http.get(Uri.parse('http://25.76.67.204:8080/pessoa/' + idUser));
@@ -233,6 +255,7 @@ class _PerfilState extends State<Perfil> {
       _telefoneController.text = parsed["telefone"];
       _cpfController.text = parsed["cpf"];
       _emailController.text = parsed["email"];
+      build(context);
       return "Response: " + response.statusCode.toString();
     } else {
       throw "Response: " + response.statusCode.toString();

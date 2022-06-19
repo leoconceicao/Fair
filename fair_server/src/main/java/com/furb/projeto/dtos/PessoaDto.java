@@ -8,18 +8,20 @@ public class PessoaDto {
     private String cpf;
     private String email;
     private String password;
+    private String endereco;
     private Integer fkLogradouro;
 
     public PessoaDto() {
     }
 
-    public PessoaDto(Integer idPessoa, String nome, String telefone, String cpf, String email, String password, Integer fkLogradouro) {
+    public PessoaDto(Integer idPessoa, String nome, String telefone, String cpf, String email, String password, String endereco, Integer fkLogradouro) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.telefone = telefone;
         this.cpf = cpf;
         this.email = email;
         this.password = password;
+        this.endereco = endereco;
         this.fkLogradouro = fkLogradouro;
     }
 
@@ -69,6 +71,14 @@ public class PessoaDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public Integer getFkLogradouro() {

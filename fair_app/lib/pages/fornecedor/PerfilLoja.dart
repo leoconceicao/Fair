@@ -19,14 +19,14 @@ class _PerfilLojaState extends State<PerfilLoja> {
   @override
   void initState() {
     // TODO: implement initState
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    _idLoja = int.parse(args.a['idLoja']);
-    super.initState();
-    LojaModel.findById(args.a['idLoja']).then((value) => {
-      _nomeController.text = value['nome'],
-      _cnpjController.text = value['cnpj'],
-      _telefoneController.text = value['telefone'],
-    });
+    // final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    // _idLoja = int.parse(args.a['idLoja']);
+    // super.initState();
+    // LojaModel.findById(args.a['idLoja']).then((value) => {
+    //   _nomeController.text = value['nome'],
+    //   _cnpjController.text = value['cnpj'],
+    //   _telefoneController.text = value['telefone'],
+    // });
   }
   final mascaraTelefone = MaskTextInputFormatter(
       mask: '(##) #####-####',
