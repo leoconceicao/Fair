@@ -255,6 +255,7 @@ class _PerfilState extends State<Perfil> {
       _telefoneController.text = parsed["telefone"];
       _cpfController.text = parsed["cpf"];
       _emailController.text = parsed["email"];
+      _enderecoController.text = parsed["endereco"];
       build(context);
       return "Response: " + response.statusCode.toString();
     } else {
