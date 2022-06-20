@@ -29,10 +29,9 @@ class ProdutoModel {
     final response =
         await http.get(Uri.parse('http://25.76.67.204:8080/produto'));
     if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body).cast<String, dynamic>();
       List<String> produtos = [];
       HashMap p = HashMap();
-      for (var produto in parsed["content"]) {
+      for (var produto in jsonDecode(response.body)) {
         if (p[produto["nome"]] == null) {
           p[produto["nome"]] = produto["nome"];
           produtos.add(produto["nome"]);

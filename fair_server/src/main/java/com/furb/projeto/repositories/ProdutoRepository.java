@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoModel, Integer> {
 
+    @Query("SELECT u FROM ProdutoModel u WHERE u.active = 1")
+    List<ProdutoModel> findAll();
+
     ProdutoModel findByIdProduto(Integer idProduto);
 
     @Query("SELECT u FROM ProdutoModel u WHERE u.nome LIKE %:name% AND u.active = 1")

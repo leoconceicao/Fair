@@ -88,7 +88,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    idUser = args.a["idUser"];
+    idUser = args.a["userId"];
     String value = args.value;
     return SizedBox(
       child: Scaffold(
@@ -244,7 +244,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                   readOnly: true,
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(labelText: 'Peso'),
+                  decoration: const InputDecoration(labelText: 'Peso (Kg)'),
                 ),
                 ElevatedButton(
                     child: const Text('Comprar'),

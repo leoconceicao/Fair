@@ -23,6 +23,11 @@ public class ProdutoService {
         return produtoRepository.findAll(pageable);
     }
 
+
+    public List<ProdutoModel> findAll() {
+        return produtoRepository.findAll();
+    }
+
     public List<ProdutoModel> findDistinctProducts() {
         return produtoRepository.findDistinctProducts();
     }
