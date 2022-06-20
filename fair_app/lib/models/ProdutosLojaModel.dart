@@ -44,8 +44,7 @@ class ProdutosLojaModel {
             " - " +
             loja["fkLoja"]["nome"] +
             " - R\$ " +
-            (loja["preco"].toString()) +
-            "0");
+            (loja["preco"].toString()));
       }
       return lojas;
     } else {
