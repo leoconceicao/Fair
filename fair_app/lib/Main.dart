@@ -4,7 +4,7 @@ import 'package:fair_app/pages/cliente/HomeCliente.dart';
 import 'package:fair_app/pages/cliente/Pedidos.dart';
 import 'package:fair_app/pages/cliente/PerfilCliente.dart';
 import 'package:fair_app/pages/cliente/ProdutosLoja.dart';
-import 'package:fair_app/pages/Shared/ProdutosPedido.dart';
+import 'package:fair_app/pages/shared/ProdutosPedido.dart';
 import 'package:fair_app/pages/fornecedor/HomeFornecedor.dart';
 import 'package:fair_app/pages/fornecedor/PerfilLoja.dart';
 import 'package:fair_app/pages/fornecedor/VendasFornecedor.dart';

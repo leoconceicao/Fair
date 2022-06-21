@@ -320,14 +320,7 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                 TextField(
                   controller: _quantidadeController,
                   readOnly: false,
-                  decoration: const InputDecoration(labelText: 'Quantidade'),
-                ),
-                TextField(
-                  controller: _pesoEscolhidoController,
-                  readOnly: false,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(labelText: 'Peso'),
+                  decoration: const InputDecoration(labelText: 'Quantidade (Kg/Unidade)'),
                 ),
                 TextField(
                   controller: _dataEntregaController,

@@ -91,8 +91,8 @@ class ProdutoPedidoModel {
             " - " +
             pedido["fkPedido"]["peso"].toString() +
             "kg" +
-            " - " +
-            pedido["fkPedido"]["quantidade"].toString());
+            " - Quantidade: " +
+            pedido["quantidade"].toString());
       }
       return produtos;
     } else {
