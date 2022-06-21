@@ -86,13 +86,14 @@ class ProdutoPedidoModel {
         var produto = pedido["fkProduto"];
         produtos.add("#" +
             produto["idProduto"].toString() +
-            " - " +
+            " - \nNome: " +
             produto["nome"] +
-            " - " +
+            " - \nPeso: " +
             pedido["fkPedido"]["peso"].toString() +
             "kg" +
-            " - Quantidade: " +
-            pedido["quantidade"].toString());
+            " - \nQuantidade: " +
+            pedido["quantidade"].toString()
+        + " - \nLoja: " + pedido["fkPedido"]["fkVendedor"]["nome"].toString());
       }
       return produtos;
     } else {

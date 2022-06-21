@@ -37,6 +37,8 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
   final TextEditingController _pesoController = TextEditingController();
   final TextEditingController _pesoEscolhidoController =
       TextEditingController();
+  final TextEditingController _total =
+      TextEditingController();
   final TextEditingController _quantidadeController = TextEditingController();
   final TextEditingController _dataEntregaController = TextEditingController();
   final TextEditingController _periodicidadeController =
@@ -337,6 +339,12 @@ class _ProdutosPedidoState extends State<ProdutosLoja> {
                   readOnly: false,
                   decoration:
                       const InputDecoration(labelText: 'Numero de entregas:'),
+                ),
+                TextField(
+                  controller: _total,
+                  readOnly: false,
+                  decoration:
+                      const InputDecoration(labelText: 'Total:'),
                 ),
                 ElevatedButton(
                     child: const Text('Comprar'),

@@ -97,7 +97,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index].replaceAll((values[index].split(" - ")[0].toString() + " - "), "")),
+              title: Text(values[index].replaceAll((values[index].split(" - ")[0].toString() + " - "), "").replaceAll(" - ", "")),
               onTap: () {
                 idProduto = values[index]
                     .toString()
