@@ -221,7 +221,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
         return Column(
           children: <Widget>[
             ListTile(
-                title: Text(values[index].toString()),
+                title: Text(values[index].toString().split(" - ")[1]),
                 onTap: () {
                   idProduto = values[index]
                       .toString()
@@ -355,7 +355,7 @@ class _HomeFornecedorState extends State<HomeFornecedor> {
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   decoration:
-                      const InputDecoration(labelText: 'Peso do produto'),
+                      const InputDecoration(labelText: 'Peso do produto (Kg)'),
                 ),
                 ElevatedButton(
                     child: const Text('Adicionar produto'),

@@ -81,7 +81,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
             ? getFutureBuilderSearch(context, idPedido)
             : getFutureBuilder(context, idPedido),
         appBar: AppBar(
-          title: Text(args.value),
+          title: Text(args.value.replaceAll((args.value.split(" - ")[0].toString() + " - "), "")),
           actions: const <Widget>[],
         ),
       ),
@@ -97,7 +97,7 @@ class _ProdutosPedidoState extends State<ProdutosPedido> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index]),
+              title: Text(values[index].replaceAll((values[index].split(" - ")[0].toString() + " - "), "")),
               onTap: () {
                 idProduto = values[index]
                     .toString()

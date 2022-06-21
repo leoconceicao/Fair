@@ -71,7 +71,7 @@ class _VendasFornecedorState extends State<VendasFornecedor> {
         return Column(
           children: <Widget>[
             ListTile(
-              title: Text(values[index]),
+              title: Text(values[index].replaceAll((values[index].split(" - ")[0].toString() + " - "), "")),
               onTap: () {
                 Navigator.pushNamed(context, '/produtospedido',
                     arguments:

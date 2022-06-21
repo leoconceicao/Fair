@@ -56,7 +56,8 @@ class PedidoModel {
       List<String> pedidos = [];
       for (var pedido in parsed) {
         pedidos
-            .add("#" + pedido["idPedido"].toString() + " - " + pedido["data"]);
+            .add("#" + pedido["idPedido"].toString() + " - " + pedido["data"]
+        + " - Cliente: " + pedido["fkCliente"]["nome"].toString());
       }
       return pedidos;
     } else {

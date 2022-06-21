@@ -17,7 +17,7 @@ class _ValidaTipoUsuarioState extends State<ValidaTipoUsuario> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     a["idLoja"] = args.value;
-    a["idUser"] = args.a["userId"];
+    a["userId"] = args.a["userId"];
     return Scaffold(
         body: Center(
             child: SingleChildScrollView(

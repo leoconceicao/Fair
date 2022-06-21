@@ -58,7 +58,6 @@ public class PessoaController {
         public ResponseEntity<Object> postPessoa(@RequestBody @Valid PessoaDto pessoaDto) {
         var pessoaModel = new PessoaModel();
         BeanUtils.copyProperties(pessoaDto, pessoaModel);
-        pessoaModel.setFkLogradouro(logradouroRepository.findByIdLogradouro(pessoaDto.getFkLogradouro()));
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.save(pessoaModel));
     }
 
@@ -81,7 +80,6 @@ public class PessoaController {
         }
         var pessoaModel = new PessoaModel();
         BeanUtils.copyProperties(pessoaDto, pessoaModel);
-        pessoaModel.setFkLogradouro(logradouroRepository.findByIdLogradouro(pessoaDto.getFkLogradouro()));
         pessoaModel.setIdPessoa(pessoaModelOptional.get().getIdPessoa());
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.save(pessoaModel));
     }
